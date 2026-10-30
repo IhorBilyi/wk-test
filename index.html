@@ -108,7 +108,7 @@ img { max-width: 100%; display: block; }
 .scale-inner { position: absolute; top: 0; left: 0; transform-origin: top left; }
 
 /* product shot (540×540 artboard) */
-.shot { width: 540px; height: 540px; position: relative; font-family: var(--font-body); }
+.shot { width: 540px; height: 540px; position: relative; font-family: var(--font-body); line-height: normal; }
 .dash { position: absolute; left: 0; top: 70px; width: 494px; background: var(--white); border: .7px solid var(--line); border-radius: 9.6px; box-shadow: 0 13.7px 34.3px rgba(0,0,0,.12); overflow: hidden; }
 .dash-bar { display: flex; align-items: center; gap: 5.5px; background: #F5F2F0; padding: 8.2px 11px; }
 .dash-bar img { width: 6.9px; height: 6.9px; }
@@ -218,7 +218,9 @@ img { max-width: 100%; display: block; }
 .who div > span:nth-child(2) { flex: 1; min-width: 0; }
 .status { padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; background: var(--green-50); color: var(--green-dark); }
 .status.pend { background: var(--pending-bg); color: var(--pending-fg); }
-.kid { background: var(--green-50); color: var(--green-dark); font-weight: 500; padding: 8px 12px; border-radius: 8px; }
+.kid { background: var(--white); border: 1px solid #B9DA9E; color: var(--green-dark); font-weight: 500; padding: 8px 12px; border-radius: 8px; }
+.kid i { font-style: normal; color: #4F8A2A; }
+.mini.bordered { border: 1px solid var(--line); }
 .field-err { background: var(--white); border: 1.5px solid var(--flag); border-radius: 8px; padding: 10px 12px; color: var(--muted); }
 .err { color: var(--flag); font-size: 12px; }
 .mail-card { background: var(--white); border-radius: 10px; padding: 12px 14px; display: flex; flex-direction: column; gap: 4px; }
@@ -315,7 +317,7 @@ img { max-width: 100%; display: block; }
 .faq .wrap { display: grid; grid-template-columns: 464px 1fr; gap: 56px; padding-block: 110px 133px; align-items: start; }
 .faq-intro { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
 .faq-intro .eyebrow { font-weight: 700; letter-spacing: 0.12em; }
-.faq-intro h2 { font: 700 clamp(32px, 4.2vw, 44px)/1.15 var(--font-head); max-width: 440px; text-wrap: balance; }
+.faq-intro h2 { font: 700 clamp(32px, 4.2vw, 44px)/1.15 var(--font-head); max-width: 440px; }
 .faq-intro > p { color: var(--body); font-size: 17px; line-height: 1.55; max-width: 420px; }
 .help { background: var(--beige); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 16px; }
 .help img.team { width: 100px; height: 40px; }
@@ -607,10 +609,10 @@ img { max-width: 100%; display: block; }
       </div>
       <div class="bento-row r2">
         <article class="fcard">
-          <div class="mini" aria-hidden="true">
+          <div class="mini bordered" aria-hidden="true">
             <b style="font-weight:600">Jamie Rivera · parent</b>
-            <span class="kid">+ Noah, 8</span>
-            <span class="kid">+ Mia, 11</span>
+            <span class="kid"><i>+</i> Noah, 8</span>
+            <span class="kid"><i>+</i> Mia, 11</span>
           </div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-family.svg" alt=""></span><h3>Family &amp; minors</h3></div>
           <p>Parents add their kids to one waiver.</p>
