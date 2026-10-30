@@ -410,6 +410,19 @@ img { max-width: 100%; display: block; }
   @keyframes spin { to { rotate: 360deg; } }
 }
 
+
+/* Hero load: copy rises in line by line, then the product shot; the phone signature writes itself */
+.ph-sign svg { position: absolute; left: 10.66px; top: 21px; width: 166px; height: 27.8px; overflow: visible; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-copy > * { animation: rise-in 800ms var(--ease-out) both; animation-delay: calc(var(--i) * 80ms + 80ms); }
+  .hero .dash { animation: rise-in 1000ms var(--ease-out) 420ms both; --rise: 24px; }
+  .hero .phone { animation: rise-in 1000ms var(--ease-out) 560ms both; --rise: 40px; }
+  .ph-sign path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1100ms var(--ease-in-out) 1350ms forwards; }
+  .ph-submit { animation: tap 520ms var(--ease-out) 2550ms; }
+  @keyframes rise-in { from { opacity: 0; transform: translateY(var(--rise, 14px)); filter: blur(4px); } }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+}
+
 /* ---------- Footer ---------- */
 .foot { background: var(--green-deep); }
 .foot .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding-block: 40px; }
@@ -514,13 +527,13 @@ img { max-width: 100%; display: block; }
 <section class="hero band">
   <div class="wrap">
     <div class="hero-copy">
-      <h1 class="display">Waivers your clients sign before they walk in.</h1>
-      <p class="hero-sub">Digital waivers &amp; forms for studios, gyms and activity centers. Send us your PDF and we’ll build your first form for free.</p>
-      <div class="hero-ctas">
+      <h1 class="display" style="--i:0">Waivers your clients sign before they walk in.</h1>
+      <p class="hero-sub" style="--i:1">Digital waivers &amp; forms for studios, gyms and activity centers. Send us your PDF and we’ll build your first form for free.</p>
+      <div class="hero-ctas" style="--i:2">
         <a class="btn btn-primary" href="https://wkform.com/signup">Start 15-day free trial</a>
         <a class="btn btn-ghost" href="#how">▶&nbsp; Watch 60-sec demo</a>
       </div>
-      <ul class="ticks">
+      <ul class="ticks" style="--i:3">
         <li><span class="check" aria-hidden="true">✓</span>No credit card</li>
         <li><span class="check" aria-hidden="true">✓</span>First form built free</li>
         <li><span class="check" aria-hidden="true">✓</span>Cancel anytime</li>
@@ -565,7 +578,7 @@ img { max-width: 100%; display: block; }
                 <div class="ph-field"><span class="ph-label">Email</span><span class="ph-input">jamie@email.com</span></div>
                 <div class="ph-minor">+ Add a minor (under 18)</div>
                 <div class="ph-agree"><i></i>I have read and agree to the waiver</div>
-                <div class="ph-sign"><img src="assets/signature.svg" alt=""><span>Sign here</span></div>
+                <div class="ph-sign"><svg viewBox="0 0 166.05 27.7794" fill="none" preserveAspectRatio="none"><path pathLength="1" d="M1.02527 26.7541C14.1453 -4.40586 23.9853 -6.04586 22.3453 15.2741C20.7053 36.5941 33.8253 3.79414 46.9453 7.07414C60.0653 10.3541 48.5853 30.0341 64.9853 21.8341C81.3853 13.6341 86.3053 -2.76586 96.1453 11.9941C105.985 26.7541 112.545 16.9141 124.025 10.3541C135.505 3.79414 145.345 18.5541 165.025 7.07414" stroke-width="2.05" stroke-linecap="round" stroke="#1C1B19"/></svg><span>Sign here</span></div>
                 <div class="ph-submit">Sign &amp; submit</div>
               </div>
             </div>
