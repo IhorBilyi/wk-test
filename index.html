@@ -370,6 +370,46 @@ img { max-width: 100%; display: block; }
 .badge-txt span { font: 700 14px/1.3 var(--font-body); letter-spacing: 0.1em; }
 .badge-txt small { font-size: 12px; color: var(--body); }
 
+
+/* ---------- Motion (Features illustrations + final CTA) ----------
+   Plays once when a card scrolls into view. Explanatory, so a little longer than UI motion. */
+:root { --ease-out: cubic-bezier(0.23, 1, 0.32, 1); --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1); }
+.swap { display: inline-grid; transition: background-color 300ms ease 1500ms, color 300ms ease 1500ms; }
+.swap > span { grid-area: 1 / 1; text-align: center; transition: opacity 260ms ease 1500ms, filter 260ms ease 1500ms; }
+.swap .to { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-anim [data-anim] .a-up { opacity: 0; transform: translateY(10px); transition: opacity 450ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms + 200ms); }
+  .js-anim [data-anim].is-in .a-up { opacity: 1; transform: none; }
+
+  /* kiosk: tablet rises into the frame, then the primary button gets one tap */
+  .js-anim .kiosk { transform: translateY(48px); transition: transform 900ms var(--ease-out) 100ms; }
+  .js-anim .is-in .kiosk { transform: none; }
+  .js-anim .is-in .kb .p { animation: tap 520ms var(--ease-out) 1150ms; }
+  @keyframes tap { 30% { transform: scale(0.94); } 100% { transform: scale(1); } }
+
+  /* track who signed: Ava's pill flips from Pending to Signed */
+  .js-anim .is-in .swap { background: var(--green-50); color: var(--green-dark); }
+  .js-anim .is-in .swap .from { opacity: 0; filter: blur(2px); }
+  .js-anim .is-in .swap .to { opacity: 1; filter: none; }
+  .js-anim .swap .to { filter: blur(2px); }
+
+  /* required fields: empty field turns red with a small shake */
+  .js-anim [data-anim] .field-err { border-color: var(--line); transition: border-color 200ms ease 650ms; }
+  .js-anim [data-anim].is-in .field-err { border-color: var(--flag); animation: shake 420ms ease-in-out 650ms; }
+  @keyframes shake { 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-2px); } 80% { transform: translateX(2px); } }
+
+  /* final CTA: signature draws, orange circle swells in, badge settles with a little spring */
+  .js-anim .cta-stroke path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1800ms var(--ease-in-out) 250ms; }
+  .js-anim .is-in .cta-stroke path { stroke-dashoffset: 0; }
+  .js-anim .cta-blob { scale: 0.86; opacity: 0; transition: scale 1100ms var(--ease-out), opacity 500ms ease; }
+  .js-anim .is-in .cta-blob { scale: 1; opacity: 1; animation: breathe 7s ease-in-out 1.4s infinite alternate; }
+  @keyframes breathe { from { scale: 1; } to { scale: 1.035; } }
+  .js-anim .badge { scale: 0.82; rotate: -16deg; opacity: 0; transition: scale 700ms var(--ease-spring) 550ms, rotate 900ms var(--ease-out) 550ms, opacity 250ms ease 550ms; }
+  .js-anim .is-in .badge { scale: 1; rotate: 0deg; opacity: 1; }
+  .badge img { animation: spin 48s linear infinite; }
+  @keyframes spin { to { rotate: 360deg; } }
+}
+
 /* ---------- Footer ---------- */
 .foot { background: var(--green-deep); }
 .foot .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding-block: 40px; }
@@ -578,7 +618,7 @@ img { max-width: 100%; display: block; }
     </div>
     <div class="bento">
       <div class="bento-row r1">
-        <article class="fcard big">
+        <article data-anim class="fcard big">
           <div class="kiosk-bg">
             <div class="kiosk-fit scale-box" data-w="424" data-h="202">
               <div class="scale-inner">
@@ -596,49 +636,49 @@ img { max-width: 100%; display: block; }
           <div class="fhead"><span class="ftile"><img src="assets/icon-kiosk.svg" alt=""></span><h3>Front-desk kiosk</h3></div>
           <p>Turn any iPad or Android tablet into a sign-in station. Walk-ins sign in under a minute.</p>
         </article>
-        <article class="fcard">
+        <article data-anim class="fcard">
           <div class="mini who" aria-hidden="true">
-            <div><img src="assets/av1.svg" alt=""><span>Jamie Rivera</span><span class="status">Signed</span></div>
-            <div><img src="assets/av2.svg" alt=""><span>Noah Kim</span><span class="status">Signed</span></div>
-            <div><img src="assets/av3.svg" alt=""><span>Ava Patel</span><span class="status pend">Pending</span></div>
-            <div><img src="assets/av4.svg" alt=""><span>Liam Ortiz</span><span class="status pend">Pending</span></div>
+            <div class="a-up" style="--i:0"><img src="assets/av1.svg" alt=""><span>Jamie Rivera</span><span class="status">Signed</span></div>
+            <div class="a-up" style="--i:1"><img src="assets/av2.svg" alt=""><span>Noah Kim</span><span class="status">Signed</span></div>
+            <div class="a-up" style="--i:2"><img src="assets/av3.svg" alt=""><span>Ava Patel</span><span class="status pend swap"><span class="from">Pending</span><span class="to">Signed</span></span></div>
+            <div class="a-up" style="--i:3"><img src="assets/av4.svg" alt=""><span>Liam Ortiz</span><span class="status pend">Pending</span></div>
           </div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-search.svg" alt=""></span><h3>Track who signed</h3></div>
           <p>See who has signed for today’s class and who still needs to.</p>
         </article>
       </div>
       <div class="bento-row r2">
-        <article class="fcard">
+        <article data-anim class="fcard">
           <div class="mini bordered" aria-hidden="true">
             <b style="font-weight:600">Jamie Rivera · parent</b>
-            <span class="kid"><i>+</i> Noah, 8</span>
-            <span class="kid"><i>+</i> Mia, 11</span>
+            <span class="kid a-up" style="--i:1"><i>+</i> Noah, 8</span>
+            <span class="kid a-up" style="--i:2"><i>+</i> Mia, 11</span>
           </div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-family.svg" alt=""></span><h3>Family &amp; minors</h3></div>
           <p>Parents add their kids to one waiver.</p>
         </article>
-        <article class="fcard">
+        <article data-anim class="fcard">
           <div class="mini" style="gap:6px" aria-hidden="true">
             <span style="font-weight:500">Date of birth *</span>
             <span class="field-err">MM / DD / YYYY</span>
-            <span class="err">Please fill in this field to continue</span>
+            <span class="err a-up" style="--i:9">Please fill in this field to continue</span>
           </div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-req.svg" alt=""></span><h3>Required fields</h3></div>
           <p>Never get an incomplete form again.</p>
         </article>
-        <article class="fcard">
+        <article data-anim class="fcard">
           <div class="mini" style="gap:6px" aria-hidden="true">
-            <div class="mail-card"><b style="font-weight:600">Your signed waiver</b><small>Sunrise Yoga · PDF attached</small></div>
+            <div class="mail-card a-up" style="--i:0"><b style="font-weight:600">Your signed waiver</b><small>Sunrise Yoga · PDF attached</small></div>
             <small>Email copies can be switched off for HIPAA.</small>
           </div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-mail.svg" alt=""></span><h3>Instant email copies</h3></div>
           <p>Clients get a copy the moment they sign.</p>
         </article>
       </div>
-      <article class="multi">
+      <article data-anim class="multi">
         <span class="ftile"><img src="assets/icon-pin.svg" alt=""></span>
         <div class="multi-copy"><h3>Multi-location</h3><p>One account for every venue, with flexible billing.</p></div>
-        <div class="venues" aria-hidden="true"><span class="venue">Downtown</span><span class="venue">Westside</span><span class="venue">Lakeview</span><span class="venue add">+ add venue</span></div>
+        <div class="venues" aria-hidden="true"><span class="venue a-up" style="--i:0">Downtown</span><span class="venue a-up" style="--i:1">Westside</span><span class="venue a-up" style="--i:2">Lakeview</span><span class="venue add a-up" style="--i:3">+ add venue</span></div>
       </article>
     </div>
   </div>
@@ -731,8 +771,8 @@ img { max-width: 100%; display: block; }
 <!-- Final CTA -->
 <section class="cta band">
   <div class="wrap">
-    <div class="cta-card">
-      <img class="cta-stroke" src="assets/cta-stroke.svg" alt="">
+    <div class="cta-card" data-anim>
+      <svg class="cta-stroke" viewBox="0 0 1100 330" fill="none" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M25 240C87.5 52.5 175 40 195 177.5C215 315 280 302.5 345 147.5C410 -7.5 445 22.5 490 177.5C535 332.5 590 282.5 655 122.5C700 32.5 740 197.5 805 167.5C870 137.5 930 77.5 1075 132.5" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" stroke="#2F5A2B"/></svg>
       <img class="cta-blob" src="assets/cta-blob.svg" alt="">
       <div class="cta-copy">
         <h2>Ditch the clipboard <span>this week.</span></h2>
@@ -763,6 +803,13 @@ img { max-width: 100%; display: block; }
 
 <script>
 (function () {
+  // Play section illustrations once they scroll into view
+  if ('IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-anim');
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.35 });
+    document.querySelectorAll('[data-anim]').forEach(el => io.observe(el));
+  }
+
   // Scale fixed-size product mockups to their column width
   const boxes = document.querySelectorAll('.scale-box');
   function fit() {
