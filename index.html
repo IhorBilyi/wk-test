@@ -786,13 +786,13 @@ img { max-width: 100%; display: block; }
   });
   menu.addEventListener('click', e => { if (e.target.closest('a')) { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
 
-  // Proof strip: duplicate each tag row for a seamless loop, ~45px/s with a little variation per row
+  // Proof strip: duplicate each tag row for a seamless loop, ~22px/s with a little variation per row
   document.querySelectorAll('.tagrow').forEach((row, i) => {
     const set = document.createElement('div'); set.className = 'tagset';
     while (row.firstChild) set.appendChild(row.firstChild);
     const copy = set.cloneNode(true); copy.setAttribute('aria-hidden', 'true');
     row.append(set, copy);
-    const speed = [46, 38, 52, 42][i % 4];
+    const speed = [23, 19, 26, 21][i % 4];
     row.style.setProperty('--dur', (set.offsetWidth / speed).toFixed(1) + 's');
     row.classList.add('run'); if (i % 2) row.classList.add('rev');
   });
