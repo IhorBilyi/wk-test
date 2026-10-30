@@ -380,6 +380,8 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: no-preference) {
   .js-anim [data-anim] .a-up { opacity: 0; transform: translateY(10px); transition: opacity 450ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms + 200ms); }
   .js-anim [data-anim].is-in .a-up { opacity: 1; transform: none; }
+  .js-anim .reviews .a-up { transform: translateY(16px); filter: blur(4px); transition: opacity 500ms ease, transform 800ms var(--ease-out), filter 500ms ease; transition-delay: calc(var(--i, 0) * 70ms + 100ms); }
+  .js-anim .reviews .is-in .a-up { transform: none; filter: none; }
 
   /* kiosk: tablet rises into the frame, then the primary button gets one tap */
   .js-anim .kiosk { transform: translateY(48px); transition: transform 900ms var(--ease-out) 100ms; }
@@ -747,14 +749,14 @@ img { max-width: 100%; display: block; }
 
 <!-- Testimonials -->
 <section class="reviews band" id="reviews">
-  <div class="wrap">
+  <div class="wrap" data-anim data-anim-t="0.2">
     <div class="sec-head" style="gap:16px">
-      <span class="eyebrow">Customers</span>
-      <h2 class="display h2">Front desks that ditched the clipboard</h2>
+      <span class="eyebrow a-up" style="--i:0">Customers</span>
+      <h2 class="display h2 a-up" style="--i:1">Front desks that ditched the clipboard</h2>
     </div>
     <div class="wall" id="wall">
       <div class="cols" id="cols"></div>
-      <div class="wall-fade"><button class="btn btn-dark" id="moreBtn" type="button" aria-controls="wall" aria-expanded="false">Read 156 more reviews&nbsp; →</button></div>
+      <div class="wall-fade"><button style="--i:8" class="a-up btn btn-dark" id="moreBtn" type="button" aria-controls="wall" aria-expanded="false">Read 156 more reviews&nbsp; →</button></div>
     </div>
     <button class="btn btn-outline less" id="lessBtn" type="button">Show fewer reviews</button>
   </div>
@@ -820,7 +822,8 @@ img { max-width: 100%; display: block; }
   if ('IntersectionObserver' in window) {
     document.documentElement.classList.add('js-anim');
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.35 });
-    document.querySelectorAll('[data-anim]').forEach(el => io.observe(el));
+    const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io2.unobserve(e.target); } }), { threshold: 0.15 });
+    document.querySelectorAll('[data-anim]').forEach(el => (el.hasAttribute('data-anim-t') ? io2 : io).observe(el));
   }
 
   // Scale fixed-size product mockups to their column width
@@ -910,8 +913,8 @@ img { max-width: 100%; display: block; }
      ['Four locations, one account, one simple bill.','Chris D.','Fitness franchise owner','CD','#E8B4B4']]
   ];
   const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  document.getElementById('cols').innerHTML = R.map(col => '<div class="col">' + col.map(([q, n, r, i, c]) =>
-    '<figure class="review" style="margin:0"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“' + esc(q) + '”</blockquote>' +
+  document.getElementById('cols').innerHTML = R.map((col, ci) => '<div class="col">' + col.map(([q, n, r, i, c], ri) =>
+    '<figure class="review a-up" style="margin:0;--i:' + (ci + ri + 2) + '"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“' + esc(q) + '”</blockquote>' +
     '<figcaption class="who-r"><span class="av" style="background:' + c + '">' + i + '</span><span><b>' + esc(n) + '</b><small>' + esc(r) + '</small></span></figcaption></figure>'
   ).join('') + '</div>').join('');
   const wall = document.getElementById('wall'), sec = document.getElementById('reviews');
