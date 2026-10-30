@@ -167,11 +167,15 @@ img { max-width: 100%; display: block; }
 .tagfield::before, .tagfield::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 1; }
 .tagfield::before { background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,.55) 12%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 62%, rgba(255,255,255,.7) 85%, #fff 100%); }
 .tagfield::after { background: linear-gradient(180deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,0) 80%, rgba(255,255,255,.9) 100%); }
+/* seamless marquee: each row holds its tags twice and slides by one copy; rows alternate direction and speed */
+.tagrow { gap: 0; will-change: transform; }
+.tagset { display: flex; gap: 10px; padding-right: 10px; flex: none; }
 @media (prefers-reduced-motion: no-preference) {
-  .tagrow { animation: drift 28s ease-in-out infinite alternate; }
-  .tagrow:nth-child(2n) { animation-direction: alternate-reverse; animation-duration: 34s; }
+  .tagrow.run { animation: marquee var(--dur, 40s) linear infinite; }
+  .tagrow.run.rev { animation-direction: reverse; }
+  .tagfield:hover .tagrow.run { animation-play-state: paused; }
 }
-@keyframes drift { from { transform: translateX(-24px); } to { transform: translateX(24px); } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
 /* ---------- How it works ---------- */
 .how { background: var(--white); }
@@ -781,6 +785,17 @@ img { max-width: 100%; display: block; }
     menuBtn.setAttribute('aria-expanded', String(open));
   });
   menu.addEventListener('click', e => { if (e.target.closest('a')) { menu.hidden = true; menuBtn.setAttribute('aria-expanded', 'false'); } });
+
+  // Proof strip: duplicate each tag row for a seamless loop, ~45px/s with a little variation per row
+  document.querySelectorAll('.tagrow').forEach((row, i) => {
+    const set = document.createElement('div'); set.className = 'tagset';
+    while (row.firstChild) set.appendChild(row.firstChild);
+    const copy = set.cloneNode(true); copy.setAttribute('aria-hidden', 'true');
+    row.append(set, copy);
+    const speed = [46, 38, 52, 42][i % 4];
+    row.style.setProperty('--dur', (set.offsetWidth / speed).toFixed(1) + 's');
+    row.classList.add('run'); if (i % 2) row.classList.add('rev');
+  });
 
   // Pricing: $15 per 100 signed forms, up to 600; volume pricing above that
   const range = document.getElementById('formsRange'), num = document.getElementById('formsNum');
