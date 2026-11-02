@@ -704,6 +704,57 @@ img { max-width: 100%; display: block; }
   .multi { padding: 20px; }
   .venues { gap: 10px; }
 }
+/* ---------- Tablet and mobile for the merged-page sections ---------- */
+@media (max-width: 1180px) {
+  .fcols { gap: 40px; }
+  .fcol { width: 130px; }
+}
+@media (max-width: 1060px) {
+  .answer { padding: 40px; }
+  .pane { grid-template-columns: 1fr; gap: 32px; }
+  .pick > p { max-width: 560px; }
+  .flow { padding: 28px 20px; }
+  .ftop { flex-direction: column; gap: 48px; }
+  .fbrand { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 40px; row-gap: 28px; align-items: start; }
+  .fbrand > img, .fbrand > p { grid-column: 1 / -1; }
+  .fsocial { align-self: end; }
+  .flegal { flex-direction: column; gap: 16px; }
+  .fmark { height: auto; aspect-ratio: 1200 / 168; }
+}
+@media (max-width: 900px) {
+  .pain .wrap, .choose .wrap { padding-block: 72px 80px; gap: 40px; }
+  .pain-grid { grid-template-columns: 1fr; max-width: 588px; margin-inline: auto; }
+  .fbrand { grid-template-columns: 1fr; }
+  .fsocial { align-self: start; }
+}
+@media (max-width: 640px) {
+  .sec-sub { font-size: 16px; }
+  .pcard { padding: 24px 20px; border-radius: 22px; gap: 16px; }
+  .pcard h3 { font-size: 22px; }
+  .ill { border-radius: 14px; }
+  .pchips li { font-size: 13px; padding: 7px 12px 7px 8px; }
+  .choose h2 { font-size: 36px; }
+  .seg { display: flex; width: 100%; }
+  .seg button { flex: 1 1 0; justify-content: center; gap: 8px; padding: 13px 8px; font-size: 15px; }
+  .seg .okc { width: 18px; height: 18px; }
+  .answer { padding: 24px 20px; border-radius: 22px; }
+  .pick h3 { font-size: 26px; }
+  .pick > p { font-size: 16px; }
+  .pick ul { gap: 14px; font-size: 15px; }
+  .pick li { align-items: flex-start; }
+  .pick-cta { flex-direction: column; align-items: stretch; width: 100%; gap: 10px; text-align: center; }
+  .flow { padding: 20px 14px; border-radius: 16px; }
+  .ncard { width: 100%; padding: 12px; }
+  .ncard small { font-size: 10.5px; }
+  .pcard2 { width: 100%; max-width: 300px; }
+  .pseg button { font-size: 14px; padding: 10px 6px; }
+  .foot2 .wrap { padding-top: 64px; gap: 32px; }
+  .fbrand > p { font-size: 24px; }
+  .fcols { display: grid; grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+  .fcol { width: auto; }
+  .fcol.start { grid-column: 1 / -1; }
+  .flegal nav { gap: 10px 18px; }
+}
 </style>
 </head>
 <body>
