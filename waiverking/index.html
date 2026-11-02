@@ -609,30 +609,30 @@ img { max-width: 100%; display: block; }
 .mpad svg path, .sheet .scrawl path { fill: none; }
 @media (prefers-reduced-motion: no-preference) {
   /* pain, before: papers settle, the note slaps on, the missing signature gets circled */
-  .js-anim .paper-back { opacity: 0; rotate: 2deg; translate: -24px 6px; transition: opacity 400ms ease 100ms, rotate 900ms var(--ease-out) 100ms, translate 900ms var(--ease-out) 100ms; }
+  .js-anim .paper-back { opacity: 0; rotate: 2deg; translate: -24px 6px; transition: opacity 400ms ease, rotate 900ms var(--ease-out), translate 900ms var(--ease-out); }
   .js-anim .board { opacity: 0; translate: 0 18px; transition: opacity 400ms ease, translate 900ms var(--ease-out); }
   .js-anim .is-in .paper-back { opacity: 1; rotate: 8deg; translate: 0 0; }
   .js-anim .is-in .board { opacity: 1; translate: 0 0; }
-  .js-anim .scrawl path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 800ms var(--ease-in-out) 600ms; }
+  .js-anim .scrawl path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 800ms var(--ease-in-out) 350ms; }
   .js-anim .is-in .scrawl path { stroke-dashoffset: 0; }
-  .js-anim .ring path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms var(--ease-in-out) 1300ms; }
+  .js-anim .ring path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms var(--ease-in-out) 750ms; }
   .js-anim .is-in .ring path { stroke-dashoffset: 0; }
-  .js-anim .sticky { opacity: 0; scale: 1.12; rotate: -14deg; transition: opacity 200ms ease 900ms, scale 600ms var(--ease-spring) 900ms, rotate 700ms var(--ease-out) 900ms; }
+  .js-anim .sticky { opacity: 0; scale: 1.12; rotate: -14deg; transition: opacity 200ms ease 500ms, scale 600ms var(--ease-spring) 500ms, rotate 700ms var(--ease-out) 500ms; }
   .js-anim .is-in .sticky { opacity: 1; scale: 1; rotate: -7deg; }
-  .js-anim .missing { opacity: 0; scale: 0.8; transform-origin: left center; transition: opacity 200ms ease 2050ms, scale 500ms var(--ease-spring) 2050ms; }
+  .js-anim .missing { opacity: 0; scale: 0.8; transform-origin: left center; transition: opacity 200ms ease 1350ms, scale 500ms var(--ease-spring) 1350ms; }
   .js-anim .is-in .missing { opacity: 1; scale: 1; }
   /* pain, after: phone rises, signature writes, the toast drops in like a notification */
-  .js-anim .mphone { translate: 0 40px; transition: translate 1000ms var(--ease-out) 150ms; }
+  .js-anim .mphone { translate: 0 40px; transition: translate 1000ms var(--ease-out) 50ms; }
   .js-anim .is-in .mphone { translate: 0 0; }
-  .js-anim .mpad path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms var(--ease-in-out) 700ms; }
+  .js-anim .mpad path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms var(--ease-in-out) 400ms; }
   .js-anim .is-in .mpad path { stroke-dashoffset: 0; }
-  .js-anim .ill-new .toast { opacity: 0; translate: 0 -14px; scale: 0.96; filter: blur(4px); transition: opacity 300ms ease 1850ms, translate 700ms var(--ease-spring) 1850ms, scale 700ms var(--ease-out) 1850ms, filter 300ms ease 1850ms; }
+  .js-anim .ill-new .toast { opacity: 0; translate: 0 -14px; scale: 0.96; filter: blur(4px); transition: opacity 300ms ease 1200ms, translate 700ms var(--ease-spring) 1200ms, scale 700ms var(--ease-out) 1200ms, filter 300ms ease 1200ms; }
   .js-anim .is-in .ill-new .toast { opacity: 1; translate: 0 0; scale: 1; filter: none; }
-  .js-anim .ill-new .toast .tick { scale: 0.4; transition: scale 500ms var(--ease-spring) 2150ms; }
+  .js-anim .ill-new .toast .tick { scale: 0.4; transition: scale 500ms var(--ease-spring) 1450ms; }
   .js-anim .is-in .ill-new .toast .tick { scale: 1; }
   /* chips trail in after their card's story */
-  .js-anim .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 2300ms); }
-  .js-anim .after .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 2400ms); }
+  .js-anim .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 300ms); }
+  .js-anim .after .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 350ms); }
   /* chooser: the answer's flow plays on arrival and again on every switch */
   .js-anim .choose .a-up { opacity: 0; transform: translateY(10px); filter: blur(3px); transition: opacity 400ms ease, transform 600ms var(--ease-out), filter 400ms ease; transition-delay: calc(var(--i, 0) * 90ms + 200ms); }
   .js-anim .choose .is-in .pane.on .a-up { opacity: 1; transform: none; filter: none; }
