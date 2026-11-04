@@ -424,6 +424,85 @@ img { max-width: 100%; display: block; }
   @keyframes draw { to { stroke-dashoffset: 0; } }
 }
 
+
+/* ---------- Hero graphic: clipboard → phone (540×556 artboard) ---------- */
+@media (max-width: 1060px) { .hero-shot { flex: none; } }
+.hg { width: 540px; height: 556px; position: relative; font-family: var(--font-body); line-height: normal; }
+.hg > * { position: absolute; }
+.hg-halo { left: 40px; top: 50px; width: 480px; height: 480px; border-radius: 50%; background: radial-gradient(closest-side, rgba(207,230,188,.9), rgba(207,230,188,0)); }
+.hg-clip { left: 1.9px; top: 70px; width: 290px; height: 408px; rotate: 6deg; }
+.hg-clip > * { position: absolute; }
+.hg-board { left: 0; top: 18px; width: 290px; height: 390px; border-radius: 18px; background: linear-gradient(180deg, #C99A68, #A97A4B); box-shadow: inset 0 -2px 2px rgba(0,0,0,.12), inset 0 1px 0 rgba(255,255,255,.28), 0 24px 24px rgba(30,42,22,.12), 0 8px 8px rgba(30,42,22,.08), 0 1px 1px rgba(30,42,22,.08); }
+.hg-paper { position: absolute; left: 16px; top: 48px; width: 258px; height: 326px; border-radius: 6px; overflow: hidden; background: linear-gradient(180deg, #FFFDF8, #F7F2E8); box-shadow: 0 4px 8px rgba(90,60,30,.08), 0 1px 2px rgba(90,60,30,.18); }
+.hg-paper > * { position: absolute; }
+.hg-t { left: 22px; top: 24px; font-size: 10px; font-weight: 700; letter-spacing: 1.4px; color: #7E7568; }
+.hg-s { left: 22px; top: 40px; font-size: 9px; color: #A79E90; }
+.hg-rule { left: 22px; top: 58px; width: 214px; height: 1px; background: #E6DDCD; }
+.hg-lines { left: 22px; top: 72px; display: flex; flex-direction: column; gap: 9px; }
+.hg-lines i { display: block; height: 4px; border-radius: 2px; background: #EAE3D6; }
+.hg-box { left: 22px; width: 10px; height: 10px; border: 1.2px solid #B3A894; border-radius: 2px; }
+.hg-cb { left: 38px; font-size: 8.5px; color: #7E7568; }
+.hg-sig { left: 24px; top: 269px; width: 104px; height: 31px; overflow: visible; opacity: .8; }
+.hg-date { left: 161px; top: 281px; font-size: 10px; font-weight: 500; color: #4A4740; opacity: .8; }
+.hg-sl { top: 296px; height: 1px; background: #CFC5B4; }
+.hg-lab { top: 301px; font-size: 8px; color: #A79E90; }
+.hg-clamp { left: 89px; top: 0; width: 112px; height: 46px; border-radius: 10px; background: linear-gradient(180deg, #F2F2F0, #C9C9C6 50%, #A3A3A0); box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 10px rgba(0,0,0,.12), 0 2px 3px rgba(0,0,0,.25); }
+.hg-clamp i { position: absolute; left: 28px; top: 10px; width: 56px; height: 8px; border-radius: 4px; background: linear-gradient(180deg, #7E7E7B, #9C9C99); }
+.hg-bar { left: 79px; top: 38px; width: 132px; height: 10px; border-radius: 5px; background: linear-gradient(180deg, #DADAD7, #A9A9A6); box-shadow: 0 2px 3px rgba(0,0,0,.2); }
+.hg-phone { left: 286px; top: 40px; width: 236px; height: 484px; border-radius: 40.12px; overflow: hidden; background: linear-gradient(180deg, #2B2B2D, #161617); box-shadow: inset 0 0 0 1.5px rgba(255,255,255,.18), 0 40px 80px rgba(11,18,10,.16), 0 18px 36px rgba(11,18,10,.18), 0 2px 4px rgba(11,18,10,.18); }
+.hg-glass { position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: linear-gradient(116deg, rgba(255,255,255,.1) 14%, rgba(255,255,255,0) 46%); }
+.hg-screen { position: absolute; left: 9px; top: 9px; width: 218px; height: 466px; border-radius: 31.12px; overflow: hidden; background: var(--white); }
+.hg-screen > * { position: absolute; }
+.hg-island { left: 74px; top: 10px; width: 70px; height: 24px; border-radius: 12px; background: #0E0E0F; }
+.hg-time { left: 22px; top: 14px; font-size: 12px; font-weight: 600; color: var(--ink); }
+.hg-batt { left: 178px; top: 16px; width: 20px; height: 10px; border: 1px solid rgba(28,27,25,.4); border-radius: 3px; }
+.hg-batt i { position: absolute; left: 1px; top: 1px; width: 14px; height: 6px; border-radius: 1.5px; background: var(--ink); }
+.hg-studio { left: 18px; top: 50px; display: flex; align-items: center; gap: 10px; }
+.hg-av { width: 30px; height: 30px; border-radius: 50%; background: var(--green); color: var(--white); display: grid; place-items: center; font-size: 11px; font-weight: 700; }
+.hg-studio b { display: block; font-size: 12px; font-weight: 600; }
+.hg-studio small { display: block; font-size: 10px; color: var(--body); }
+.hg-div { left: 0; top: 94px; width: 218px; height: 1px; background: #EEEAE3; }
+.hg-done { left: 0; top: 110px; width: 218px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.hg-ring { width: 68px; height: 68px; border-radius: 50%; background: var(--green-50); display: grid; place-items: center; }
+.hg-ok { width: 46px; height: 46px; border-radius: 50%; background: linear-gradient(180deg, #7DB84A, #5E9A31); box-shadow: 0 4px 10px rgba(62,122,38,.25); display: grid; place-items: center; }
+.hg-ok svg { width: 22px; height: 22px; overflow: visible; }
+.hg-done b { font: 600 16px/1.5 var(--font-head); color: var(--ink); }
+.hg-done p { width: 158px; font-size: 11px; line-height: 1.4; color: var(--body); }
+.hg-list { left: 16px; top: 268px; width: 186px; background: #FAF8F4; border: 1px solid #EEEAE3; border-radius: 12px; overflow: hidden; }
+.hg-row { display: flex; align-items: center; gap: 10px; padding: 11px 12px; }
+.hg-row + .hg-row { border-top: 1px solid #EEEAE3; }
+.hg-file { width: 26px; height: 26px; border-radius: 7px; background: var(--green-50); display: grid; place-items: center; flex: none; }
+.hg-file svg { width: 13px; height: 13px; }
+.hg-row > span:nth-child(2) { flex: 1; min-width: 0; }
+.hg-row b { display: block; font-size: 11px; font-weight: 600; line-height: 1.2; }
+.hg-row small { display: block; font-size: 10px; color: var(--body); margin-top: 1px; }
+.hg-tick { width: 14px; height: 14px; flex: none; overflow: visible; }
+.hg-btn { left: 16px; top: 396px; width: 186px; padding: 12px 0; border-radius: 12px; background: var(--green-dark); color: var(--white); font-size: 13px; font-weight: 600; text-align: center; }
+.hg-home { left: 70px; top: 455px; width: 78px; height: 4px; border-radius: 2px; background: var(--ink); }
+/* Hero load: copy rises in, the paper waiver lands and gets signed, then the phone slides over it and confirms */
+@media (prefers-reduced-motion: no-preference) {
+  .hg-halo { animation: halo-in 1400ms var(--ease-out) 150ms both; }
+  @keyframes halo-in { from { opacity: 0; scale: .8; } }
+  .hg-clip { animation: clip-in 900ms var(--ease-out) 250ms both; }
+  @keyframes clip-in { from { opacity: 0; translate: 0 28px; rotate: -2deg; filter: blur(4px); } }
+  .hg-sig path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 800ms var(--ease-in-out) 750ms forwards; }
+  .hg-date { animation: fade-in 300ms ease 1250ms both; }
+  @keyframes fade-in { from { opacity: 0; } }
+  .hg-phone { animation: phone-in 1000ms var(--ease-out) 1050ms both; }
+  @keyframes phone-in { from { opacity: 0; translate: 56px 18px; filter: blur(6px); } }
+  .hg-ok { animation: ok-pop 600ms var(--ease-spring) 1600ms both; }
+  @keyframes ok-pop { from { scale: .3; opacity: 0; } }
+  .hg-ring { animation: ring-in 700ms var(--ease-out) 1550ms both; }
+  @keyframes ring-in { from { scale: .6; opacity: 0; } }
+  .hg-ok path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 400ms var(--ease-out) 1850ms forwards; }
+  .hg-done b, .hg-done p { animation: rise-in 600ms var(--ease-out) 1750ms both; --rise: 8px; }
+  .hg-done p { animation-delay: 1820ms; }
+  .hg-row { animation: rise-in 600ms var(--ease-out) both; animation-delay: calc(var(--i) * 90ms + 1900ms); --rise: 8px; }
+  .hg-tick path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 350ms var(--ease-out) forwards; }
+  .hg-row:nth-child(1) .hg-tick path { animation-delay: 2250ms; }
+  .hg-row:nth-child(2) .hg-tick path { animation-delay: 2340ms; }
+  .hg-btn { animation: rise-in 600ms var(--ease-out) 2100ms both; --rise: 8px; }
+}
 /* ---------- Footer ---------- */
 .foot { background: var(--green-deep); }
 .foot .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px 40px; flex-wrap: wrap; padding-block: 40px; }
@@ -803,47 +882,48 @@ img { max-width: 100%; display: block; }
       </ul>
     </div>
     <div class="hero-shot">
-      <div class="scale-box" data-w="540" data-h="540" role="img" aria-label="The WaiverKing dashboard listing signed forms, next to a phone showing a client filling in a liability waiver">
+      <div class="scale-box" data-w="540" data-h="556" role="img" aria-label="A paper waiver on a clipboard, overlapped by a phone showing the signed waiver and a minor consent form, confirmed with You’re all set, Jamie">
         <div class="scale-inner">
-          <div class="shot" aria-hidden="true">
-            <div class="dash">
-              <div class="dash-bar"><img src="assets/dot-red.svg" alt=""><img src="assets/dot-yellow.svg" alt=""><img src="assets/dot-green.svg" alt=""><span class="dash-url">app.waiverking.com/signed</span></div>
-              <div class="dash-body">
-                <div class="dash-side">
-                  <b>waiverking</b><span>Dashboard</span><span>Forms</span><span class="on">Signed forms</span><span>Kiosk mode</span><span>Clients</span><span>Billing</span>
-                </div>
-                <div class="dash-main">
-                  <div class="dash-top"><b>Signed forms</b><span>+ Send waiver link</span></div>
-                  <div class="dash-stats">
-                    <div><small>Signed today</small><strong>24</strong></div>
-                    <div><small>This month</small><strong>412</strong></div>
-                    <div><small>Awaiting signature</small><strong>3</strong></div>
-                  </div>
-                  <div class="dash-table">
-                    <div class="dash-row head"><span>NAME</span><span>FORM</span><span>SIGNED</span><span>STATUS</span></div>
-                    <div class="dash-row"><span>Jamie Rivera</span><span>Liability waiver</span><span>2 min ago</span><span><i class="pill">Signed</i></span></div>
-                    <div class="dash-row"><span>Noah Kim + 1 minor</span><span>Family waiver</span><span>14 min ago</span><span><i class="pill">Signed</i></span></div>
-                    <div class="dash-row"><span>Ava Patel</span><span>PAR-Q intake</span><span>1 h ago</span><span><i class="pill">Signed</i></span></div>
-                    <div class="dash-row"><span>Liam Ortiz</span><span>Membership agreement</span><span>—</span><span><i class="pill pend">Pending</i></span></div>
-                    <div class="dash-row"><span>Mia Chen</span><span>Photo release</span><span>Yesterday</span><span><i class="pill">Signed</i></span></div>
-                  </div>
+          <div class="hg" aria-hidden="true">
+            <div class="hg-halo"></div>
+            <div class="hg-clip">
+              <div class="hg-board">
+                <div class="hg-paper">
+                  <span class="hg-t">LIABILITY WAIVER</span>
+                  <span class="hg-s">Sunrise Yoga Studio</span>
+                  <i class="hg-rule"></i>
+                  <span class="hg-lines"><i style="width:214px"></i><i style="width:203px"></i><i style="width:210px"></i><i style="width:128px"></i><i style="width:214px"></i><i style="width:197px"></i><i style="width:208px"></i><i style="width:118px"></i><i style="width:214px"></i></span>
+                  <span class="hg-box" style="top:202px"></span><span class="hg-cb" style="top:201px">I have no medical conditions</span>
+                  <span class="hg-box" style="top:220px"></span><span class="hg-cb" style="top:219px">I agree to the terms above</span>
+                  <svg class="hg-sig" viewBox="0 0 104 31" fill="none"><path pathLength="1" d="M3.43 22.73C7.57 7.23 13.77 4.13 15.83 17.57 17.9 31 22.03 28.93 27.2 15.5 32.37 2.07 34.43 3.1 37.53 16.53 40.63 29.97 44.77 26.87 49.93 13.43 53.03 6.2 57.17 20.67 62.33 17.57 67.5 14.47 72.67 11.37 77.83 15.5 81.97 18.6 88.17 19.63 100.57 13.43" stroke-width="1.34" stroke-linecap="round" stroke-linejoin="round" stroke="#34332F"/></svg>
+                  <span class="hg-date">11 / 04</span>
+                  <i class="hg-sl" style="left:22px;width:120px"></i><i class="hg-sl" style="left:159px;width:77px"></i>
+                  <span class="hg-lab" style="left:22px">Signature</span><span class="hg-lab" style="left:159px">Date</span>
                 </div>
               </div>
+              <div class="hg-clamp"><i></i></div>
+              <div class="hg-bar"></div>
             </div>
-            <div class="phone">
-              <div class="phone-screen">
-                <div class="ph-studio"><img src="assets/phone-avatar.svg" alt="">Sunrise Yoga Studio</div>
-                <div class="ph-title">Liability waiver</div>
-                <div class="ph-progress"><i></i><i></i><i></i></div>
-                <div class="ph-step">Step 2 of 3 · Your details</div>
-                <div class="ph-field"><span class="ph-label">Full name</span><span class="ph-input">Jamie Rivera</span></div>
-                <div class="ph-field"><span class="ph-label">Date of birth</span><span class="ph-input">04 / 12 / 1991</span></div>
-                <div class="ph-field"><span class="ph-label">Email</span><span class="ph-input">jamie@email.com</span></div>
-                <div class="ph-minor">+ Add a minor (under 18)</div>
-                <div class="ph-agree"><i></i>I have read and agree to the waiver</div>
-                <div class="ph-sign"><svg viewBox="0 0 166.05 27.7794" fill="none" preserveAspectRatio="none"><path pathLength="1" d="M1.02527 26.7541C14.1453 -4.40586 23.9853 -6.04586 22.3453 15.2741C20.7053 36.5941 33.8253 3.79414 46.9453 7.07414C60.0653 10.3541 48.5853 30.0341 64.9853 21.8341C81.3853 13.6341 86.3053 -2.76586 96.1453 11.9941C105.985 26.7541 112.545 16.9141 124.025 10.3541C135.505 3.79414 145.345 18.5541 165.025 7.07414" stroke-width="2.05" stroke-linecap="round" stroke="#1C1B19"/></svg><span>Sign here</span></div>
-                <div class="ph-submit">Sign &amp; submit</div>
+            <div class="hg-phone">
+              <div class="hg-screen">
+                <i class="hg-island"></i>
+                <span class="hg-time">9:41</span>
+                <span class="hg-batt"><i></i></span>
+                <div class="hg-studio"><span class="hg-av">SY</span><span><b>Sunrise Yoga</b><small>Downtown studio</small></span></div>
+                <i class="hg-div"></i>
+                <div class="hg-done">
+                  <span class="hg-ring"><span class="hg-ok"><svg viewBox="0 0 22 22" fill="none"><path pathLength="1" d="M18.33 5.5L8.25 15.58 3.67 11" stroke="#fff" stroke-width="2.38" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
+                  <b>You’re all set, Jamie</b>
+                  <p>Your waiver is signed. See you in class.</p>
+                </div>
+                <div class="hg-list">
+                  <div class="hg-row" style="--i:0"><span class="hg-file"><svg viewBox="0 0 13 13" fill="none" stroke="#1E3D1C" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M7.58 1.08H3.25c-.6 0-1.08.49-1.08 1.09v8.66c0 .6.48 1.09 1.08 1.09h6.5c.6 0 1.08-.49 1.08-1.09V4.33L7.58 1.08Z"/><path d="M7.58 1.08v3.25h3.25"/></svg></span><span><b>Liability waiver</b><small>Signed 9:12</small></span><svg class="hg-tick" viewBox="0 0 14 14" fill="none"><path pathLength="1" d="M11.67 3.5L5.25 9.92 2.33 7" stroke="#6BA539" stroke-width="1.52" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                  <div class="hg-row" style="--i:1"><span class="hg-file"><svg viewBox="0 0 13 13" fill="none" stroke="#1E3D1C" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M7.58 1.08H3.25c-.6 0-1.08.49-1.08 1.09v8.66c0 .6.48 1.09 1.08 1.09h6.5c.6 0 1.08-.49 1.08-1.09V4.33L7.58 1.08Z"/><path d="M7.58 1.08v3.25h3.25"/></svg></span><span><b>Minor consent</b><small>For Noah, 8</small></span><svg class="hg-tick" viewBox="0 0 14 14" fill="none"><path pathLength="1" d="M11.67 3.5L5.25 9.92 2.33 7" stroke="#6BA539" stroke-width="1.52" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                </div>
+                <span class="hg-btn">Done</span>
+                <i class="hg-home"></i>
               </div>
+              <i class="hg-glass"></i>
             </div>
           </div>
         </div>
