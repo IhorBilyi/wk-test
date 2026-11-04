@@ -6,3 +6,5 @@ Static build of the "Version A · Split hero, product-led" homepage from the [WK
 - `assets/`: logo, icons and mockup images exported from Figma
 
 Served by GitHub Pages from the `main` branch root. No build step.
+
+Merged WaiverKing homepage (Mindbody + Standalone): `waiverking/`, served at `/wk-test/waiverking/`. Self-contained, with its own `assets/`.
