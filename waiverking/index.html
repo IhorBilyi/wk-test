@@ -723,6 +723,87 @@ img { max-width: 100%; display: block; }
   .js-anim .fmark img { translate: 0 48px; transition: translate 1400ms var(--ease-out), opacity 1000ms ease; opacity: 0; }
   .js-anim .fmark.is-in img { translate: 0 0; opacity: .09; }
 }
+/* ---------- Illustrations (exported from the Figma frame, animated in place) ----------
+   Each SVG keeps its Figma layer names as data-n, so motion targets the same layers the design uses. */
+.illus { position: relative; height: 300px; border-radius: 14px; overflow: hidden; background: linear-gradient(90deg, #DDEFD0, #F4EDE2); flex: none; }
+.illus svg { position: absolute; top: 0; left: 50%; translate: -50% 0; transform-origin: 0 0; overflow: visible; display: block; max-width: none; }
+.flow.il-flow { padding: 0; gap: 0; display: block; width: 100%; max-width: 419px; aspect-ratio: 419 / 368; justify-self: center; overflow: hidden; }
+.il-flow svg { display: block; width: 100%; height: auto; }
+@media (prefers-reduced-motion: no-preference) {
+  .js-anim [data-anim]:not(.is-in) .illus-svg *, .js-anim .choose .wrap:not(.is-in) .illus-svg * { animation-play-state: paused !important; }
+  .js-anim .choose .pane:not(.on) .illus-svg * { animation: none !important; }
+  .js-anim .il-track [data-n="paper-sign-in-sheet"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
+  .js-anim .il-track [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 350ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector"] { animation: il-draw 300ms ease-out 600ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 480ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-2"] { animation: il-draw 300ms ease-out 730ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="signed-badge-3"] { animation: il-pop 500ms var(--ease-spring) 1250ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-3"] { animation: il-draw 300ms ease-out 1500ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="toast-just-signed"] { animation: il-drop 700ms var(--ease-spring) 1150ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="signed-badge-4"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-4"] { animation: il-draw 300ms ease-out 1600ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="ink-stamp"] { animation: il-slam 600ms var(--ease-out) 1900ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="paper"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
+  .js-anim .il-family [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 450ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="vector"] { animation: il-draw 300ms ease-out 700ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 600ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="vector-2"] { animation: il-draw 300ms ease-out 850ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="vector-3"] { animation: il-draw 900ms var(--ease-in-out) 800ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="ink-stamp"] { animation: il-slam 600ms var(--ease-out) 1700ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="phone"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .js-anim .il-required [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 550ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="vector"] { animation: il-draw 300ms ease-out 800ms both; stroke-dasharray: 1; }
+  .js-anim .il-required [data-n="field-2"] { animation: il-shake 450ms ease-in-out 1000ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="error-badge"] { animation: il-pop 450ms var(--ease-spring) 1000ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="please-fill-in-this-field-to-continue"] { animation: il-fade 300ms ease 1100ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="tooltip"] { animation: il-drop 700ms var(--ease-spring) 1400ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="waiver-pdf"] { animation: il-rise 1000ms var(--ease-out) 100ms both; transform-box: fill-box; transform-origin: center; --d:80px; }
+  .js-anim .il-email [data-n="vector"] { animation: il-draw 700ms var(--ease-in-out) 900ms both; stroke-dasharray: 1; }
+  .js-anim .il-email [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 1400ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="vector-2"] { animation: il-draw 300ms ease-out 1650ms both; stroke-dasharray: 1; }
+  .js-anim .il-email [data-n="sent-toast"] { animation: il-rise 700ms var(--ease-spring) 1700ms both; transform-box: fill-box; transform-origin: center; --d:14px; }
+  .js-anim .il-email [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 1850ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="vector-3"] { animation: il-draw 300ms ease-out 2100ms both; stroke-dasharray: 1; }
+  .js-anim .il-staff [data-n="doc-intake-notes"] { animation: il-rise 900ms var(--ease-out) 100ms both; transform-box: fill-box; transform-origin: center; --d:60px; }
+  .js-anim .il-staff [data-n="doc-injury-report"] { animation: il-rise 900ms var(--ease-out) 260ms both; transform-box: fill-box; transform-origin: center; --d:70px; }
+  .js-anim .il-staff [data-n="staff-tag"] { animation: il-pop 500ms var(--ease-spring) 1050ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-staff [data-n="count"] { animation: il-pop 500ms var(--ease-spring) 1300ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-staff [data-n="vector-3"] { animation: il-draw 300ms ease-out 1550ms both; stroke-dasharray: 1; }
+  .js-anim .il-mb [data-n="mindbody-client-profile"] { animation: il-rise 800ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-mb [data-n="highlight"] { animation: il-pop-soft 600ms var(--ease-out) 600ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="signed-liability-waiver"] { animation: il-fade 400ms ease 700ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="9-02-am-waiver-pdf-attached"] { animation: il-fade 400ms ease 780ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="check"] { animation: il-pop 500ms var(--ease-spring) 850ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="vector"] { animation: il-draw 300ms ease-out 1100ms both; stroke-dasharray: 1; }
+  .js-anim .il-mb [data-n="via"] { animation: il-fade 400ms ease 1050ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="waiver-thumbnail"] { animation: il-fly 800ms var(--ease-spring) 1150ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="signature"] { animation: il-draw 700ms var(--ease-in-out) 1600ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="sheet-waiver"] { animation: il-fan 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sheet-par-q"] { animation: il-fan 700ms var(--ease-out) 90ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sheet-consent"] { animation: il-fan 700ms var(--ease-out) 180ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sticky"] { animation: il-slap 600ms var(--ease-spring) 650ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="dashboard"] { animation: il-rise 800ms var(--ease-out) 300ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-sa [data-n="row"] { animation: il-rise 500ms var(--ease-out) 650ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="row-2"] { animation: il-rise 500ms var(--ease-out) 760ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="row-3"] { animation: il-rise 500ms var(--ease-out) 870ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="check"] { animation: il-pop 450ms var(--ease-spring) 950ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-5"] { animation: il-draw 260ms ease-out 1150ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="check-2"] { animation: il-pop 450ms var(--ease-spring) 1060ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-6"] { animation: il-draw 260ms ease-out 1260ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="check-3"] { animation: il-pop 450ms var(--ease-spring) 1170ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-7"] { animation: il-draw 260ms ease-out 1370ms both; stroke-dasharray: 1; }
+  @keyframes il-rise { from { translate: 0 var(--d, 24px); opacity: 0; } }
+  @keyframes il-pop { from { scale: 0.3; opacity: 0; } }
+  @keyframes il-pop-soft { from { scale: 0.94; opacity: 0; } }
+  @keyframes il-draw { from { stroke-dashoffset: 1; } }
+  @keyframes il-drop { from { translate: 0 -16px; scale: 0.96; opacity: 0; } }
+  @keyframes il-slam { 0% { scale: 1.7; opacity: 0; } 55% { scale: 0.94; } 100% { scale: 1; } }
+  @keyframes il-shake { 20% { translate: -5px 0; } 40% { translate: 5px 0; } 60% { translate: -3px 0; } 80% { translate: 3px 0; } }
+  @keyframes il-fade { from { opacity: 0; } }
+  @keyframes il-fly { from { translate: 36px -22px; rotate: 14deg; opacity: 0; } }
+  @keyframes il-slap { from { scale: 1.3; rotate: -10deg; opacity: 0; } }
+  @keyframes il-fan { from { rotate: 8deg; translate: 18px 10px; opacity: 0; } }
+}
 /* ---------- Responsive ---------- */
 @media (max-width: 1180px) {
   .faq .wrap { grid-template-columns: minmax(0, 400px) 1fr; gap: 48px; }
@@ -1034,60 +1115,31 @@ img { max-width: 100%; display: block; }
     <div class="bento">
       <div class="bento-row r1">
         <article data-anim class="fcard big">
-          <div class="kiosk-bg">
-            <div class="kiosk-fit scale-box" data-w="424" data-h="202">
-              <div class="scale-inner">
-                <div class="kiosk" aria-hidden="true">
-                  <div class="kiosk-screen">
-                    <small>Sunrise Yoga Studio</small>
-                    <b>Welcome! Tap to sign in</b>
-                    <div class="kb"><span class="p">New client waiver</span><span class="s">I’ve signed before</span></div>
-                    <em>or scan the QR code with your phone</em>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="fhead"><span class="ftile"><img src="assets/icon-kiosk.svg" alt=""></span><h3>Front-desk kiosk</h3></div>
-          <p>Turn any iPad or Android tablet into a sign-in station. Walk-ins sign in under a minute.</p>
+          <div class="illus" data-min="0.62" data-fx="0.04" data-svg="assets/illus/track.svg" aria-hidden="true"></div>
+          <div class="fhead"><span class="ftile"><img src="assets/icon-search.svg" alt=""></span><h3>Track who signed</h3></div>
+          <p>See who has signed for today’s class and who still needs to, before they reach the desk.</p>
         </article>
         <article data-anim class="fcard">
-          <div class="mini who" aria-hidden="true">
-            <div class="a-up" style="--i:0"><img src="assets/av1.svg" alt=""><span>Jamie Rivera</span><span class="status">Signed</span></div>
-            <div class="a-up" style="--i:1"><img src="assets/av2.svg" alt=""><span>Noah Kim</span><span class="status">Signed</span></div>
-            <div class="a-up" style="--i:2"><img src="assets/av3.svg" alt=""><span>Ava Patel</span><span class="status pend swap"><span class="from">Pending</span><span class="to">Signed</span></span></div>
-            <div class="a-up" style="--i:3"><img src="assets/av4.svg" alt=""><span>Liam Ortiz</span><span class="status pend">Pending</span></div>
-          </div>
-          <div class="fhead"><span class="ftile"><img src="assets/icon-search.svg" alt=""></span><h3>Track who signed</h3></div>
-          <p>See who has signed for today’s class and who still needs to.</p>
+          <div class="illus" data-svg="assets/illus/family.svg" aria-hidden="true"></div>
+          <div class="fhead"><span class="ftile"><img src="assets/icon-family.svg" alt=""></span><h3>Family &amp; minors</h3></div>
+          <p>Parents add their kids to one waiver.</p>
         </article>
       </div>
       <div class="bento-row r2">
         <article data-anim class="fcard">
-          <div class="mini bordered" aria-hidden="true">
-            <b style="font-weight:600">Jamie Rivera · parent</b>
-            <span class="kid a-up" style="--i:1"><i>+</i> Noah, 8</span>
-            <span class="kid a-up" style="--i:2"><i>+</i> Mia, 11</span>
-          </div>
-          <div class="fhead"><span class="ftile"><img src="assets/icon-family.svg" alt=""></span><h3>Family &amp; minors</h3></div>
-          <p>Parents add their kids to one waiver.</p>
-        </article>
-        <article data-anim class="fcard">
-          <div class="mini" style="gap:6px" aria-hidden="true">
-            <span style="font-weight:500">Date of birth *</span>
-            <span class="field-err">MM / DD / YYYY</span>
-            <span class="err a-up" style="--i:9">Please fill in this field to continue</span>
-          </div>
+          <div class="illus" data-svg="assets/illus/required.svg" aria-hidden="true"></div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-req.svg" alt=""></span><h3>Required fields</h3></div>
           <p>Never get an incomplete form again.</p>
         </article>
         <article data-anim class="fcard">
-          <div class="mini" style="gap:6px" aria-hidden="true">
-            <div class="mail-card a-up" style="--i:0"><b style="font-weight:600">Your signed waiver</b><small>Sunrise Yoga · PDF attached</small></div>
-            <small>Email copies can be switched off for HIPAA.</small>
-          </div>
+          <div class="illus" data-svg="assets/illus/email.svg" aria-hidden="true"></div>
           <div class="fhead"><span class="ftile"><img src="assets/icon-mail.svg" alt=""></span><h3>Instant email copies</h3></div>
           <p>Clients get a copy the moment they sign.</p>
+        </article>
+        <article data-anim class="fcard">
+          <div class="illus" data-svg="assets/illus/staff.svg" aria-hidden="true"></div>
+          <div class="fhead"><span class="ftile"><img src="assets/icon-staff.svg" alt=""></span><h3>Internal staff docs</h3></div>
+          <p>Staff fill it in. The client signs on the spot.</p>
         </article>
       </div>
       <article data-anim class="multi">
@@ -1120,16 +1172,7 @@ img { max-width: 100%; display: block; }
           <ul><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Signer matched to their Mindbody profile</li><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Signed PDF filed on the client record</li><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>From $15/month, based on forms signed</li></ul>
           <div class="pick-cta"><a class="btn btn-primary btn-arrow" href="https://www.waiverking.com/">Start my Mindbody trial <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><small>15 days free · no card</small></div>
         </div>
-        <div class="flow mb" aria-hidden="true">
-          <div class="ncard a-up" style="--i:0"><span class="tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Waiver saved to Mindbody</b><small>Jordan Smith · PDF added to client profile · just now</small></span></div>
-          <span class="down a-up" style="--i:1"><svg class="ic down-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-          <div class="pcard2 a-up" style="--i:2">
-            <div class="pc-head"><i></i><span><b>Jordan Smith</b><small>Client profile · Mindbody</small></span></div>
-            <div class="prow grey"><span>Membership</span><em>Active</em></div>
-            <div class="prow green a-up" style="--i:4"><span>Liability waiver.pdf</span><em><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Added just now</em></div>
-            <div class="prow green a-up" style="--i:5"><span>PAR-Q intake.pdf</span><em><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg> Added just now</em></div>
-          </div>
-        </div>
+        <div class="flow il-flow" data-svg="assets/illus/mb.svg" aria-hidden="true"></div>
       </div>
       <div class="pane" id="paneSa" role="tabpanel" aria-labelledby="tabSa">
         <div class="pick">
@@ -1139,16 +1182,7 @@ img { max-width: 100%; display: block; }
           <ul><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Every signed form in one searchable dashboard</li><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>Automatic Dropbox backup</li><li><span class="gck"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>From $15/month, based on forms signed</li></ul>
           <div class="pick-cta"><a class="btn btn-primary btn-arrow" href="https://www.waiverking.com/">Start my standalone trial <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a><small>15 days free · no card</small></div>
         </div>
-        <div class="flow sa" aria-hidden="true">
-          <div class="ncard a-up" style="--i:0"><span class="tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Waiver signed via QR code</b><small>Jamie Rivera · Liability waiver · just now</small></span></div>
-          <span class="down a-up" style="--i:1"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></span>
-          <div class="pcard2 a-up" style="--i:2">
-            <div class="dsearch"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><span>jamie</span><span class="caret"></span></div>
-            <div class="drow green a-up" style="--i:4"><span><b>Jamie Rivera</b><small>Liability waiver · just now</small></span><span class="sp">Signed</span></div>
-            <div class="drow a-up" style="--i:5"><span><b>Jamie Rivera</b><small>PAR-Q intake · Mar 2025</small></span><span class="sp">Signed</span></div>
-            <div class="dbackup a-up" style="--i:6"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>Backed up to Dropbox</div>
-          </div>
-        </div>
+        <div class="flow il-flow" data-svg="assets/illus/sa.svg" aria-hidden="true"></div>
       </div>
     </div>
   </div>
@@ -1288,6 +1322,25 @@ img { max-width: 100%; display: block; }
 
 <script>
 (function () {
+  // Inline the Figma-exported illustrations so their layers can animate
+  // Bento art keeps its Figma size, shrinks to fit narrow cards (down to data-min), and crops from data-fx beyond that
+  const fitIllus = el => {
+    const svg = el.querySelector('svg'); if (!svg) return;
+    const w = +svg.getAttribute('width'), h = +svg.getAttribute('height'), cw = el.clientWidth, ch = el.clientHeight;
+    const s = Math.min(1, Math.max(+(el.dataset.min || 0.8), cw / w)), over = w * s - cw;
+    svg.style.translate = 'none';
+    svg.style.scale = s;
+    svg.style.left = (over > 0 ? -over * +(el.dataset.fx || 0.5) : (cw - w * s) / 2) + 'px';
+    svg.style.top = (ch - h * s) / 2 + 'px';
+  };
+  const ro = 'ResizeObserver' in window ? new ResizeObserver(es => es.forEach(e => fitIllus(e.target))) : null;
+  document.querySelectorAll('[data-svg]').forEach(el => {
+    fetch(el.dataset.svg).then(r => r.ok ? r.text() : '').then(t => {
+      el.innerHTML = t;
+      if (el.classList.contains('illus')) { fitIllus(el); ro && ro.observe(el); }
+    }).catch(() => {});
+  });
+
   // Play section illustrations once they scroll into view
   if ('IntersectionObserver' in window) {
     document.documentElement.classList.add('js-anim');
