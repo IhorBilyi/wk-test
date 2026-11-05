@@ -1314,9 +1314,14 @@ img { max-width: 100%; display: block; }
   // Play section illustrations once they scroll into view
   if ('IntersectionObserver' in window) {
     document.documentElement.classList.add('js-anim');
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.25 });
-    const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io2.unobserve(e.target); } }), { threshold: 0.15 });
-    document.querySelectorAll('[data-anim]').forEach(el => (el.hasAttribute('data-anim-t') ? io2 : io).observe(el));
+    // Start each block once its top edge is 20% of the screen above the bottom, not at the first visible pixel
+    const show = el => { el.classList.add('is-in'); io.unobserve(el); };
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) show(e.target); }), { rootMargin: '0px 0px -20% 0px', threshold: 0 });
+    const pending = [...document.querySelectorAll('[data-anim]')];
+    pending.forEach(el => io.observe(el));
+    // Blocks at the very end of the page may never cross that line, so play them once the page is scrolled to the bottom
+    const atEnd = () => { if (innerHeight + scrollY >= document.documentElement.scrollHeight - 4) { pending.forEach(el => { if (!el.classList.contains('is-in') && el.getBoundingClientRect().top < innerHeight) show(el); }); } };
+    addEventListener('scroll', atEnd, { passive: true });
   }
 
   // Scale fixed-size product mockups to their column width
