@@ -101,6 +101,7 @@ img { max-width: 100%; display: block; }
 .ticks li { display: flex; align-items: center; gap: 8px; }
 .ticks { list-style: none; margin: 0; padding: 0; }
 .hero-shot { flex: 1 1 540px; min-width: 0; display: flex; justify-content: flex-end; }
+@media (min-width: 1240px) { .hero-shot { flex: 0 0 540px; margin-right: -8px; } }
 
 /* scale boxes: inner is laid out at design size and scaled to fit */
 .scale-box { width: 100%; position: relative; }
@@ -241,7 +242,7 @@ img { max-width: 100%; display: block; }
 .price-copy .eyebrow { font-weight: 700; letter-spacing: 0.06em; }
 .price-copy h2 { max-width: 500px; }
 .price-copy > p { color: var(--body); font-size: 18px; max-width: 480px; }
-.inc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
+.inc { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; line-height: 18px; }
 .inc li { display: flex; align-items: center; gap: 10px; }
 .inc .check { background: var(--green-100); width: auto; min-width: 20px; height: 17px; padding: 0 5px; }
 .calc { flex: 0 1 580px; min-width: 0; background: var(--white); border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 8px 24px rgba(0,0,0,.08); padding: 36px 36px 32px; display: flex; flex-direction: column; gap: 24px; }
@@ -249,7 +250,7 @@ img { max-width: 100%; display: block; }
 .calc-top label { font-weight: 600; font-size: 17px; }
 .num { display: flex; align-items: baseline; gap: 6px; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; }
 .num:focus-within { border-color: var(--green); box-shadow: 0 0 0 3px var(--green-50); }
-.num input { width: 3.6ch; border: 0; padding: 0; font: 600 18px/1.4 var(--font-head); color: var(--ink); background: transparent; text-align: right; -moz-appearance: textfield; outline: none; font-variant-numeric: tabular-nums; }
+.num input { width: 3.6ch; border: 0; padding: 0; font: 600 18px/22px var(--font-head); color: var(--ink); background: transparent; text-align: right; -moz-appearance: textfield; outline: none; font-variant-numeric: tabular-nums; }
 .num input::-webkit-outer-spin-button, .num input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 .num span { font-size: 13px; color: var(--body); }
 
@@ -273,11 +274,11 @@ img { max-width: 100%; display: block; }
 .tier.on b, .tier.on small { color: var(--green-dark); }
 .divider { height: 1px; background: var(--line); }
 .total { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-.total strong { font: 700 56px/1.1 var(--font-head); font-variant-numeric: tabular-nums; }
+.total strong { font: 700 56px/84px var(--font-head); font-variant-numeric: tabular-nums; }
 .total .per { color: var(--body); font-size: 18px; }
 .total .spacer { flex: 1; }
 .chip { background: var(--green-50); color: var(--green-dark); font-size: 13px; font-weight: 600; padding: 6px 12px; border-radius: 999px; white-space: nowrap; }
-.breakdown { background: var(--beige); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; }
+.breakdown { background: var(--beige); border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; font-size: 14px; line-height: 17px; }
 .breakdown div { display: flex; justify-content: space-between; gap: 12px; }
 .breakdown span { color: var(--body); }
 .breakdown b { font-weight: 600; text-align: right; }
@@ -362,7 +363,7 @@ img { max-width: 100%; display: block; }
 .btn-white { background: var(--white); color: var(--green-dark); padding: 18px 28px; }
 .btn-white:hover { box-shadow: 0 6px 18px rgba(0,0,0,.2); }
 .cta-actions .link { color: var(--white); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-.badge { position: absolute; right: 52px; top: 50%; margin-top: -110px; width: 220px; height: 220px; border-radius: 50%; background: var(--beige); box-shadow: 0 16px 40px rgba(13,20,13,.25); transform: rotate(10deg); z-index: 1; display: grid; place-items: center; }
+.badge { position: absolute; right: 71px; top: 50%; margin-top: -92px; width: 220px; height: 220px; border-radius: 50%; background: var(--beige); box-shadow: 0 16px 40px rgba(13,20,13,.25); transform: rotate(10deg); z-index: 1; display: grid; place-items: center; }
 .badge img { position: absolute; left: 12px; top: 12px; width: 196px; height: 196px; }
 .badge-txt { position: relative; display: flex; flex-direction: column; align-items: center; color: var(--green-dark); }
 .badge-txt b { font: 700 64px/1 var(--font-head); }
@@ -534,11 +535,11 @@ img { max-width: 100%; display: block; }
 .pchips li { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px 8px 10px; border-radius: 99px; font: 600 14px/20px var(--font-body); }
 .pchips .ci { width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; flex: none; }
 .pchips .ic { width: 12px; height: 12px; }
-.before .pchips li { background: #FBEADF; color: #3D2A1E; }
+.before .pchips li { background: #FBEADF; color: #1C1B19; }
 .before .pchips .ci { color: #C2410C; }
 .before .pchips .ic { width: 13px; height: 13px; }
-.after .pchips li { background: #2F5E2C; color: var(--white); }
-.after .pchips .ci { background: var(--green); color: var(--white); }
+.after .pchips li { background: #F6F2EC; color: #1C1B19; box-shadow: 0 1px 2px rgba(11,18,10,.12); }
+.after .pchips .ci { background: #3F7A22; color: var(--white); }
 /* clipboard illustration (516×300 artboard) */
 .ill-old { background: #F3ECE1; }
 .ill-old > * { position: absolute; }
@@ -583,9 +584,9 @@ img { max-width: 100%; display: block; }
 .toast small { display: block; font-size: 9.84px; color: #667085; }
 /* ---------- Chooser: do you use Mindbody? ---------- */
 .choose { background: var(--white); }
-.choose .wrap { display: flex; flex-direction: column; align-items: center; gap: 48px; padding-block: 104px 120px; }
-.choose .sec-head { gap: 16px; }
-.choose h2 { font-size: clamp(36px, 5vw, 56px); line-height: 1.1; letter-spacing: -0.015em; }
+.choose .wrap { display: flex; flex-direction: column; align-items: center; gap: 48px; padding-block: 104px 169px; }
+.choose .sec-head { gap: 14px; }
+.choose h2 { font-size: clamp(36px, 5vw, 56px); line-height: 1.27; letter-spacing: -0.015em; }
 .seg { position: relative; display: inline-flex; gap: 6px; padding: 6px; background: var(--beige); border: 1px solid #ECE5DA; border-radius: 99px; }
 .seg-thumb { position: absolute; left: 0; top: 6px; bottom: 6px; width: 0; border-radius: 99px; background: var(--green-dark); transition: transform 420ms var(--ease-out), width 420ms var(--ease-out); }
 .seg button { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; border: 0; background: none; border-radius: 99px; font: 600 18px/1.2 var(--font-body); color: var(--body); cursor: pointer; white-space: nowrap; transition: color 250ms ease; }
@@ -648,7 +649,7 @@ img { max-width: 100%; display: block; }
 .pseg { position: relative; display: grid; grid-template-columns: 1fr 1fr; padding: 4px; background: var(--beige); border-radius: 12px; }
 .pseg-thumb { position: absolute; left: 4px; top: 4px; bottom: 4px; width: calc(50% - 4px); border-radius: 9px; background: var(--white); box-shadow: 0 1px 3px rgba(0,0,0,.08); transition: transform 380ms var(--ease-out); }
 .pseg.sa .pseg-thumb { transform: translateX(100%); }
-.pseg button { position: relative; z-index: 1; border: 0; background: none; padding: 11px 8px; border-radius: 9px; font: 400 15px/1.2 var(--font-body); color: var(--body); cursor: pointer; transition: color 200ms ease; }
+.pseg button { position: relative; z-index: 1; border: 0; background: none; padding: 10px 8px; border-radius: 9px; font: 400 15px/18px var(--font-body); color: var(--body); cursor: pointer; transition: color 200ms ease; }
 .pseg button[aria-pressed="true"] { color: var(--ink); font-weight: 600; }
 .pseg button:hover { color: var(--ink); }
 .calc .tiers .tier { transition: background-color 200ms ease; }
@@ -666,10 +667,10 @@ img { max-width: 100%; display: block; }
 .fcontacts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 18px; }
 .fcontacts li { display: flex; align-items: center; gap: 14px; }
 .fcontacts .ic { width: 20px; height: 20px; color: #B7DE95; flex: none; }
-.fcontacts small { display: block; font-size: 12px; line-height: 1.3; color: #A9B8A3; }
-.fcontacts a { display: block; font-size: 15px; font-weight: 500; line-height: 1.35; }
+.fcontacts small { display: block; font-size: 12px; line-height: 15px; color: #A9B8A3; }
+.fcontacts a { display: block; font-size: 15px; font-weight: 500; line-height: 19px; }
 .fcontacts a:hover, .fcol a:hover { color: #B7DE95; }
-.fsocial { display: flex; gap: 20px; color: #DCE5D7; }
+.fsocial { display: flex; gap: 20px; height: 20px; line-height: 0; color: #DCE5D7; }
 .fsocial .ic { width: 20px; height: 20px; }
 .fsocial a:hover { color: var(--white); }
 .fcols { display: flex; gap: 64px; }
@@ -729,6 +730,10 @@ img { max-width: 100%; display: block; }
 .illus svg { position: absolute; top: 0; left: 50%; translate: -50% 0; transform-origin: 0 0; overflow: visible; display: block; max-width: none; }
 .flow.il-flow { padding: 0; gap: 0; display: block; width: 100%; max-width: 419px; aspect-ratio: 419 / 368; justify-self: center; overflow: hidden; }
 .il-flow svg { display: block; width: 100%; height: auto; }
+.hg-svg { position: relative; width: 540px; height: 556px; }
+.hg-svg svg { position: absolute; left: -64.87px; top: 0; width: 655px; height: 618px; max-width: none; overflow: visible; }
+.ill-svg { position: relative; width: 516px; height: 300px; }
+.ill-svg svg { display: block; width: 516px; height: 300px; max-width: none; }
 @media (prefers-reduced-motion: no-preference) {
   .js-anim [data-anim]:not(.is-in) .illus-svg *, .js-anim .choose .wrap:not(.is-in) .illus-svg * { animation-play-state: paused !important; }
   .js-anim .choose .pane:not(.on) .illus-svg * { animation: none !important; }
@@ -792,6 +797,26 @@ img { max-width: 100%; display: block; }
   .js-anim .il-sa [data-n="vector-6"] { animation: il-draw 260ms ease-out 1260ms both; stroke-dasharray: 1; }
   .js-anim .il-sa [data-n="check-3"] { animation: il-pop 450ms var(--ease-spring) 1170ms both; transform-box: fill-box; transform-origin: center; }
   .js-anim .il-sa [data-n="vector-7"] { animation: il-draw 260ms ease-out 1370ms both; stroke-dasharray: 1; }
+  .il-hero [data-n="halo"] { animation: il-fade 1000ms ease 200ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="clipboard"] { animation: il-rise 1000ms var(--ease-out) 420ms both; transform-box: fill-box; transform-origin: center; --d:24px; }
+  .il-hero [data-n="phone"] { animation: il-rise 1000ms var(--ease-out) 560ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .il-hero [data-n="frame-7"] { animation: il-pop 600ms var(--ease-spring) 1250ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="frame-8"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="headline-body"] { animation: il-rise 600ms var(--ease-out) 1450ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-10"] { animation: il-rise 500ms var(--ease-out) 1600ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-13"] { animation: il-rise 500ms var(--ease-out) 1700ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-16"] { animation: il-rise 500ms var(--ease-out) 1850ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="signature"] > [data-n="vector"] { animation: il-draw 900ms var(--ease-in-out) 1000ms both; stroke-dasharray: 1; }
+  .il-hero [data-n="frame-8"] [data-n="icon"] path { animation: il-draw 320ms ease-out 1650ms both; stroke-dasharray: 1; }
+  .js-anim .il-painold [data-n="back-sheet"] { animation: il-fan 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painold [data-n="clipboard"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:18px; }
+  .js-anim .il-painold [data-n="missing-signature-ring"] { animation: il-draw 900ms var(--ease-in-out) 750ms both; stroke-dasharray: 1; }
+  .js-anim .il-painold [data-n="sticky"] { animation: il-slap 600ms var(--ease-spring) 500ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painold [data-n="frame-5"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="phone"] { animation: il-rise 1000ms var(--ease-out) 50ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .js-anim .il-painnew [data-n="saved-toast"] { animation: il-drop 700ms var(--ease-spring) 1200ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="frame-10"] { animation: il-pop 500ms var(--ease-spring) 1450ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="signature-pad"] > [data-n="vector"] { animation: il-draw 1100ms var(--ease-in-out) 400ms both; stroke-dasharray: 1; }
   @keyframes il-rise { from { translate: 0 var(--d, 24px); opacity: 0; } }
   @keyframes il-pop { from { scale: 0.3; opacity: 0; } }
   @keyframes il-pop-soft { from { scale: 0.94; opacity: 0; } }
@@ -968,43 +993,7 @@ img { max-width: 100%; display: block; }
     <div class="hero-shot">
       <div class="scale-box" data-w="540" data-h="556" role="img" aria-label="A paper waiver on a clipboard, overlapped by a phone showing the signed waiver and a minor consent form, confirmed with You’re all set, Jamie">
         <div class="scale-inner">
-          <div class="hg" aria-hidden="true">
-            <div class="hg-halo"></div>
-            <div class="hg-clip">
-              <div class="hg-board">
-                <div class="hg-paper">
-                  <span class="hg-t">LIABILITY WAIVER</span>
-                  <span class="hg-s">Sunrise Yoga Studio</span>
-                  <i class="hg-rule"></i>
-                  <span class="hg-lines"><i style="width:214px"></i><i style="width:203px"></i><i style="width:210px"></i><i style="width:128px"></i><i style="width:214px"></i><i style="width:197px"></i><i style="width:208px"></i><i style="width:118px"></i><i style="width:214px"></i></span>
-                  <span class="hg-box" style="top:202px"></span><span class="hg-cb" style="top:201px">I have no medical conditions</span>
-                  <span class="hg-box" style="top:220px"></span><span class="hg-cb" style="top:219px">I agree to the terms above</span>
-                  <svg class="hg-sig" viewBox="0 0 104 31" fill="none"><path pathLength="1" d="M3.43 22.73C7.57 7.23 13.77 4.13 15.83 17.57 17.9 31 22.03 28.93 27.2 15.5 32.37 2.07 34.43 3.1 37.53 16.53 40.63 29.97 44.77 26.87 49.93 13.43 53.03 6.2 57.17 20.67 62.33 17.57 67.5 14.47 72.67 11.37 77.83 15.5 81.97 18.6 88.17 19.63 100.57 13.43" stroke-width="1.34" stroke-linecap="round" stroke-linejoin="round" stroke="#34332F"/></svg>
-                  <span class="hg-date">11 / 04</span>
-                  <i class="hg-sl" style="left:22px;width:120px"></i><i class="hg-sl" style="left:159px;width:77px"></i>
-                  <span class="hg-lab" style="left:22px">Signature</span><span class="hg-lab" style="left:159px">Date</span>
-                </div>
-              </div>
-              <div class="hg-clamp"><i></i></div>
-              <div class="hg-bar"></div>
-            </div>
-            <div class="hg-phone">
-              <div class="hg-screen">
-                <div class="hg-studio"><span class="hg-av">SY</span><span><b>Sunrise Yoga</b><small>Downtown studio</small></span></div>
-                <i class="hg-div"></i>
-                <div class="hg-done">
-                  <span class="hg-ring"><span class="hg-ok"><svg viewBox="0 0 22 22" fill="none"><path pathLength="1" d="M18.33 5.5L8.25 15.58 3.67 11" stroke="#fff" stroke-width="2.38" stroke-linecap="round" stroke-linejoin="round"/></svg></span></span>
-                  <b>You’re all set, Jamie</b>
-                  <p>Your waiver is signed. See you in class.</p>
-                </div>
-                <div class="hg-list">
-                  <div class="hg-row" style="--i:0"><span class="hg-file"><svg viewBox="0 0 13 13" fill="none" stroke="#1E3D1C" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M7.58 1.08H3.25c-.6 0-1.08.49-1.08 1.09v8.66c0 .6.48 1.09 1.08 1.09h6.5c.6 0 1.08-.49 1.08-1.09V4.33L7.58 1.08Z"/><path d="M7.58 1.08v3.25h3.25"/></svg></span><span><b>Liability waiver</b><small>Signed 9:12</small></span><svg class="hg-tick" viewBox="0 0 14 14" fill="none"><path pathLength="1" d="M11.67 3.5L5.25 9.92 2.33 7" stroke="#3F7A22" stroke-width="1.52" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                  <div class="hg-row" style="--i:1"><span class="hg-file"><svg viewBox="0 0 13 13" fill="none" stroke="#1E3D1C" stroke-width="1.08" stroke-linecap="round" stroke-linejoin="round"><path d="M7.58 1.08H3.25c-.6 0-1.08.49-1.08 1.09v8.66c0 .6.48 1.09 1.08 1.09h6.5c.6 0 1.08-.49 1.08-1.09V4.33L7.58 1.08Z"/><path d="M7.58 1.08v3.25h3.25"/></svg></span><span><b>Minor consent</b><small>For Noah, 8</small></span><svg class="hg-tick" viewBox="0 0 14 14" fill="none"><path pathLength="1" d="M11.67 3.5L5.25 9.92 2.33 7" stroke="#3F7A22" stroke-width="1.52" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-                </div>
-                <span class="hg-btn">Done</span>
-              </div>
-            </div>
-          </div>
+          <div class="hg-svg" data-svg="assets/illus/hero.svg" aria-hidden="true"></div>
         </div>
       </div>
     </div>
@@ -1034,7 +1023,7 @@ img { max-width: 100%; display: block; }
     <div class="sec-head">
       <span class="eyebrow">Sound familiar?</span>
       <h2 class="display h2" id="painTitle">Paper waivers cost more than paper.</h2>
-      <p class="sec-sub">Same front desk, same Monday evening. The only difference is where the waiver lives.</p>
+      <p class="sec-sub">Same front desk, same Monday evening.<br>The only difference is where the waiver lives.</p>
     </div>
     <div class="pain-grid">
       <article class="pcard before" data-anim data-anim-t>
@@ -1042,15 +1031,7 @@ img { max-width: 100%; display: block; }
         <h3>Lines at the desk, lost forms and Friday filing.</h3>
         <div class="scale-box" data-w="516" data-h="300" role="img" aria-label="A clipboard with a paper waiver missing its signature, more forms behind it and a sticky note saying scan these on Friday">
           <div class="scale-inner">
-            <div class="ill ill-old" aria-hidden="true">
-              <div class="paper-back"><span class="wlabel">LIABILITY WAIVER</span><span class="wlines"><i style="width:164px"></i><i style="width:164px"></i><i style="width:110px"></i><i style="width:164px"></i><i style="width:140px"></i><i style="width:110px"></i><i style="width:164px"></i></span></div>
-              <div class="board">
-                <div class="sheet"><span class="wlabel">LIABILITY WAIVER</span><span class="wlines"><i style="width:150px"></i><i style="width:150px"></i><i style="width:96px"></i><i style="width:150px"></i><i style="width:150px"></i><i style="width:100px"></i></span><svg class="scrawl" viewBox="0 0 120 24" aria-hidden="true"><path pathLength="1" d="M2 17C6 6 9 4 11 12S15 21 20 11 27 3 30 12 36 20 42 12 50 6 55 13 63 18 70 11" stroke="#5C5148" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="sline"></span><span class="slabel">Signature</span><svg class="ring" viewBox="0 0 120 46" aria-hidden="true"><path pathLength="1" d="M24 7C58 -1 114 4 117 21 119 37 76 46 38 42 9 39 -2 27 6 16 12 9 27 6 40 5" stroke="#C2410C" stroke-width="2" stroke-linecap="round" fill="none"/></svg></div>
-                <span class="clip"></span>
-              </div>
-              <div class="sticky">Scan these on Friday!!</div>
-              <span class="missing">Signature missing</span>
-            </div>
+            <div class="ill-svg il-painold-wrap" data-svg="assets/illus/painold.svg" aria-hidden="true"></div>
           </div>
         </div>
         <ul class="pchips">
@@ -1064,19 +1045,7 @@ img { max-width: 100%; display: block; }
         <h3>Signed before they arrive. Filed without anyone touching it.</h3>
         <div class="scale-box" data-w="516" data-h="300" role="img" aria-label="A client signing a waiver on their phone, and a notification that the waiver was saved to Mindbody">
           <div class="scale-inner">
-            <div class="ill ill-new" aria-hidden="true">
-              <div class="mphone"><div class="mscreen">
-                <div class="mhead"><i></i><span><b>HealthHub Studio</b><small>Liability waiver · 2 of 3</small></span></div>
-                <div class="mprog"><i></i><i></i><i></i></div>
-                <span class="mlabel">Full name</span><span class="minput">Jordan Smith</span>
-                <span class="mlabel">Email</span><span class="minput">jordan@email.com</span>
-                <span class="mlabel">Date of birth</span><span class="minput">04 / 12 / 1994</span>
-                <span class="mlabel">Signature</span><div class="mpad"><svg viewBox="0 0 166.05 27.7794" fill="none" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M1.02527 26.7541C14.1453 -4.40586 23.9853 -6.04586 22.3453 15.2741C20.7053 36.5941 33.8253 3.79414 46.9453 7.07414C60.0653 10.3541 48.5853 30.0341 64.9853 21.8341C81.3853 13.6341 86.3053 -2.76586 96.1453 11.9941C105.985 26.7541 112.545 16.9141 124.025 10.3541C135.505 3.79414 145.345 18.5541 165.025 7.07414" stroke-width="2.05" stroke-linecap="round" stroke="#1C1B19"/></svg></div>
-                <div class="magree"><i></i>I agree to the waiver terms</div>
-                <div class="msubmit">Sign &amp; submit</div>
-              </div></div>
-              <div class="toast"><span class="tick"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span><span><b>Waiver saved to Mindbody</b><small>Jordan Smith · PDF added to client profile · just now</small></span></div>
-            </div>
+            <div class="ill-svg il-painnew-wrap" data-svg="assets/illus/painnew.svg" aria-hidden="true"></div>
           </div>
         </div>
         <ul class="pchips">
