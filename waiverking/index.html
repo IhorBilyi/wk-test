@@ -374,19 +374,19 @@ img { max-width: 100%; display: block; }
 /* ---------- Motion (Features illustrations + final CTA) ----------
    Plays once when a card scrolls into view. Explanatory, so a little longer than UI motion. */
 :root { --ease-out: cubic-bezier(0.23, 1, 0.32, 1); --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1); --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1); }
-.swap { display: inline-grid; transition: background-color 300ms ease 1500ms, color 300ms ease 1500ms; }
-.swap > span { grid-area: 1 / 1; text-align: center; transition: opacity 260ms ease 1500ms, filter 260ms ease 1500ms; }
+.swap { display: inline-grid; transition: background-color 240ms ease 930ms, color 240ms ease 930ms; }
+.swap > span { grid-area: 1 / 1; text-align: center; transition: opacity 240ms ease 930ms, filter 240ms ease 930ms; }
 .swap .to { opacity: 0; }
 @media (prefers-reduced-motion: no-preference) {
-  .js-anim [data-anim] .a-up { opacity: 0; transform: translateY(10px); transition: opacity 450ms ease, transform 600ms var(--ease-out); transition-delay: calc(var(--i, 0) * 70ms + 200ms); }
+  .js-anim [data-anim] .a-up { opacity: 0; transform: translateY(10px); transition: opacity 350ms ease, transform 470ms var(--ease-out); transition-delay: calc(var(--i, 0) * 50ms + 120ms); }
   .js-anim [data-anim].is-in .a-up { opacity: 1; transform: none; }
-  .js-anim .reviews .a-up { transform: translateY(16px); filter: blur(4px); transition: opacity 500ms ease, transform 800ms var(--ease-out), filter 500ms ease; transition-delay: calc(var(--i, 0) * 70ms + 100ms); }
+  .js-anim .reviews .a-up { transform: translateY(16px); filter: blur(4px); transition: opacity 390ms ease, transform 620ms var(--ease-out), filter 390ms ease; transition-delay: calc(var(--i, 0) * 50ms + 60ms); }
   .js-anim .reviews .is-in .a-up { transform: none; filter: none; }
 
   /* kiosk: tablet rises into the frame, then the primary button gets one tap */
-  .js-anim .kiosk { transform: translateY(48px); transition: transform 900ms var(--ease-out) 100ms; }
+  .js-anim .kiosk { transform: translateY(48px); transition: transform 700ms var(--ease-out) 60ms; }
   .js-anim .is-in .kiosk { transform: none; }
-  .js-anim .is-in .kb .p { animation: tap 520ms var(--ease-out) 1150ms; }
+  .js-anim .is-in .kb .p { animation: tap 410ms var(--ease-out) 710ms; }
   @keyframes tap { 30% { transform: scale(0.94); } 100% { transform: scale(1); } }
 
   /* track who signed: Ava's pill flips from Pending to Signed */
@@ -396,17 +396,17 @@ img { max-width: 100%; display: block; }
   .js-anim .swap .to { filter: blur(2px); }
 
   /* required fields: empty field turns red with a small shake */
-  .js-anim [data-anim] .field-err { border-color: var(--line); transition: border-color 200ms ease 650ms; }
-  .js-anim [data-anim].is-in .field-err { border-color: var(--flag); animation: shake 420ms ease-in-out 650ms; }
+  .js-anim [data-anim] .field-err { border-color: var(--line); transition: border-color 200ms ease 400ms; }
+  .js-anim [data-anim].is-in .field-err { border-color: var(--flag); animation: shake 330ms ease-in-out 400ms; }
   @keyframes shake { 20% { transform: translateX(-4px); } 40% { transform: translateX(4px); } 60% { transform: translateX(-2px); } 80% { transform: translateX(2px); } }
 
   /* final CTA: signature draws, orange circle swells in, badge settles with a little spring */
-  .js-anim .cta-stroke path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1800ms var(--ease-in-out) 250ms; }
+  .js-anim .cta-stroke path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1400ms var(--ease-in-out) 160ms; }
   .js-anim .is-in .cta-stroke path { stroke-dashoffset: 0; }
-  .js-anim .cta-blob { scale: 0.86; opacity: 0; transition: scale 1100ms var(--ease-out), opacity 500ms ease; }
+  .js-anim .cta-blob { scale: 0.86; opacity: 0; transition: scale 860ms var(--ease-out), opacity 390ms ease; }
   .js-anim .is-in .cta-blob { scale: 1; opacity: 1; animation: breathe 7s ease-in-out 1.4s infinite alternate; }
   @keyframes breathe { from { scale: 1; } to { scale: 1.035; } }
-  .js-anim .badge { scale: 0.82; rotate: -16deg; opacity: 0; transition: scale 700ms var(--ease-spring) 550ms, rotate 900ms var(--ease-out) 550ms, opacity 250ms ease 550ms; }
+  .js-anim .badge { scale: 0.82; rotate: -16deg; opacity: 0; transition: scale 550ms var(--ease-spring) 340ms, rotate 700ms var(--ease-out) 340ms, opacity 240ms ease 340ms; }
   .js-anim .is-in .badge { scale: 1; rotate: 0deg; opacity: 1; }
   .badge img { animation: spin 48s linear infinite; }
   @keyframes spin { to { rotate: 360deg; } }
@@ -416,11 +416,11 @@ img { max-width: 100%; display: block; }
 /* Hero load: copy rises in line by line, then the product shot; the phone signature writes itself */
 .ph-sign svg { position: absolute; left: 10.66px; top: 21px; width: 166px; height: 27.8px; overflow: visible; }
 @media (prefers-reduced-motion: no-preference) {
-  .hero-copy > * { animation: rise-in 800ms var(--ease-out) both; animation-delay: calc(var(--i) * 80ms + 80ms); }
-  .hero .dash { animation: rise-in 1000ms var(--ease-out) 420ms both; --rise: 24px; }
-  .hero .phone { animation: rise-in 1000ms var(--ease-out) 560ms both; --rise: 40px; }
-  .ph-sign path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1100ms var(--ease-in-out) 1350ms forwards; }
-  .ph-submit { animation: tap 520ms var(--ease-out) 2550ms; }
+  .hero-copy > * { animation: rise-in 620ms var(--ease-out) both; animation-delay: calc(var(--i) * 60ms + 50ms); }
+  .hero .dash { animation: rise-in 780ms var(--ease-out) 260ms both; --rise: 24px; }
+  .hero .phone { animation: rise-in 780ms var(--ease-out) 350ms both; --rise: 40px; }
+  .ph-sign path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 860ms var(--ease-in-out) 840ms forwards; }
+  .ph-submit { animation: tap 410ms var(--ease-out) 1580ms; }
   @keyframes rise-in { from { opacity: 0; transform: translateY(var(--rise, 14px)); filter: blur(4px); } }
   @keyframes draw { to { stroke-dashoffset: 0; } }
 }
@@ -482,27 +482,27 @@ img { max-width: 100%; display: block; }
 .hg-home { left: 70px; top: 455px; width: 78px; height: 4px; border-radius: 2px; background: var(--ink); }
 /* Hero load: copy rises in, the paper waiver lands and gets signed, then the phone slides over it and confirms */
 @media (prefers-reduced-motion: no-preference) {
-  .hg-halo { animation: halo-in 1400ms var(--ease-out) 150ms both; }
+  .hg-halo { animation: halo-in 1090ms var(--ease-out) 90ms both; }
   @keyframes halo-in { from { opacity: 0; scale: .8; } }
-  .hg-clip { animation: clip-in 900ms var(--ease-out) 250ms both; }
+  .hg-clip { animation: clip-in 700ms var(--ease-out) 160ms both; }
   @keyframes clip-in { from { opacity: 0; translate: 0 28px; rotate: -2deg; filter: blur(4px); } }
-  .hg-sig path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 800ms var(--ease-in-out) 750ms forwards; }
-  .hg-date { animation: fade-in 300ms ease 1250ms both; }
+  .hg-sig path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 620ms var(--ease-in-out) 460ms forwards; }
+  .hg-date { animation: fade-in 240ms ease 780ms both; }
   @keyframes fade-in { from { opacity: 0; } }
-  .hg-phone { animation: phone-in 1000ms var(--ease-out) 1050ms both; }
+  .hg-phone { animation: phone-in 780ms var(--ease-out) 650ms both; }
   @keyframes phone-in { from { opacity: 0; translate: 56px 18px; filter: blur(6px); } }
-  .hg-ok { animation: ok-pop 600ms var(--ease-spring) 1600ms both; }
+  .hg-ok { animation: ok-pop 470ms var(--ease-spring) 990ms both; }
   @keyframes ok-pop { from { scale: .3; opacity: 0; } }
-  .hg-ring { animation: ring-in 700ms var(--ease-out) 1550ms both; }
+  .hg-ring { animation: ring-in 550ms var(--ease-out) 960ms both; }
   @keyframes ring-in { from { scale: .6; opacity: 0; } }
-  .hg-ok path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 400ms var(--ease-out) 1850ms forwards; }
-  .hg-done b, .hg-done p { animation: rise-in 600ms var(--ease-out) 1750ms both; --rise: 8px; }
-  .hg-done p { animation-delay: 1820ms; }
-  .hg-row { animation: rise-in 600ms var(--ease-out) both; animation-delay: calc(var(--i) * 90ms + 1900ms); --rise: 8px; }
-  .hg-tick path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 350ms var(--ease-out) forwards; }
-  .hg-row:nth-child(1) .hg-tick path { animation-delay: 2250ms; }
-  .hg-row:nth-child(2) .hg-tick path { animation-delay: 2340ms; }
-  .hg-btn { animation: rise-in 600ms var(--ease-out) 2100ms both; --rise: 8px; }
+  .hg-ok path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 310ms var(--ease-out) 1150ms forwards; }
+  .hg-done b, .hg-done p { animation: rise-in 470ms var(--ease-out) 1080ms both; --rise: 8px; }
+  .hg-done p { animation-delay: 1130ms; }
+  .hg-row { animation: rise-in 470ms var(--ease-out) both; animation-delay: calc(var(--i) * 60ms + 1140ms); --rise: 8px; }
+  .hg-tick path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 270ms var(--ease-out) forwards; }
+  .hg-row:nth-child(1) .hg-tick path { animation-delay: 1400ms; }
+  .hg-row:nth-child(2) .hg-tick path { animation-delay: 1450ms; }
+  .hg-btn { animation: rise-in 470ms var(--ease-out) 1300ms both; --rise: 8px; }
 }
 /* ---------- Footer ---------- */
 .foot { background: var(--green-deep); }
@@ -689,39 +689,39 @@ img { max-width: 100%; display: block; }
 .mpad svg path, .sheet .scrawl path { fill: none; }
 @media (prefers-reduced-motion: no-preference) {
   /* pain, before: papers settle, the note slaps on, the missing signature gets circled */
-  .js-anim .paper-back { opacity: 0; rotate: 2deg; translate: -24px 6px; transition: opacity 400ms ease, rotate 900ms var(--ease-out), translate 900ms var(--ease-out); }
-  .js-anim .board { opacity: 0; translate: 0 18px; transition: opacity 400ms ease, translate 900ms var(--ease-out); }
+  .js-anim .paper-back { opacity: 0; rotate: 2deg; translate: -24px 6px; transition: opacity 310ms ease, rotate 700ms var(--ease-out), translate 700ms var(--ease-out); }
+  .js-anim .board { opacity: 0; translate: 0 18px; transition: opacity 310ms ease, translate 700ms var(--ease-out); }
   .js-anim .is-in .paper-back { opacity: 1; rotate: 8deg; translate: 0 0; }
   .js-anim .is-in .board { opacity: 1; translate: 0 0; }
-  .js-anim .scrawl path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 800ms var(--ease-in-out) 350ms; }
+  .js-anim .scrawl path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 620ms var(--ease-in-out) 220ms; }
   .js-anim .is-in .scrawl path { stroke-dashoffset: 0; }
-  .js-anim .ring path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 900ms var(--ease-in-out) 750ms; }
+  .js-anim .ring path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 700ms var(--ease-in-out) 460ms; }
   .js-anim .is-in .ring path { stroke-dashoffset: 0; }
-  .js-anim .sticky { opacity: 0; scale: 1.12; rotate: -14deg; transition: opacity 200ms ease 500ms, scale 600ms var(--ease-spring) 500ms, rotate 700ms var(--ease-out) 500ms; }
+  .js-anim .sticky { opacity: 0; scale: 1.12; rotate: -14deg; transition: opacity 200ms ease 310ms, scale 470ms var(--ease-spring) 310ms, rotate 550ms var(--ease-out) 310ms; }
   .js-anim .is-in .sticky { opacity: 1; scale: 1; rotate: -7deg; }
-  .js-anim .missing { opacity: 0; scale: 0.8; transform-origin: left center; transition: opacity 200ms ease 1350ms, scale 500ms var(--ease-spring) 1350ms; }
+  .js-anim .missing { opacity: 0; scale: 0.8; transform-origin: left center; transition: opacity 200ms ease 840ms, scale 390ms var(--ease-spring) 840ms; }
   .js-anim .is-in .missing { opacity: 1; scale: 1; }
   /* pain, after: phone rises, signature writes, the toast drops in like a notification */
-  .js-anim .mphone { translate: 0 40px; transition: translate 1000ms var(--ease-out) 50ms; }
+  .js-anim .mphone { translate: 0 40px; transition: translate 780ms var(--ease-out) 30ms; }
   .js-anim .is-in .mphone { translate: 0 0; }
-  .js-anim .mpad path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1100ms var(--ease-in-out) 400ms; }
+  .js-anim .mpad path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 860ms var(--ease-in-out) 250ms; }
   .js-anim .is-in .mpad path { stroke-dashoffset: 0; }
-  .js-anim .ill-new .toast { opacity: 0; translate: 0 -14px; scale: 0.96; filter: blur(4px); transition: opacity 300ms ease 1200ms, translate 700ms var(--ease-spring) 1200ms, scale 700ms var(--ease-out) 1200ms, filter 300ms ease 1200ms; }
+  .js-anim .ill-new .toast { opacity: 0; translate: 0 -14px; scale: 0.96; filter: blur(4px); transition: opacity 240ms ease 740ms, translate 550ms var(--ease-spring) 740ms, scale 550ms var(--ease-out) 740ms, filter 240ms ease 740ms; }
   .js-anim .is-in .ill-new .toast { opacity: 1; translate: 0 0; scale: 1; filter: none; }
-  .js-anim .ill-new .toast .tick { scale: 0.4; transition: scale 500ms var(--ease-spring) 1450ms; }
+  .js-anim .ill-new .toast .tick { scale: 0.4; transition: scale 390ms var(--ease-spring) 900ms; }
   .js-anim .is-in .ill-new .toast .tick { scale: 1; }
   /* chips trail in after their card's story */
-  .js-anim .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 300ms); }
-  .js-anim .after .pchips li.a-up { transition-delay: calc(var(--i, 0) * 70ms + 350ms); }
+  .js-anim .pchips li.a-up { transition-delay: calc(var(--i, 0) * 50ms + 180ms); }
+  .js-anim .after .pchips li.a-up { transition-delay: calc(var(--i, 0) * 50ms + 210ms); }
   /* chooser: the answer's flow plays on arrival and again on every switch */
-  .js-anim .choose .a-up { opacity: 0; transform: translateY(10px); filter: blur(3px); transition: opacity 400ms ease, transform 600ms var(--ease-out), filter 400ms ease; transition-delay: calc(var(--i, 0) * 90ms + 200ms); }
+  .js-anim .choose .a-up { opacity: 0; transform: translateY(10px); filter: blur(3px); transition: opacity 310ms ease, transform 470ms var(--ease-out), filter 310ms ease; transition-delay: calc(var(--i, 0) * 60ms + 120ms); }
   .js-anim .choose .is-in .pane.on .a-up { opacity: 1; transform: none; filter: none; }
   .js-anim .choose .pane:not(.on) .a-up { opacity: 0; transform: translateY(10px); filter: blur(3px); transition: none; }
   .js-anim .choose .flow > .down.a-up { transform: translateY(-6px); }
-  .js-anim .seg .okc { animation: pop 420ms var(--ease-spring); }
+  .js-anim .seg .okc { animation: pop 330ms var(--ease-spring); }
   @keyframes pop { from { scale: 0.4; opacity: 0; } }
   /* footer: the giant wordmark rises into its crop */
-  .js-anim .fmark img { translate: 0 48px; transition: translate 1400ms var(--ease-out), opacity 1000ms ease; opacity: 0; }
+  .js-anim .fmark img { translate: 0 48px; transition: translate 1090ms var(--ease-out), opacity 780ms ease; opacity: 0; }
   .js-anim .fmark.is-in img { translate: 0 0; opacity: .09; }
 }
 /* ---------- Illustrations (exported from the Figma frame, animated in place) ----------
@@ -737,87 +737,87 @@ img { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: no-preference) {
   .js-anim [data-anim]:not(.is-in) .illus-svg *, .js-anim .choose .wrap:not(.is-in) .illus-svg * { animation-play-state: paused !important; }
   .js-anim .choose .pane:not(.on) .illus-svg * { animation: none !important; }
-  .js-anim .il-track [data-n="paper-sign-in-sheet"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
-  .js-anim .il-track [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 350ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-track [data-n="vector"] { animation: il-draw 300ms ease-out 600ms both; stroke-dasharray: 1; }
-  .js-anim .il-track [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 480ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-track [data-n="vector-2"] { animation: il-draw 300ms ease-out 730ms both; stroke-dasharray: 1; }
-  .js-anim .il-track [data-n="signed-badge-3"] { animation: il-pop 500ms var(--ease-spring) 1250ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-track [data-n="vector-3"] { animation: il-draw 300ms ease-out 1500ms both; stroke-dasharray: 1; }
-  .js-anim .il-track [data-n="toast-just-signed"] { animation: il-drop 700ms var(--ease-spring) 1150ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-track [data-n="signed-badge-4"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-track [data-n="vector-4"] { animation: il-draw 300ms ease-out 1600ms both; stroke-dasharray: 1; }
-  .js-anim .il-track [data-n="ink-stamp"] { animation: il-slam 600ms var(--ease-out) 1900ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-family [data-n="paper"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
-  .js-anim .il-family [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 450ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-family [data-n="vector"] { animation: il-draw 300ms ease-out 700ms both; stroke-dasharray: 1; }
-  .js-anim .il-family [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 600ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-family [data-n="vector-2"] { animation: il-draw 300ms ease-out 850ms both; stroke-dasharray: 1; }
-  .js-anim .il-family [data-n="vector-3"] { animation: il-draw 900ms var(--ease-in-out) 800ms both; stroke-dasharray: 1; }
-  .js-anim .il-family [data-n="ink-stamp"] { animation: il-slam 600ms var(--ease-out) 1700ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-required [data-n="phone"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
-  .js-anim .il-required [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 550ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-required [data-n="vector"] { animation: il-draw 300ms ease-out 800ms both; stroke-dasharray: 1; }
-  .js-anim .il-required [data-n="field-2"] { animation: il-shake 450ms ease-in-out 1000ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-required [data-n="error-badge"] { animation: il-pop 450ms var(--ease-spring) 1000ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-required [data-n="please-fill-in-this-field-to-continue"] { animation: il-fade 300ms ease 1100ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-required [data-n="tooltip"] { animation: il-drop 700ms var(--ease-spring) 1400ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-email [data-n="waiver-pdf"] { animation: il-rise 1000ms var(--ease-out) 100ms both; transform-box: fill-box; transform-origin: center; --d:80px; }
-  .js-anim .il-email [data-n="vector"] { animation: il-draw 700ms var(--ease-in-out) 900ms both; stroke-dasharray: 1; }
-  .js-anim .il-email [data-n="signed-badge"] { animation: il-pop 500ms var(--ease-spring) 1400ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-email [data-n="vector-2"] { animation: il-draw 300ms ease-out 1650ms both; stroke-dasharray: 1; }
-  .js-anim .il-email [data-n="sent-toast"] { animation: il-rise 700ms var(--ease-spring) 1700ms both; transform-box: fill-box; transform-origin: center; --d:14px; }
-  .js-anim .il-email [data-n="signed-badge-2"] { animation: il-pop 500ms var(--ease-spring) 1850ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-email [data-n="vector-3"] { animation: il-draw 300ms ease-out 2100ms both; stroke-dasharray: 1; }
-  .js-anim .il-staff [data-n="doc-intake-notes"] { animation: il-rise 900ms var(--ease-out) 100ms both; transform-box: fill-box; transform-origin: center; --d:60px; }
-  .js-anim .il-staff [data-n="doc-injury-report"] { animation: il-rise 900ms var(--ease-out) 260ms both; transform-box: fill-box; transform-origin: center; --d:70px; }
-  .js-anim .il-staff [data-n="staff-tag"] { animation: il-pop 500ms var(--ease-spring) 1050ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-staff [data-n="count"] { animation: il-pop 500ms var(--ease-spring) 1300ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-staff [data-n="vector-3"] { animation: il-draw 300ms ease-out 1550ms both; stroke-dasharray: 1; }
-  .js-anim .il-mb [data-n="mindbody-client-profile"] { animation: il-rise 800ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
-  .js-anim .il-mb [data-n="highlight"] { animation: il-pop-soft 600ms var(--ease-out) 600ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="signed-liability-waiver"] { animation: il-fade 400ms ease 700ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="9-02-am-waiver-pdf-attached"] { animation: il-fade 400ms ease 780ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="check"] { animation: il-pop 500ms var(--ease-spring) 850ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="vector"] { animation: il-draw 300ms ease-out 1100ms both; stroke-dasharray: 1; }
-  .js-anim .il-mb [data-n="via"] { animation: il-fade 400ms ease 1050ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="waiver-thumbnail"] { animation: il-fly 800ms var(--ease-spring) 1150ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-mb [data-n="signature"] { animation: il-draw 700ms var(--ease-in-out) 1600ms both; stroke-dasharray: 1; }
-  .js-anim .il-sa [data-n="sheet-waiver"] { animation: il-fan 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="sheet-par-q"] { animation: il-fan 700ms var(--ease-out) 90ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="sheet-consent"] { animation: il-fan 700ms var(--ease-out) 180ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="sticky"] { animation: il-slap 600ms var(--ease-spring) 650ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="dashboard"] { animation: il-rise 800ms var(--ease-out) 300ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
-  .js-anim .il-sa [data-n="row"] { animation: il-rise 500ms var(--ease-out) 650ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .js-anim .il-sa [data-n="row-2"] { animation: il-rise 500ms var(--ease-out) 760ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .js-anim .il-sa [data-n="row-3"] { animation: il-rise 500ms var(--ease-out) 870ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .js-anim .il-sa [data-n="check"] { animation: il-pop 450ms var(--ease-spring) 950ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="vector-5"] { animation: il-draw 260ms ease-out 1150ms both; stroke-dasharray: 1; }
-  .js-anim .il-sa [data-n="check-2"] { animation: il-pop 450ms var(--ease-spring) 1060ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="vector-6"] { animation: il-draw 260ms ease-out 1260ms both; stroke-dasharray: 1; }
-  .js-anim .il-sa [data-n="check-3"] { animation: il-pop 450ms var(--ease-spring) 1170ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-sa [data-n="vector-7"] { animation: il-draw 260ms ease-out 1370ms both; stroke-dasharray: 1; }
-  .il-hero [data-n="halo"] { animation: il-fade 1000ms ease 200ms both; transform-box: fill-box; transform-origin: center; }
-  .il-hero [data-n="clipboard"] { animation: il-rise 1000ms var(--ease-out) 420ms both; transform-box: fill-box; transform-origin: center; --d:24px; }
-  .il-hero [data-n="phone"] { animation: il-rise 1000ms var(--ease-out) 560ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
-  .il-hero [data-n="frame-7"] { animation: il-pop 600ms var(--ease-spring) 1250ms both; transform-box: fill-box; transform-origin: center; }
-  .il-hero [data-n="frame-8"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
-  .il-hero [data-n="headline-body"] { animation: il-rise 600ms var(--ease-out) 1450ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .il-hero [data-n="frame-9"] > rect { animation: il-rise 500ms var(--ease-out) 1520ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .il-hero [data-n="frame-10"] { animation: il-rise 500ms var(--ease-out) 1600ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .il-hero [data-n="frame-13"] { animation: il-rise 500ms var(--ease-out) 1700ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .il-hero [data-n="frame-16"] { animation: il-rise 500ms var(--ease-out) 1850ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
-  .il-hero [data-n="signature"] > [data-n="vector"] { animation: il-draw 900ms var(--ease-in-out) 1000ms both; stroke-dasharray: 1; }
-  .il-hero [data-n="frame-8"] [data-n="icon"] path { animation: il-draw 320ms ease-out 1650ms both; stroke-dasharray: 1; }
-  .js-anim .il-painold [data-n="back-sheet"] { animation: il-fan 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-painold [data-n="clipboard"] { animation: il-rise 900ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:18px; }
-  .js-anim .il-painold [data-n="missing-signature-ring"] { animation: il-draw 900ms var(--ease-in-out) 750ms both; stroke-dasharray: 1; }
-  .js-anim .il-painold [data-n="sticky"] { animation: il-slap 600ms var(--ease-spring) 500ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-painold [data-n="frame-5"] { animation: il-pop 500ms var(--ease-spring) 1350ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-painnew [data-n="phone"] { animation: il-rise 1000ms var(--ease-out) 50ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
-  .js-anim .il-painnew [data-n="saved-toast"] { animation: il-drop 700ms var(--ease-spring) 1200ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-painnew [data-n="frame-10"] { animation: il-pop 500ms var(--ease-spring) 1450ms both; transform-box: fill-box; transform-origin: center; }
-  .js-anim .il-painnew [data-n="signature-pad"] > [data-n="vector"] { animation: il-draw 1100ms var(--ease-in-out) 400ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="paper-sign-in-sheet"] { animation: il-rise 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
+  .js-anim .il-track [data-n="signed-badge"] { animation: il-pop 390ms var(--ease-spring) 220ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector"] { animation: il-draw 240ms ease-out 370ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="signed-badge-2"] { animation: il-pop 390ms var(--ease-spring) 300ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-2"] { animation: il-draw 240ms ease-out 450ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="signed-badge-3"] { animation: il-pop 390ms var(--ease-spring) 780ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-3"] { animation: il-draw 240ms ease-out 930ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="toast-just-signed"] { animation: il-drop 550ms var(--ease-spring) 710ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="signed-badge-4"] { animation: il-pop 390ms var(--ease-spring) 840ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-track [data-n="vector-4"] { animation: il-draw 240ms ease-out 990ms both; stroke-dasharray: 1; }
+  .js-anim .il-track [data-n="ink-stamp"] { animation: il-slam 470ms var(--ease-out) 1180ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="paper"] { animation: il-rise 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
+  .js-anim .il-family [data-n="signed-badge"] { animation: il-pop 390ms var(--ease-spring) 280ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="vector"] { animation: il-draw 240ms ease-out 430ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="signed-badge-2"] { animation: il-pop 390ms var(--ease-spring) 370ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-family [data-n="vector-2"] { animation: il-draw 240ms ease-out 530ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="vector-3"] { animation: il-draw 700ms var(--ease-in-out) 500ms both; stroke-dasharray: 1; }
+  .js-anim .il-family [data-n="ink-stamp"] { animation: il-slam 470ms var(--ease-out) 1050ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="phone"] { animation: il-rise 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .js-anim .il-required [data-n="signed-badge"] { animation: il-pop 390ms var(--ease-spring) 340ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="vector"] { animation: il-draw 240ms ease-out 500ms both; stroke-dasharray: 1; }
+  .js-anim .il-required [data-n="field-2"] { animation: il-shake 350ms ease-in-out 620ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="error-badge"] { animation: il-pop 350ms var(--ease-spring) 620ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="please-fill-in-this-field-to-continue"] { animation: il-fade 240ms ease 680ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-required [data-n="tooltip"] { animation: il-drop 550ms var(--ease-spring) 870ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="waiver-pdf"] { animation: il-rise 780ms var(--ease-out) 60ms both; transform-box: fill-box; transform-origin: center; --d:80px; }
+  .js-anim .il-email [data-n="vector"] { animation: il-draw 550ms var(--ease-in-out) 560ms both; stroke-dasharray: 1; }
+  .js-anim .il-email [data-n="signed-badge"] { animation: il-pop 390ms var(--ease-spring) 870ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="vector-2"] { animation: il-draw 240ms ease-out 1020ms both; stroke-dasharray: 1; }
+  .js-anim .il-email [data-n="sent-toast"] { animation: il-rise 550ms var(--ease-spring) 1050ms both; transform-box: fill-box; transform-origin: center; --d:14px; }
+  .js-anim .il-email [data-n="signed-badge-2"] { animation: il-pop 390ms var(--ease-spring) 1150ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-email [data-n="vector-3"] { animation: il-draw 240ms ease-out 1300ms both; stroke-dasharray: 1; }
+  .js-anim .il-staff [data-n="doc-intake-notes"] { animation: il-rise 700ms var(--ease-out) 60ms both; transform-box: fill-box; transform-origin: center; --d:60px; }
+  .js-anim .il-staff [data-n="doc-injury-report"] { animation: il-rise 700ms var(--ease-out) 160ms both; transform-box: fill-box; transform-origin: center; --d:70px; }
+  .js-anim .il-staff [data-n="staff-tag"] { animation: il-pop 390ms var(--ease-spring) 650ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-staff [data-n="count"] { animation: il-pop 390ms var(--ease-spring) 810ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-staff [data-n="vector-3"] { animation: il-draw 240ms ease-out 960ms both; stroke-dasharray: 1; }
+  .js-anim .il-mb [data-n="mindbody-client-profile"] { animation: il-rise 620ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-mb [data-n="highlight"] { animation: il-pop-soft 470ms var(--ease-out) 370ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="signed-liability-waiver"] { animation: il-fade 310ms ease 430ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="9-02-am-waiver-pdf-attached"] { animation: il-fade 310ms ease 480ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="check"] { animation: il-pop 390ms var(--ease-spring) 530ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="vector"] { animation: il-draw 240ms ease-out 680ms both; stroke-dasharray: 1; }
+  .js-anim .il-mb [data-n="via"] { animation: il-fade 310ms ease 650ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="waiver-thumbnail"] { animation: il-fly 620ms var(--ease-spring) 710ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-mb [data-n="signature"] { animation: il-draw 550ms var(--ease-in-out) 990ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="sheet-waiver"] { animation: il-fan 550ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sheet-par-q"] { animation: il-fan 550ms var(--ease-out) 60ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sheet-consent"] { animation: il-fan 550ms var(--ease-out) 110ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="sticky"] { animation: il-slap 470ms var(--ease-spring) 400ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="dashboard"] { animation: il-rise 620ms var(--ease-out) 190ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-sa [data-n="row"] { animation: il-rise 390ms var(--ease-out) 400ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="row-2"] { animation: il-rise 390ms var(--ease-out) 470ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="row-3"] { animation: il-rise 390ms var(--ease-out) 540ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .js-anim .il-sa [data-n="check"] { animation: il-pop 350ms var(--ease-spring) 590ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-5"] { animation: il-draw 240ms ease-out 710ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="check-2"] { animation: il-pop 350ms var(--ease-spring) 660ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-6"] { animation: il-draw 240ms ease-out 780ms both; stroke-dasharray: 1; }
+  .js-anim .il-sa [data-n="check-3"] { animation: il-pop 350ms var(--ease-spring) 730ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-sa [data-n="vector-7"] { animation: il-draw 240ms ease-out 850ms both; stroke-dasharray: 1; }
+  .il-hero [data-n="halo"] { animation: il-fade 780ms ease 120ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="clipboard"] { animation: il-rise 780ms var(--ease-out) 260ms both; transform-box: fill-box; transform-origin: center; --d:24px; }
+  .il-hero [data-n="phone"] { animation: il-rise 780ms var(--ease-out) 350ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .il-hero [data-n="frame-7"] { animation: il-pop 470ms var(--ease-spring) 780ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="frame-8"] { animation: il-pop 390ms var(--ease-spring) 840ms both; transform-box: fill-box; transform-origin: center; }
+  .il-hero [data-n="headline-body"] { animation: il-rise 470ms var(--ease-out) 900ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-9"] > rect { animation: il-rise 390ms var(--ease-out) 940ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-10"] { animation: il-rise 390ms var(--ease-out) 990ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-13"] { animation: il-rise 390ms var(--ease-out) 1050ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="frame-16"] { animation: il-rise 390ms var(--ease-out) 1150ms both; transform-box: fill-box; transform-origin: center; --d:8px; }
+  .il-hero [data-n="signature"] > [data-n="vector"] { animation: il-draw 700ms var(--ease-in-out) 620ms both; stroke-dasharray: 1; }
+  .il-hero [data-n="frame-8"] [data-n="icon"] path { animation: il-draw 250ms ease-out 1020ms both; stroke-dasharray: 1; }
+  .js-anim .il-painold [data-n="back-sheet"] { animation: il-fan 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painold [data-n="clipboard"] { animation: il-rise 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:18px; }
+  .js-anim .il-painold [data-n="missing-signature-ring"] { animation: il-draw 700ms var(--ease-in-out) 460ms both; stroke-dasharray: 1; }
+  .js-anim .il-painold [data-n="sticky"] { animation: il-slap 470ms var(--ease-spring) 310ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painold [data-n="frame-5"] { animation: il-pop 390ms var(--ease-spring) 840ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="phone"] { animation: il-rise 780ms var(--ease-out) 30ms both; transform-box: fill-box; transform-origin: center; --d:40px; }
+  .js-anim .il-painnew [data-n="saved-toast"] { animation: il-drop 550ms var(--ease-spring) 740ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="frame-10"] { animation: il-pop 390ms var(--ease-spring) 900ms both; transform-box: fill-box; transform-origin: center; }
+  .js-anim .il-painnew [data-n="signature-pad"] > [data-n="vector"] { animation: il-draw 860ms var(--ease-in-out) 250ms both; stroke-dasharray: 1; }
   @keyframes il-rise { from { translate: 0 var(--d, 24px); opacity: 0; } }
   @keyframes il-pop { from { scale: 0.3; opacity: 0; } }
   @keyframes il-pop-soft { from { scale: 0.94; opacity: 0; } }
@@ -1314,7 +1314,7 @@ img { max-width: 100%; display: block; }
   // Play section illustrations once they scroll into view
   if ('IntersectionObserver' in window) {
     document.documentElement.classList.add('js-anim');
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.35 });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); } }), { threshold: 0.25 });
     const io2 = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io2.unobserve(e.target); } }), { threshold: 0.15 });
     document.querySelectorAll('[data-anim]').forEach(el => (el.hasAttribute('data-anim-t') ? io2 : io).observe(el));
   }
