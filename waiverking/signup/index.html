@@ -1,0 +1,807 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Start your free trial · WaiverKing</title>
+<meta name="description" content="Create your WaiverKing account, upload your waiver PDF and connect Mindbody in about five minutes.">
+<link rel="icon" href="../assets/wk-logo.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@500&display=swap" rel="stylesheet">
+<style>
+@font-face { font-family: "PP Palma"; font-weight: 800; font-style: normal; font-display: swap; src: url(../assets/fonts/pp-palma.otf) format("opentype"); }
+@font-face { font-family: "PP Palma Heavy"; font-weight: 700; font-style: normal; font-display: swap; src: url(../assets/fonts/pp-palma-heavy.otf) format("opentype"); }
+:root {
+  /* website tokens (same as the homepage) */
+  --ink: #1C1B19; --body: #66615C; --muted: #A8A29C; --line: #E3DED6;
+  --green-50: #EBF5E3; --green-100: #DCF3D6; --green-check: #81DE7B; --green: #6BA539; --green-txt: #4F8A2B; --green-dark: #1E3D1C;
+  --orange: #E9770E;
+  --font-display: "PP Palma", "Poppins", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  /* product tokens (live app) */
+  --app-bg: #F5F6F8; --app-line: #E3E6EA; --app-field: #D9DDE3; --app-muted: #5B6470; --app-faint: #9AA1AA;
+  --app-green: #2F6B2A; --app-green-50: #EAF4E6; --app-green-btn: linear-gradient(180deg, #3B7D33, #24561F);
+  --amber-bg: #FFF8E6; --amber-line: #F2D48A; --amber-txt: #7A5A12;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: var(--font-body); color: var(--ink); font-size: 16px; line-height: 1.5; -webkit-font-smoothing: antialiased; background: #fff; }
+a { color: inherit; }
+p, h1, h2, h3 { margin: 0; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--orange); outline-offset: 2px; border-radius: 6px; }
+[tabindex="-1"]:focus { outline: none; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+
+/* ---------- screen switching ---------- */
+.screen { display: none; }
+.screen.on { display: block; animation: screen-in 420ms var(--ease-out) both; }
+@keyframes screen-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+/* =========================================================
+   Website-style screens: sign up + verify
+   ========================================================= */
+.split { min-height: 100vh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 640px); gap: 48px; padding: 32px; max-width: 1440px; margin: 0 auto; }
+.split-left { display: flex; flex-direction: column; padding: 8px 88px 24px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.top img { width: 146px; height: auto; }
+.top p { font-size: 15px; color: var(--body); }
+.top a { color: var(--green-dark); font-weight: 600; text-decoration: none; }
+.form-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 560px; width: 100%; padding: 48px 0 24px; }
+.pill { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--green-50); color: var(--green-txt); font: 700 12px/1.25 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
+.pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green-txt); }
+.display { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.01em; text-wrap: balance; }
+.h1 { font-size: clamp(34px, 4vw, 44px); line-height: 1.1; margin: 14px 0 14px; }
+.lead { color: var(--body); font-size: 16px; }
+.lead b { color: var(--ink); font-weight: 600; }
+.stack { display: flex; flex-direction: column; gap: 14px; }
+
+/* label-inside fields */
+.fld { position: relative; }
+.fld input { width: 100%; height: 56px; padding: 22px 16px 6px; border: 1px solid var(--line); border-radius: 12px; background: #fff; font-size: 16px; box-shadow: 0 1px 2px rgba(0,0,0,.04); transition: border-color .15s, box-shadow .15s; }
+.fld label { position: absolute; left: 17px; top: 18px; font-size: 16px; color: #8A857E; pointer-events: none; transition: transform .16s var(--ease-out), font-size .16s, color .16s, top .16s; }
+.fld input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-100); }
+.fld input:focus + label, .fld input:not(:placeholder-shown) + label { top: 9px; font-size: 12px; color: var(--body); }
+.fld input:focus + label { color: var(--green-txt); font-weight: 500; }
+.fld .aside { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--body); background: none; border: 0; padding: 6px; }
+.fld .ok { color: var(--green); opacity: 0; transition: opacity .2s; pointer-events: none; }
+.fld.valid .ok { opacity: 1; }
+.fld.has-aside input { padding-right: 72px; }
+.fld.bad input { border-color: #D93B3B; }
+.hint { font-size: 13px; color: var(--body); margin-top: 6px; display: flex; align-items: center; gap: 6px; transition: color .2s; }
+.hint.good { color: #2F7A1F; }
+.hint.good::before { content: "✓"; }
+.err { font-size: 13px; color: #B42318; margin-top: 6px; display: none; }
+.bad .err, .err.show { display: block; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 10px; font: 600 17px/1 var(--font-body); white-space: nowrap; text-decoration: none; transition: transform .15s ease, background-color .15s, box-shadow .15s; }
+.btn:active { transform: scale(.98); }
+.btn-orange { background: var(--orange); color: #fff; height: 54px; padding: 0 28px; box-shadow: 0 2px 4px rgba(0,0,0,.06), 0 6px 14px rgba(233,119,14,.2); }
+.btn-orange:hover { background: #D96C08; }
+.btn-orange[disabled] { opacity: .6; cursor: progress; }
+.w100 { width: 100%; }
+.or { display: flex; align-items: center; gap: 16px; color: var(--muted); font-size: 13px; }
+.or::before, .or::after { content: ""; height: 1px; flex: 1; background: var(--line); }
+/* Google sign-in, per Google's branding guidelines (light theme) */
+.gsi { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; height: 54px; background: #fff; border: 1px solid #747775; border-radius: 10px; font: 500 16px/1 "Roboto", var(--font-body); letter-spacing: .25px; color: #1F1F1F; transition: background-color .15s; }
+.gsi:hover { background: #F8F9FA; }
+.gsi svg { width: 20px; height: 20px; }
+.legal { font-size: 13px; color: var(--body); }
+.legal a { color: var(--ink); }
+
+.back { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--body); background: none; border: 0; padding: 0; align-self: flex-start; margin-bottom: 18px; }
+.otp { display: flex; gap: 12px; margin: 28px 0 22px; }
+.otp input { width: 64px; height: 76px; text-align: center; font: 700 28px/1 var(--font-body); border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+.otp input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-100); }
+.otp.shake { animation: shake 360ms; }
+@keyframes shake { 25% { transform: translateX(-6px); } 50% { transform: translateX(6px); } 75% { transform: translateX(-3px); } }
+.small { font-size: 14px; color: var(--body); }
+.small button { background: none; border: 0; padding: 0; color: var(--green-dark); font-weight: 600; text-decoration: underline; }
+.small button[disabled] { color: var(--body); font-weight: 400; text-decoration: none; cursor: default; }
+.tip { background: var(--green-50); border-radius: 14px; padding: 16px; font-size: 14px; color: var(--body); margin-top: 22px; }
+
+/* value panel */
+.value { position: relative; border-radius: 32px; background: linear-gradient(180deg, #EEF5E6, #F6F2EC); padding: 0 56px; display: flex; flex-direction: column; justify-content: center; gap: 28px; overflow: hidden; min-height: 760px; }
+.value h2 { font-size: 42px; line-height: 1.1; }
+.diagram { display: grid; grid-template-columns: 108px 1fr 108px; align-items: center; gap: 0; }
+.tile { width: 108px; height: 108px; border-radius: 26px; background: #fff; box-shadow: 0 10px 24px rgba(30,61,28,.10), 0 1px 2px rgba(0,0,0,.05); display: grid; place-items: center; }
+.tile .mb { font: 700 15px/1 var(--font-body); display: flex; align-items: center; gap: 5px; }
+.tile .mb::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--ink); }
+.tile img { width: 84px; }
+.cap { display: grid; grid-template-columns: 1fr 1fr; font-size: 13px; color: var(--body); margin-top: -18px; }
+.cap span:last-child { text-align: right; }
+.lanes { position: relative; height: 70px; }
+.lane { position: absolute; left: 14px; right: 14px; height: 0; }
+.lane.l1 { top: 22px; border-top: 1.5px dashed #B9CBA9; }
+.lane.l2 { top: 50px; border-top: 1.5px solid var(--green); }
+.chip { position: absolute; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; font: 600 12px/1 var(--font-body); padding: 6px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; }
+.l1 .chip { background: #fff; color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.08); animation: drift-r 3.2s ease-in-out infinite; }
+.l2 .chip { background: var(--green-txt); color: #fff; animation: drift-l 3.2s ease-in-out infinite; }
+@keyframes drift-r { 0%,100% { transform: translate(-58%, -50%); } 50% { transform: translate(-42%, -50%); } }
+@keyframes drift-l { 0%,100% { transform: translate(-42%, -50%); } 50% { transform: translate(-58%, -50%); } }
+.ticks { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; font-size: 15px; }
+.ticks li { display: flex; align-items: center; gap: 10px; }
+.check { width: 20px; height: 20px; flex: none; border-radius: 50%; background: var(--green-check); color: var(--green-dark); display: grid; place-items: center; font: 700 11px/1 var(--font-body); }
+.quote { background: #fff; border-radius: 20px; padding: 24px; box-shadow: 0 10px 30px rgba(30,61,28,.08); }
+.stars { color: #F5A524; letter-spacing: 2px; font-size: 14px; }
+.quote p { font-size: 16px; margin: 10px 0 14px; }
+.who { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--body); }
+.who b { display: block; color: var(--ink); font-size: 14px; font-weight: 600; }
+.av { width: 32px; height: 32px; border-radius: 50%; background: #E6D7C3; display: grid; place-items: center; font: 700 12px/1 var(--font-body); color: var(--ink); flex: none; }
+
+/* =========================================================
+   Product (app) screens
+   ========================================================= */
+.app { min-height: 100vh; background: var(--app-bg); display: grid; grid-template-columns: 248px minmax(0, 1fr); }
+.side { position: sticky; top: 0; height: 100vh; background: #fff; border-right: 1px solid var(--app-line); display: flex; flex-direction: column; padding: 22px 12px 24px; }
+.side .logo { width: 167px; margin: 0 6px 18px; }
+.acct { display: flex; align-items: center; gap: 10px; border: 1px solid var(--app-line); border-radius: 10px; padding: 10px 11px; margin-bottom: 22px; }
+.acct .avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--app-green); color: #fff; display: grid; place-items: center; font: 600 12px/1 var(--font-body); flex: none; }
+.acct b { display: block; font-size: 13px; font-weight: 600; line-height: 1.25; }
+.acct span { font-size: 12px; color: var(--app-muted); }
+.acct svg { margin-left: auto; color: var(--app-muted); }
+.navsec { font: 600 11px/1 var(--font-body); letter-spacing: .08em; color: var(--app-muted); padding: 18px 10px 8px; }
+.navsec:first-of-type { padding-top: 0; }
+.nav a { display: flex; align-items: center; gap: 12px; height: 34px; padding: 0 10px; border-radius: 8px; font-size: 14.5px; color: #2A2E33; text-decoration: none; margin-bottom: 2px; }
+.nav a:hover { background: #F3F5F7; }
+.nav a svg { width: 18px; height: 18px; color: #4A525C; flex: none; }
+.nav a.on { background: var(--app-green-50); color: var(--app-green); font-weight: 600; }
+.nav a.on svg { color: var(--app-green); }
+.nav .badge { margin-left: auto; background: var(--app-green); color: #fff; font: 600 11px/1 var(--font-body); padding: 3px 7px; border-radius: 999px; }
+.trial { margin-top: auto; background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 10px; padding: 13px 15px; }
+.trial b { display: block; font-size: 13px; color: var(--amber-txt); font-weight: 600; }
+.trial span { font-size: 12px; color: var(--amber-txt); }
+
+.main { padding: 56px 64px 24px; display: flex; flex-direction: column; min-height: 100vh; }
+.main-in { flex: 1; max-width: 1064px; width: 100%; }
+.crumb { font-size: 13px; color: var(--app-muted); margin-bottom: 10px; }
+.crumb b { color: var(--ink); font-weight: 600; }
+.title { font-size: 22px; font-weight: 600; line-height: 1.2; }
+.sub { color: var(--app-muted); font-size: 15px; margin: 12px 0 24px; }
+.cols { display: grid; grid-template-columns: minmax(0, 640px) minmax(0, 400px); gap: 24px; align-items: start; }
+.card { background: #fff; border: 1px solid var(--app-line); border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.04); padding: 28px; }
+.card + .card { margin-top: 0; }
+.ctitle { font-size: 16px; font-weight: 600; }
+.foot { display: flex; justify-content: space-between; font-size: 13px; color: var(--app-muted); border-top: 1px solid var(--app-line); padding-top: 18px; margin-top: 40px; max-width: 1064px; }
+.foot a { text-decoration: none; margin-left: 16px; }
+
+.abtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px; border-radius: 8px; font: 600 15px/1 var(--font-body); border: 0; text-decoration: none; transition: filter .15s, transform .15s, background-color .15s; white-space: nowrap; }
+.abtn:active { transform: scale(.98); }
+.abtn.pri { background: var(--app-green-btn); color: #fff; box-shadow: 0 4px 10px rgba(36,86,31,.22); }
+.abtn.pri:hover { filter: brightness(1.08); }
+.abtn.pri[disabled] { opacity: .65; cursor: progress; }
+.abtn.sec { background: #fff; color: var(--app-green); border: 1px solid var(--app-green); }
+.abtn.sec:hover { background: #F6FAF4; }
+.abtn.sm { height: 36px; padding: 0 14px; font-size: 14px; }
+.link { background: none; border: 0; padding: 0; font: 600 14px/1.4 var(--font-body); color: var(--app-muted); text-decoration: none; }
+.link.green { color: var(--app-green); }
+.link:hover { text-decoration: underline; }
+.tag { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font: 500 12px/1.2 var(--font-body); white-space: nowrap; }
+.tag i { width: 7px; height: 7px; border-radius: 50%; display: block; }
+.tag.green { background: var(--app-green-50); color: var(--app-green); } .tag.green i { background: #3B7D33; }
+.tag.grey { background: #F1F2F4; color: var(--app-muted); } .tag.grey i { background: #A3A9B1; }
+.tag.amber { background: var(--amber-bg); color: var(--amber-txt); border: 1px solid var(--amber-line); } .tag.amber i { background: #E9A23B; }
+.row { display: flex; align-items: center; gap: 12px; }
+.spacer { flex: 1; }
+.afield label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+.afield input { width: 100%; height: 44px; border: 1px solid var(--app-field); border-radius: 8px; padding: 0 14px; font-size: 15px; background: #fff; }
+.afield input[readonly] { background: #F7F8FA; }
+.afield input:focus { outline: none; border-color: #3B7D33; box-shadow: 0 0 0 3px var(--app-green-50); }
+.afield .help { font-size: 13px; color: var(--app-muted); margin-top: 6px; }
+.afield + .afield { margin-top: 18px; }
+.inline { display: flex; gap: 10px; }
+.inline input { flex: 1; min-width: 0; }
+
+/* get started checklist */
+.progress { height: 8px; border-radius: 8px; background: #EFEBE4; margin: 14px 0 6px; overflow: hidden; }
+.progress i { display: block; height: 100%; width: 25%; background: var(--app-green); border-radius: 8px; transition: width .6s var(--ease-out); }
+.step { display: grid; grid-template-columns: 30px 1fr; gap: 16px; padding: 12px 0; }
+.num { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; font: 600 13px/1 var(--font-body); background: #F3F0EA; color: #66615C; }
+.num.done { background: var(--green-check); color: var(--green-dark); }
+.num.now { background: var(--app-green); color: #fff; }
+.step h3 { font-size: 17px; font-weight: 600; line-height: 1.3; margin-top: 4px; }
+.step.done h3 { color: #A39E97; }
+.step p { font-size: 14px; color: var(--body); margin-top: 6px; }
+.drop { margin-top: 14px; display: flex; align-items: center; gap: 16px; padding: 20px; border: 1.5px dashed #A9C99A; border-radius: 10px; background: #F7FAF5; transition: background-color .15s, border-color .15s; }
+.drop.over { background: #EEF6E9; border-color: #3B7D33; }
+.drop .ico { width: 44px; height: 44px; border-radius: 8px; background: #E4EFDC; color: var(--app-green); display: grid; place-items: center; font: 700 11px/1 var(--font-body); flex: none; }
+.drop b { display: block; font-size: 15px; }
+.drop span { font-size: 13px; color: var(--body); }
+.drop .abtn { margin-left: auto; }
+.sandbox-link { display: flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 14px; color: var(--app-muted); }
+.sandbox-link svg { color: var(--app-green); }
+.processing { display: none; margin-top: 14px; padding: 18px 20px; border-radius: 10px; background: #F7FAF5; border: 1px solid #DDEBD3; }
+.processing.on { display: block; }
+.processing .bar { height: 6px; border-radius: 6px; background: #E4EFDC; overflow: hidden; margin-top: 10px; }
+.processing .bar i { display: block; height: 100%; width: 0; background: var(--app-green); border-radius: 6px; transition: width 1.6s var(--ease-out); }
+
+/* preview */
+.toolbar { display: flex; align-items: center; gap: 10px; padding: 0 8px 16px; }
+.seg { display: inline-flex; background: #F1F2F4; border-radius: 8px; padding: 3px; gap: 2px; margin-left: auto; }
+.seg button { border: 0; background: none; padding: 6px 12px; border-radius: 6px; font: 500 13px/1 var(--font-body); color: var(--app-muted); }
+.seg button[aria-pressed="true"] { background: #fff; color: var(--ink); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.stage { position: relative; background: var(--app-bg); border-radius: 8px; height: 452px; overflow: hidden; padding: 24px 40px 0; display: flex; justify-content: center; }
+.stage::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 64px; background: linear-gradient(rgba(245,246,248,0), #F5F6F8); pointer-events: none; }
+.doc { background: #fff; border: 1px solid var(--app-line); border-radius: 8px; padding: 28px 32px; width: 520px; transition: width .4s var(--ease-out), border-radius .4s, padding .4s; display: flex; flex-direction: column; gap: 14px; }
+.stage.phone .doc { width: 300px; border-radius: 28px; padding: 26px 20px; box-shadow: 0 0 0 8px #1C1B19; margin-top: 8px; }
+.stage.phone .doc .grid2 { grid-template-columns: 1fr; }
+.brand { display: flex; align-items: center; gap: 10px; font-size: 14px; font-weight: 600; }
+.brand .avatar { width: 30px; height: 30px; border-radius: 50%; background: #3B7D33; color: #fff; display: grid; place-items: center; font: 600 11px/1 var(--font-body); }
+.doc h4 { margin: 0; font-size: 22px; font-weight: 700; line-height: 1.2; }
+.doc p { font-size: 13px; color: var(--app-muted); }
+.doc .sec { font: 600 11px/1 var(--font-body); letter-spacing: .07em; color: #8A857E; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.mf label { display: block; font: 500 12px/1.3 var(--font-body); margin-bottom: 5px; }
+.mf input { width: 100%; height: 36px; border: 1px solid var(--app-field); border-radius: 6px; padding: 0 10px; font-size: 13px; }
+.cb { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.cb input { width: 16px; height: 16px; accent-color: #3B7D33; margin: 0; }
+.sig { height: 64px; border: 1px dashed var(--app-field); border-radius: 6px; background: #F7F8FA; display: grid; place-items: center; font-size: 13px; color: var(--app-faint); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.stat { background: #F7FAF5; border: 1px solid #DDEBD3; border-radius: 8px; padding: 12px; }
+.stat b { display: block; font-size: 20px; line-height: 1.2; }
+.stat span { font-size: 12px; color: var(--app-muted); font-weight: 500; }
+.status { display: flex; gap: 12px; background: var(--app-bg); border-radius: 8px; padding: 14px; }
+.status .dot { width: 10px; height: 10px; border-radius: 50%; background: #E9A23B; margin-top: 5px; flex: none; }
+.status b { display: block; font-size: 14px; font-weight: 600; }
+.status span { font-size: 13px; color: var(--app-muted); }
+.vstack { display: flex; flex-direction: column; gap: 18px; }
+.vstack.tight { gap: 10px; }
+.center { align-items: center; text-align: center; }
+
+/* sandbox */
+.banner { display: flex; align-items: center; gap: 12px; background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 10px; padding: 8px 8px 8px 16px; color: var(--amber-txt); font-size: 14px; margin-bottom: 22px; }
+.banner b { font-weight: 600; }
+.banner .link { color: var(--amber-txt); padding: 0 12px; }
+.todo { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; font-size: 14px; }
+.todo li { display: flex; align-items: center; gap: 10px; }
+.todo li::before { content: ""; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #B8BEC6; flex: none; transition: all .2s; }
+.todo li.done::before { background: #3B7D33 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat; border-color: #3B7D33; }
+.hr { height: 1px; background: var(--app-line); }
+
+/* mindbody */
+.strip { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 10px; background: #F7FAF5; border: 1px solid #DDEBD3; }
+.strip .mk { width: 36px; height: 36px; border-radius: 8px; display: grid; place-items: center; font: 700 14px/1 var(--font-body); flex: none; }
+.strip b { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.strip span { font-size: 12px; color: var(--app-muted); }
+.strip .wire { flex: 1; border-top: 1.5px dashed #9CC08A; }
+.strip.linked .wire { border-top-style: solid; border-color: #3B7D33; }
+.hintbox { background: var(--app-bg); border-radius: 8px; padding: 14px; font-size: 13px; color: var(--app-muted); margin-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+.hintbox code { font: 500 13px/1.4 var(--font-body); color: var(--ink); }
+.hintbox code b { color: var(--app-green); }
+.nexts { display: flex; flex-direction: column; gap: 16px; }
+.nexts li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+.nexts .n { width: 26px; height: 26px; border-radius: 50%; background: var(--app-green-50); color: var(--app-green); display: grid; place-items: center; font: 600 13px/1 var(--font-body); }
+.nexts b { display: block; font-size: 14px; font-weight: 600; }
+.nexts span { font-size: 13px; color: var(--app-muted); }
+.note { background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 8px; padding: 14px; color: var(--amber-txt); font-size: 13px; }
+.note b { display: block; font-weight: 600; }
+
+/* live */
+.live { max-width: 640px; margin: 24px auto 0; padding: 44px 40px 36px; }
+.mark { position: relative; width: 96px; height: 96px; margin: 0 auto 4px; }
+.mark .ring { position: absolute; inset: 0; border-radius: 50%; background: var(--app-green-50); }
+.mark .core { position: absolute; inset: 16px; border-radius: 50%; background: var(--app-green-btn); display: grid; place-items: center; color: #fff; }
+.on .mark .ring { animation: pop 600ms var(--ease-out) both; }
+.on .mark .core { animation: pop 600ms var(--ease-out) 120ms both; }
+.on .mark path { stroke-dasharray: 30; animation: draw 500ms var(--ease-out) 420ms both; }
+@keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes draw { from { stroke-dashoffset: 30; } to { stroke-dashoffset: 0; } }
+.confetti i { position: absolute; width: 7px; height: 12px; border-radius: 2px; opacity: 0; }
+.on .confetti i { animation: burst 900ms var(--ease-out) 300ms both; }
+@keyframes burst { from { opacity: 0; transform: translate(0,0) rotate(0); } 30% { opacity: 1; } to { opacity: 1; transform: translate(var(--x), var(--y)) rotate(var(--r)); } }
+.live h1 { font-family: var(--font-display); font-weight: 800; font-size: 30px; line-height: 1.15; }
+.summary { border: 1px solid var(--app-line); border-radius: 10px; text-align: left; }
+.summary > div { display: flex; align-items: center; gap: 14px; padding: 14px 16px; }
+.summary > div + div { border-top: 1px solid var(--app-line); }
+.summary .ck { width: 26px; height: 26px; border-radius: 50%; background: var(--app-green-50); color: var(--app-green); display: grid; place-items: center; flex: none; }
+.summary b { display: block; font-size: 14px; font-weight: 600; }
+.summary span { font-size: 13px; color: var(--app-muted); }
+
+/* client test form (opens from the test link) */
+.client { min-height: 100vh; background: #F3F0EA; display: flex; justify-content: center; padding: 32px 16px; }
+.client .sheet { width: 100%; max-width: 440px; background: #fff; border-radius: 20px; padding: 28px 24px; box-shadow: 0 10px 30px rgba(0,0,0,.06); display: flex; flex-direction: column; gap: 16px; align-self: flex-start; }
+.client .sandtag { align-self: flex-start; }
+.client .sig { height: 110px; cursor: crosshair; position: relative; }
+.client canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.client .mf input { height: 44px; font-size: 15px; }
+.client .done { display: none; text-align: center; }
+.client.signed .done { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.client.signed form { display: none; }
+
+.toast { position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); background: var(--ink); color: #fff; font-size: 14px; padding: 10px 16px; border-radius: 10px; opacity: 0; pointer-events: none; transition: opacity .2s, transform .3s var(--ease-out); z-index: 99; }
+.toast.on { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- responsive ---------- */
+@media (max-width: 1180px) {
+  .split-left { padding: 8px 24px 24px; }
+  .cols { grid-template-columns: 1fr; }
+  .main { padding: 40px 32px 24px; }
+}
+@media (max-width: 960px) {
+  .split { grid-template-columns: 1fr; padding: 16px; gap: 24px; }
+  .split-left { padding: 8px 0 0; }
+  .form-wrap { padding: 32px 0 8px; max-width: none; }
+  .value { min-height: 0; padding: 40px 24px; border-radius: 24px; }
+  .value h2 { font-size: 32px; }
+  .app { grid-template-columns: 1fr; }
+  .side { position: static; height: auto; flex-direction: row; align-items: center; padding: 12px 16px; border-right: 0; border-bottom: 1px solid var(--app-line); }
+  .side .logo { width: 120px; margin: 0; }
+  .side .acct, .side .navsec, .side .nav, .side .trial { display: none; }
+  .main { padding: 24px 16px; }
+  .live { padding: 32px 20px; }
+}
+@media (max-width: 520px) {
+  .otp { gap: 8px; } .otp input { width: 100%; height: 60px; font-size: 22px; }
+  .drop { flex-wrap: wrap; } .drop .abtn { margin-left: 0; width: 100%; }
+  .stage { padding: 16px 12px 0; } .doc { width: 100%; padding: 20px; } .grid2 { grid-template-columns: 1fr; }
+  .inline { flex-direction: column; }
+  .banner { flex-wrap: wrap; }
+  .foot { flex-direction: column; gap: 8px; } .foot a { margin: 0 12px 0 0; }
+  .diagram { grid-template-columns: 84px 1fr 84px; } .tile { width: 84px; height: 84px; border-radius: 20px; } .tile img { width: 66px; } .tile .mb { font-size: 12px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ======================= 1 · Sign up ======================= -->
+<section class="screen" data-screen="signup" aria-label="Create your account">
+  <div class="split">
+    <div class="split-left">
+      <div class="top">
+        <a href="../"><img src="../assets/wk-logo.svg" alt="WaiverKing home" width="146" height="27"></a>
+        <p>Have an account? <a href="https://www.waiverking.com/login">Log in</a></p>
+      </div>
+      <div class="form-wrap">
+        <span class="pill">Start your 15-day free trial</span>
+        <h1 class="display h1">Stop chasing paper waivers.</h1>
+        <form class="stack" id="signup-form" novalidate>
+          <div class="fld has-aside" id="f-email">
+            <input id="email" type="email" placeholder=" " autocomplete="email" required>
+            <label for="email">Work email</label>
+            <span class="aside ok" aria-hidden="true">✓</span>
+            <p class="err">Enter a valid email, like you@studio.com</p>
+          </div>
+          <div>
+            <div class="fld has-aside" id="f-pass">
+              <input id="password" type="password" placeholder=" " autocomplete="new-password" required minlength="8">
+              <label for="password">Password</label>
+              <button class="aside" type="button" id="toggle-pass" aria-controls="password">Show</button>
+            </div>
+            <p class="hint" id="pass-hint">At least 8 characters</p>
+          </div>
+          <div class="fld" id="f-biz">
+            <input id="business" type="text" placeholder=" " autocomplete="organization" required>
+            <label for="business">Business name</label>
+            <p class="err">Add your studio or business name</p>
+          </div>
+          <button class="btn btn-orange w100" type="submit" id="create-btn">Create my free account&nbsp; →</button>
+          <div class="or">or</div>
+          <button class="gsi" type="button" data-go="start" data-google>
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+            Continue with Google
+          </button>
+          <p class="legal">By creating an account you agree to the <a href="https://www.waiverking.com/terms">Terms of Service</a> and <a href="https://www.waiverking.com/privacy">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </div>
+    <aside class="value" data-value></aside>
+  </div>
+</section>
+
+<!-- ======================= 2 · Verify email ======================= -->
+<section class="screen" data-screen="verify" aria-label="Verify your email">
+  <div class="split">
+    <div class="split-left">
+      <div class="top">
+        <a href="../"><img src="../assets/wk-logo.svg" alt="WaiverKing home" width="146" height="27"></a>
+        <p>Have an account? <a href="https://www.waiverking.com/login">Log in</a></p>
+      </div>
+      <div class="form-wrap">
+        <button class="back" type="button" data-go="signup">← Back</button>
+        <h1 class="display h1">Check your inbox</h1>
+        <p class="lead">We sent a 6-digit code to <b data-email>jamie@sunriseyoga.com</b>. It expires in 10 minutes.</p>
+        <form id="otp-form" novalidate>
+          <div class="otp" id="otp" role="group" aria-label="6-digit code">
+            <input inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code"><input inputmode="numeric" maxlength="1" aria-label="Digit 2"><input inputmode="numeric" maxlength="1" aria-label="Digit 3"><input inputmode="numeric" maxlength="1" aria-label="Digit 4"><input inputmode="numeric" maxlength="1" aria-label="Digit 5"><input inputmode="numeric" maxlength="1" aria-label="Digit 6">
+          </div>
+          <button class="btn btn-orange w100" type="submit">Verify and open my account&nbsp; →</button>
+        </form>
+        <p class="small" style="margin-top:18px">Didn’t get it? Check spam, <button type="button" id="resend" disabled>resend in 0:30</button>, or <button type="button" data-go="signup">use a different email</button>.</p>
+        <p class="tip">Tip: paste the code anywhere on this screen. Signed up with Google? This step is skipped. <br><span style="opacity:.8">(Prototype: any 6 digits work.)</span></p>
+      </div>
+    </div>
+    <aside class="value" data-value></aside>
+  </div>
+</section>
+
+<!-- value panel template (shared by sign up + verify) -->
+<template id="value-tpl">
+  <h2 class="display">Paperless waivers,<br>built for Mindbody.</h2>
+  <div>
+    <div class="diagram" aria-hidden="true">
+      <div class="tile"><span class="mb">mindbody</span></div>
+      <div class="lanes">
+        <div class="lane l1"><span class="chip">Client details →</span></div>
+        <div class="lane l2"><span class="chip">← Signed waivers</span></div>
+      </div>
+      <div class="tile"><img src="../assets/wk-logo.svg" alt=""></div>
+    </div>
+    <div class="cap" style="margin-top:10px"><span>Your Mindbody site</span><span>WaiverKing</span></div>
+  </div>
+  <ul class="ticks">
+    <li><span class="check">✓</span>No credit card needed</li>
+    <li><span class="check">✓</span>Upload your PDF, AI builds the form in seconds</li>
+    <li><span class="check">✓</span>Signed waivers file to each client’s Mindbody profile</li>
+  </ul>
+  <figure class="quote" style="margin:0">
+    <div class="stars" aria-label="5 stars">★★★★★</div>
+    <p>“Our paperless waivers created a seamless experience for our students and let us scale as we grew.”</p>
+    <figcaption class="who"><span class="av">CA</span><span><b>Charis Anton</b>Studio Director, Moda Yoga</span></figcaption>
+  </figure>
+</template>
+
+<!-- app shell sidebar template -->
+<template id="side-tpl">
+  <img class="logo" src="../assets/wk-logo.svg" alt="WaiverKing">
+  <div class="acct"><span class="avatar" data-initials>SY</span><span><b data-biz>Sunrise Yoga Studio</b><span data-name>Jamie Rivera</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
+  <div class="navsec">WORKSPACE</div>
+  <nav class="nav">
+    <a href="#start" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Get started<span class="badge" data-badge>1/4</span></a>
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Locations</a>
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>Bulk edit</a>
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 20v-4M12 20V10M18 20V4"/></svg>Statistics</a>
+  </nav>
+  <div class="navsec">BILLING</div>
+  <nav class="nav">
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Payment method</a>
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v20l3-2 3 2 3-2 3 2 3-2 1 .7V2l-1 .7-3-2-3 2-3-2-3 2-3-2Z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Payment history</a>
+  </nav>
+  <div class="navsec">SETTINGS</div>
+  <nav class="nav">
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1Z"/></svg>Account</a>
+    <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6M15.5 7.5l3 3L22 7l-3-3"/></svg>Password</a>
+  </nav>
+  <div class="trial"><b>15 days left in your trial</b><span>No card on file</span></div>
+</template>
+<template id="foot-tpl"><span>© 2026 WaiverKing</span><span><a href="https://www.waiverking.com/terms">Terms</a><a href="https://www.waiverking.com/privacy">Privacy</a><a href="https://www.waiverking.com/contact">Contact</a></span></template>
+
+<!-- ======================= 3 · Get started ======================= -->
+<section class="screen" data-screen="start" aria-label="Get started">
+  <div class="app"><aside class="side" data-side></aside>
+    <main class="main"><div class="main-in">
+      <h1 class="title">Welcome, <span data-first>Jamie</span></h1>
+      <p class="sub">Let’s get <span data-biz>Sunrise Yoga Studio</span> live. Four short steps, about 5 minutes.</p>
+      <div class="card" style="max-width:700px">
+        <div class="row"><h2 class="ctitle" style="font-size:18px">Get set up</h2><span class="spacer"></span><span style="font-size:14px;font-weight:600;color:var(--app-green)">1 of 4 done</span></div>
+        <div class="progress"><i></i></div>
+        <div class="step done"><span class="num done">✓</span><div><h3>Create your account</h3></div></div>
+        <div class="step"><span class="num now">2</span><div>
+          <h3>Upload your current waiver</h3>
+          <p>AI turns your PDF into an online form in seconds. Our team double-checks it afterwards, and you can share it right away.</p>
+          <label class="drop" id="drop">
+            <span class="ico">PDF</span>
+            <span><b>Drop your waiver PDF here</b><span>PDF, DOC or DOCX · ready in seconds · first form free</span></span>
+            <span class="abtn pri" role="button">Choose file</span>
+            <input type="file" id="file" accept=".pdf,.doc,.docx" class="sr">
+          </label>
+          <div class="processing" id="processing" aria-live="polite">
+            <div class="row"><b style="font-size:15px" id="proc-title">Reading your PDF…</b><span class="spacer"></span><span style="font-size:13px;color:var(--app-muted)" id="proc-file"></span></div>
+            <div class="bar"><i id="proc-bar"></i></div>
+          </div>
+          <p class="sandbox-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31M14 9.3V2M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0M5.52 16h12.96"/></svg>No PDF handy? <a class="link green" href="#sandbox">Explore with a sample waiver&nbsp; →</a></p>
+        </div></div>
+        <div class="step"><span class="num">3</span><div><h3>Connect your Mindbody site</h3><p>Paste your Site ID so signed waivers file into each client’s Mindbody profile.</p></div></div>
+        <div class="step"><span class="num">4</span><div><h3>Send yourself a test link</h3><p>See exactly what your clients will sign, on your phone.</p></div></div>
+      </div>
+    </div><footer class="foot" data-foot></footer></main>
+  </div>
+</section>
+
+<!-- ======================= 3s · Sandbox ======================= -->
+<section class="screen" data-screen="sandbox" aria-label="Sandbox with a sample waiver">
+  <div class="app"><aside class="side" data-side></aside>
+    <main class="main"><div class="main-in">
+      <div class="banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31M14 9.3V2M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0M5.52 16h12.96"/></svg><span><b>Sandbox mode.</b> Nothing here is live, and no clients can see it.</span><span class="spacer"></span><a class="abtn pri sm" href="#start">Upload my PDF</a><a class="link" href="#start">Exit sandbox</a></div>
+      <h1 class="title">Explore with a sample waiver</h1>
+      <p class="sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
+      <div class="cols">
+        <div class="card" style="padding:20px">
+          <div class="toolbar"><b style="font-size:15px">Sample waiver</b><span class="tag amber">SAMPLE</span>
+            <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
+          <div class="stage" data-stage><div class="doc" data-doc="Demo Yoga Studio"></div></div>
+        </div>
+        <div class="card vstack">
+          <h2 class="ctitle">Try it like a client</h2>
+          <div class="afield"><label for="demo-link">Test link</label><div class="inline"><input id="demo-link" readonly value="sign.waiverking.com/demo-yoga"><button class="abtn sec" type="button" data-copy="#demo-link">Copy</button></div></div>
+          <div class="vstack tight"><a class="abtn pri" href="#sign-demo" target="_blank" rel="noopener" data-try="0">Open test link&nbsp; ↗</a><button class="abtn sec" type="button" data-toast="Test link sent to your phone (prototype)">Send to my phone</button></div>
+          <div class="hr"></div>
+          <b style="font-size:14px">Things to try</b>
+          <ul class="todo" id="todo"><li>Sign the waiver on your phone</li><li>Find the signed copy in Signed forms</li><li>Change a field in the form editor</li></ul>
+          <p style="font-size:13px;color:var(--app-muted)">Sample data is cleared when you upload your own PDF.</p>
+        </div>
+      </div>
+    </div><footer class="foot" data-foot></footer></main>
+  </div>
+</section>
+
+<!-- ======================= 4 · Waiver preview ======================= -->
+<section class="screen" data-screen="preview" aria-label="Your waiver is ready">
+  <div class="app"><aside class="side" data-side></aside>
+    <main class="main"><div class="main-in">
+      <h1 class="title">Your waiver is ready</h1>
+      <p class="sub">AI turned “<span data-filename>Sunrise Yoga waiver.pdf</span>” into an online form. Take a look before you connect Mindbody.</p>
+      <div class="cols">
+        <div class="card" style="padding:20px">
+          <div class="toolbar"><b style="font-size:15px">Preview</b>
+            <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
+          <div class="stage" data-stage><div class="doc" data-doc></div></div>
+        </div>
+        <div class="card vstack">
+          <div class="row"><span style="font-size:13px;font-weight:600;color:var(--green-txt)">Step 2 of 4</span><span class="spacer"></span><span class="tag green"><i></i>Built in 8 seconds</span></div>
+          <h2 class="ctitle">What we found in your PDF</h2>
+          <div class="stats"><div class="stat"><b>9</b><span>fields</span></div><div class="stat"><b>2</b><span>sections</span></div><div class="stat"><b>1</b><span>signature</span></div></div>
+          <div class="status"><span class="dot"></span><span><b>In review by our team</b><span>A person checks every field against your PDF within 1 business day. You can keep going in the meantime.</span></span></div>
+          <div class="vstack tight center"><a class="abtn pri" href="#mindbody" style="width:100%">Looks good, continue&nbsp; →</a><button class="abtn sec" type="button" style="width:100%" data-toast="The form editor isn’t part of this prototype">Edit form</button><a class="link" href="#start">Upload a different file</a></div>
+        </div>
+      </div>
+    </div><footer class="foot" data-foot></footer></main>
+  </div>
+</section>
+
+<!-- ======================= 5 · Connect Mindbody ======================= -->
+<section class="screen" data-screen="mindbody" aria-label="Connect your Mindbody site">
+  <div class="app"><aside class="side" data-side></aside>
+    <main class="main"><div class="main-in">
+      <h1 class="title">Connect your Mindbody site</h1>
+      <p class="sub">Signed waivers file straight into each client’s Mindbody profile. Takes about a minute.</p>
+      <div class="cols">
+        <form class="card vstack" id="mb-form" novalidate>
+          <div class="row"><span style="font-size:13px;font-weight:600;color:var(--green-txt)">Step 3 of 4</span><span class="spacer"></span><span class="tag grey" id="mb-status"><i></i>Not connected yet</span></div>
+          <div class="strip" id="strip"><span class="mk" style="background:#fff;border:1px solid #E9E5DE;color:#E8542E">mb</span><span><b>mindbody</b><span>Your booking system</span></span><span class="wire"></span><span class="mk" style="background:var(--app-green-50);color:var(--app-green)">wk</span><span><b>WaiverKing</b><span>Your waiver forms</span></span></div>
+          <div>
+            <div class="afield"><label for="loc">Location name</label><input id="loc" data-bizval><p class="help">How this location appears to your clients and in your reports.</p></div>
+            <div class="afield"><label for="siteid">Mindbody Site ID</label><input id="siteid" inputmode="numeric" placeholder="e.g. 12345" autocomplete="off"><p class="err" id="site-err">Site IDs are numbers, usually 4 to 6 digits.</p>
+              <div class="hintbox"><span>Where to find it: the number at the end of your Mindbody booking link.</span><code>clients.mindbodyonline.com/classic/ws?studioid=<b>12345</b></code><a class="link green" href="https://clients.mindbodyonline.com" target="_blank" rel="noopener">Open Mindbody in a new tab&nbsp; ↗</a></div></div>
+          </div>
+          <div class="row" style="gap:16px"><button class="abtn pri" type="submit" id="mb-btn">Continue to Mindbody</button><a class="link" href="#live" data-skip-mb>Skip for now</a></div>
+          <p style="font-size:13px;color:var(--app-muted)">Next, Mindbody asks you to approve WaiverKing. It takes one click, and you come straight back here.</p>
+        </form>
+        <div class="card vstack">
+          <h2 class="ctitle">What happens next</h2>
+          <ol class="nexts" style="list-style:none;margin:0;padding:0">
+            <li><span class="n">1</span><span><b>Approve WaiverKing in Mindbody</b><span>One click on the Mindbody screen we open for you.</span></span></li>
+            <li><span class="n">2</span><span><b>Clients sign online</b><span>Share your waiver link and clients sign on their phone.</span></span></li>
+            <li><span class="n">3</span><span><b>Waivers file into Mindbody</b><span>Each signed waiver lands in the client’s Documents tab.</span></span></li>
+          </ol>
+          <div class="hr"></div>
+          <div class="note"><b>Your waivers live in Mindbody</b>WaiverKing doesn’t keep a copy. To check who has signed, open a client’s Documents tab in Mindbody.</div>
+        </div>
+      </div>
+    </div><footer class="foot" data-foot></footer></main>
+  </div>
+</section>
+
+<!-- ======================= 6 · You're live ======================= -->
+<section class="screen" data-screen="live" aria-label="You're live">
+  <div class="app"><aside class="side" data-side></aside>
+    <main class="main"><div class="main-in">
+      <div class="card live vstack center" style="gap:22px">
+        <div class="mark" aria-hidden="true"><span class="ring"></span><span class="core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="confetti"><i style="left:44px;top:40px;background:#E9770E;--x:-58px;--y:-24px;--r:-40deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:58px;--y:-30px;--r:30deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:52px;--y:30px;--r:70deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:-50px;--y:30px;--r:-60deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:-26px;--y:-50px;--r:20deg"></i><i style="left:44px;top:40px;background:#E9770E;--x:30px;--y:-52px;--r:-20deg"></i></span></div>
+        <div class="vstack tight center"><h1><span data-biz>Sunrise Yoga Studio</span> is live</h1><p style="color:var(--app-muted);font-size:15px;max-width:480px">Share your waiver link. Every signed waiver files into the client’s Mindbody profile.</p></div>
+        <div class="summary" style="width:100%">
+          <div><span class="ck">✓</span><span><b>Account created</b><span><span data-name>Jamie Rivera</span> · <span data-email>jamie@sunriseyoga.com</span></span></span></div>
+          <div><span class="ck">✓</span><span><b>Waiver ready</b><span>Liability waiver and release</span></span><span class="spacer"></span><span class="tag amber"><i></i>In review by our team</span></div>
+          <div><span class="ck" id="mb-ck">✓</span><span><b id="mb-line">Mindbody connected</b><span id="mb-sub">Site ID 12345</span></span></div>
+        </div>
+        <div class="afield" style="width:100%;text-align:left"><label for="live-link">Your waiver link</label><div class="inline"><input id="live-link" readonly value="sign.waiverking.com/sunrise-yoga"><button class="abtn sec" type="button" data-copy="#live-link">Copy link</button></div></div>
+        <div class="row" style="justify-content:center;flex-wrap:wrap"><a class="abtn pri" href="../">Go to my location&nbsp; →</a><a class="abtn sec" href="#sign" target="_blank" rel="noopener">Send myself a test</a></div>
+      </div>
+    </div><footer class="foot" data-foot></footer></main>
+  </div>
+</section>
+
+<!-- ======================= Client view (test link) ======================= -->
+<section class="screen" data-screen="sign" aria-label="Sign the waiver">
+  <div class="client" id="client">
+    <div class="sheet">
+      <span class="tag amber sandtag">Test link · not a real submission</span>
+      <div class="brand"><span class="avatar" data-initials>SY</span><span data-biz>Sunrise Yoga Studio</span></div>
+      <form class="vstack" id="client-form" style="gap:16px">
+        <h4 style="margin:0;font-size:24px;line-height:1.2">Liability waiver and release</h4>
+        <p style="font-size:14px;color:var(--app-muted)">I understand that yoga involves physical activity and carries a risk of injury. I take part voluntarily and release <span data-biz>Sunrise Yoga Studio</span> from liability for injuries that may happen during classes.</p>
+        <div class="mf"><label for="c-name">Full name</label><input id="c-name" required autocomplete="name"></div>
+        <div class="mf"><label for="c-dob">Date of birth</label><input id="c-dob" placeholder="DD / MM / YYYY"></div>
+        <div class="mf"><label for="c-em">Emergency contact</label><input id="c-em" placeholder="Name and phone"></div>
+        <label class="cb"><input type="checkbox" id="c-agree" required>I have read and agree to the waiver</label>
+        <div class="sig" id="sigpad"><span id="sig-ph">Sign here</span><canvas aria-label="Signature pad"></canvas></div>
+        <button class="abtn pri" type="submit" style="width:100%;height:48px">Sign waiver</button>
+      </form>
+      <div class="done"><span class="ck" style="width:56px;height:56px;border-radius:50%;background:var(--app-green-50);color:var(--app-green);display:grid;place-items:center;font-size:24px">✓</span><h4 style="margin:0;font-size:22px">Thanks, you’re all set</h4><p style="color:var(--app-muted);font-size:14px">This is what clients see after signing. In a live account, the signed copy files into their Mindbody profile.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const state = { email: 'jamie@sunriseyoga.com', biz: 'Sunrise Yoga Studio', name: 'Jamie Rivera', file: 'Sunrise Yoga waiver.pdf', site: '12345', done: 1 };
+  try { Object.assign(state, JSON.parse(sessionStorage.getItem('wk-signup') || '{}')); } catch (e) {}
+  const save = () => { try { sessionStorage.setItem('wk-signup', JSON.stringify(state)); } catch (e) {} };
+
+  // shared chrome
+  $$('[data-value]').forEach(el => el.append($('#value-tpl').content.cloneNode(true)));
+  $$('[data-side]').forEach(el => el.append($('#side-tpl').content.cloneNode(true)));
+  $$('[data-foot]').forEach(el => el.append($('#foot-tpl').content.cloneNode(true)));
+  const docHTML = biz => `
+    <div class="brand"><span class="avatar">${biz.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span>${biz}</div>
+    <h4>Liability waiver and release</h4>
+    <p>I understand that yoga involves physical activity and carries a risk of injury. I take part voluntarily and release ${biz} from liability…</p>
+    <span class="sec">YOUR DETAILS</span>
+    <div class="grid2"><div class="mf"><label>Full name</label><input placeholder="First and last name" tabindex="-1"></div><div class="mf"><label>Date of birth</label><input placeholder="DD / MM / YYYY" tabindex="-1"></div>
+    <div class="mf"><label>Emergency contact</label><input placeholder="Name" tabindex="-1"></div><div class="mf"><label>Contact phone</label><input placeholder="+1 (555) 000-0000" tabindex="-1"></div></div>
+    <span class="sec">HEALTH</span>
+    <label class="cb"><input type="checkbox" tabindex="-1">I have an injury or condition the teacher should know about</label>
+    <div class="sig">Sign here</div>`;
+
+  function paint() {
+    const initials = state.biz.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'WK';
+    $$('[data-biz]').forEach(e => e.textContent = state.biz);
+    $$('[data-email]').forEach(e => e.textContent = state.email);
+    $$('[data-name]').forEach(e => e.textContent = state.name);
+    $$('[data-first]').forEach(e => e.textContent = state.name.split(' ')[0]);
+    $$('[data-initials]').forEach(e => e.textContent = initials);
+    $$('[data-filename]').forEach(e => e.textContent = state.file);
+    $$('[data-bizval]').forEach(e => { if (!e.value) e.value = state.biz; });
+    $$('[data-badge]').forEach(e => e.textContent = state.done + '/4');
+    $$('[data-doc]').forEach(e => e.innerHTML = docHTML(e.dataset.doc || state.biz));
+    const slug = state.biz.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'your-studio';
+    $('#live-link').value = 'sign.waiverking.com/' + slug;
+    $('#mb-sub').textContent = state.site ? 'Site ID ' + state.site + ' · ' + state.biz : 'You can connect it any time from Locations';
+    $('#mb-line').textContent = state.site ? 'Mindbody connected' : 'Mindbody not connected yet';
+  }
+
+  // routing
+  const screens = $$('.screen');
+  const progress = { start: 1, sandbox: 1, preview: 2, mindbody: 2, live: 4 };
+  function show() {
+    const raw = (location.hash || '#signup').slice(1);
+    const demo = raw === 'sign-demo', id = demo ? 'sign' : raw;
+    const target = screens.find(s => s.dataset.screen === id) || screens[0];
+    if (progress[target.dataset.screen]) state.done = Math.max(state.done, progress[target.dataset.screen]);
+    paint(); save();
+    if (demo) { $$('#client [data-biz]').forEach(e => e.textContent = 'Demo Yoga Studio'); $$('#client [data-initials]').forEach(e => e.textContent = 'DY'); }
+    screens.forEach(s => s.classList.toggle('on', s === target));
+    document.title = (target.getAttribute('aria-label') || 'Sign up') + ' · WaiverKing';
+    window.scrollTo(0, 0);
+    const first = target.querySelector('h1, h4');
+    if (first && id !== 'signup') { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
+    if (id === 'verify') setTimeout(() => $('#otp input').focus(), 50), startResend();
+  }
+  const go = id => { if (location.hash === '#' + id) show(); else location.hash = id; };
+  addEventListener('hashchange', show);
+  $$('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
+
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); };
+  $$('[data-toast]').forEach(b => b.addEventListener('click', () => toast(b.dataset.toast)));
+  $$('[data-soon]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast('Finish setup first. The rest of the app isn’t in this prototype.'); }));
+  $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
+    const v = $(b.dataset.copy).value;
+    try { await navigator.clipboard.writeText('https://' + v); } catch (e) {}
+    const t = b.textContent; b.textContent = 'Copied'; setTimeout(() => b.textContent = t, 1400);
+  }));
+
+  // 1 · sign up
+  const email = $('#email'), pass = $('#password'), biz = $('#business');
+  const emailOk = () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim());
+  email.addEventListener('input', () => { $('#f-email').classList.toggle('valid', emailOk()); $('#f-email').classList.remove('bad'); });
+  email.addEventListener('blur', () => { if (email.value && !emailOk()) $('#f-email').classList.add('bad'); });
+  pass.addEventListener('input', () => { const ok = pass.value.length >= 8; $('#pass-hint').classList.toggle('good', ok); $('#pass-hint').textContent = ok ? '8+ characters' : 'At least 8 characters'; });
+  $('#toggle-pass').addEventListener('click', e => { const s = pass.type === 'password'; pass.type = s ? 'text' : 'password'; e.target.textContent = s ? 'Hide' : 'Show'; });
+  biz.addEventListener('input', () => $('#f-biz').classList.remove('bad'));
+  $('#signup-form').addEventListener('submit', e => {
+    e.preventDefault();
+    let ok = true;
+    if (!emailOk()) { $('#f-email').classList.add('bad'); ok = false; }
+    if (pass.value.length < 8) { $('#pass-hint').style.color = '#B42318'; setTimeout(() => $('#pass-hint').style.color = '', 1600); ok = false; }
+    if (!biz.value.trim()) { $('#f-biz').classList.add('bad'); ok = false; }
+    if (!ok) { const bad = $('.fld.bad input') || (pass.value.length < 8 ? pass : null); bad && bad.focus(); return; }
+    state.email = email.value.trim(); state.biz = biz.value.trim();
+    const local = state.email.split('@')[0].split(/[._-]/).filter(Boolean);
+    state.name = local.map(w => w[0].toUpperCase() + w.slice(1)).join(' ') || state.name;
+    const btn = $('#create-btn'); btn.disabled = true; btn.textContent = 'Creating your account…';
+    setTimeout(() => { btn.disabled = false; btn.innerHTML = 'Create my free account&nbsp; →'; go('verify'); }, 700);
+  });
+  $('[data-google]').addEventListener('click', () => { state.email = state.email || 'jamie@sunriseyoga.com'; });
+
+  // 2 · verify
+  const boxes = $$('#otp input');
+  boxes.forEach((b, i) => {
+    b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(-1); if (b.value && boxes[i + 1]) boxes[i + 1].focus(); if (boxes.every(x => x.value)) $('#otp-form').requestSubmit(); });
+    b.addEventListener('keydown', e => { if (e.key === 'Backspace' && !b.value && boxes[i - 1]) boxes[i - 1].focus(); if (e.key === 'ArrowLeft' && boxes[i - 1]) boxes[i - 1].focus(); if (e.key === 'ArrowRight' && boxes[i + 1]) boxes[i + 1].focus(); });
+  });
+  document.addEventListener('paste', e => {
+    if (!$('[data-screen="verify"]').classList.contains('on')) return;
+    const d = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 6);
+    if (!d) return; e.preventDefault();
+    boxes.forEach((b, i) => b.value = d[i] || '');
+    (boxes[d.length] || boxes[5]).focus();
+    if (d.length === 6) $('#otp-form').requestSubmit();
+  });
+  $('#otp-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!boxes.every(x => x.value)) { const o = $('#otp'); o.classList.remove('shake'); void o.offsetWidth; o.classList.add('shake'); (boxes.find(x => !x.value)).focus(); return; }
+    setTimeout(() => { boxes.forEach(b => b.value = ''); go('start'); }, 250);
+  });
+  let timer;
+  function startResend() {
+    const r = $('#resend'); let s = 30; r.disabled = true; clearInterval(timer);
+    const tick = () => { r.textContent = s > 0 ? `resend in 0:${String(s).padStart(2, '0')}` : 'resend the code'; r.disabled = s > 0; s--; if (s < -1) clearInterval(timer); };
+    tick(); timer = setInterval(tick, 1000);
+  }
+  $('#resend').addEventListener('click', () => { toast('New code sent to ' + state.email); startResend(); });
+
+  // 3 · upload
+  const drop = $('#drop'), file = $('#file');
+  ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
+  ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('over'); }));
+  drop.addEventListener('drop', e => e.dataTransfer.files[0] && handle(e.dataTransfer.files[0]));
+  file.addEventListener('change', () => file.files[0] && handle(file.files[0]));
+  function handle(f) {
+    state.file = f.name; save();
+    drop.style.display = 'none';
+    const p = $('#processing'); p.classList.add('on'); $('#proc-file').textContent = f.name;
+    const bar = $('#proc-bar'); bar.style.width = '0'; requestAnimationFrame(() => requestAnimationFrame(() => bar.style.width = '100%'));
+    setTimeout(() => $('#proc-title').textContent = 'Building your form…', 800);
+    setTimeout(() => { p.classList.remove('on'); drop.style.display = ''; $('#proc-title').textContent = 'Reading your PDF…'; file.value = ''; go('preview'); }, 1800);
+  }
+
+  // preview device toggle
+  $$('[data-seg]').forEach(seg => seg.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    $$('button', seg).forEach(x => x.setAttribute('aria-pressed', x === b));
+    seg.closest('.card').querySelector('[data-stage]').classList.toggle('phone', b.dataset.dev === 'phone');
+  }));
+  $('[data-try="0"]').addEventListener('click', () => $('#todo li').classList.add('done'));
+
+  // 5 · Mindbody
+  $('#mb-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#siteid').value.trim();
+    if (!/^\d{4,6}$/.test(v)) { $('#site-err').classList.add('show'); $('#siteid').focus(); return; }
+    $('#site-err').classList.remove('show');
+    state.site = v; state.biz = $('#loc').value.trim() || state.biz;
+    const btn = $('#mb-btn'); btn.disabled = true; btn.textContent = 'Waiting for Mindbody approval…';
+    setTimeout(() => {
+      $('#strip').classList.add('linked'); const s = $('#mb-status'); s.className = 'tag green'; s.innerHTML = '<i></i>Connected';
+      setTimeout(() => { btn.disabled = false; btn.textContent = 'Continue to Mindbody'; go('live'); }, 650);
+    }, 1200);
+  });
+  $('#siteid').addEventListener('input', () => $('#site-err').classList.remove('show'));
+  $('[data-skip-mb]').addEventListener('click', () => { state.site = ''; });
+
+  // client signing page
+  const pad = $('#sigpad canvas'); let ctx, drawing = false, signed = false;
+  function sizePad() { const r = pad.getBoundingClientRect(); pad.width = r.width * devicePixelRatio; pad.height = r.height * devicePixelRatio; ctx = pad.getContext('2d'); ctx.scale(devicePixelRatio, devicePixelRatio); ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.strokeStyle = '#1C1B19'; }
+  const pos = e => { const r = pad.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  pad.addEventListener('pointerdown', e => { if (!ctx) sizePad(); drawing = true; pad.setPointerCapture(e.pointerId); ctx.beginPath(); ctx.moveTo(...pos(e)); $('#sig-ph').style.display = 'none'; });
+  pad.addEventListener('pointermove', e => { if (!drawing) return; ctx.lineTo(...pos(e)); ctx.stroke(); signed = true; });
+  pad.addEventListener('pointerup', () => drawing = false);
+  $('#client-form').addEventListener('submit', e => {
+    e.preventDefault();
+    if (!signed) { toast('Add your signature first'); return; }
+    $('#client').classList.add('signed');
+  });
+
+  show();
+})();
+</script>
+</body>
+</html>
