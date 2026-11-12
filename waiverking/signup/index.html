@@ -1017,7 +1017,7 @@ body:has(.modal-on) { overflow: hidden; }
             <ul class="build" id="build"><li>Reading your PDF</li><li>Finding fields and sections</li><li>Matching fields to Mindbody</li><li>Checking for anything missing</li></ul>
             <div class="bbar"><i id="build-bar"></i></div>
           </div>
-          <div class="pane-foot"><span class="note-txt">You can close this. We’ll keep building.</span><span class="spacer"></span><button class="obtn" type="button" disabled>Building…</button></div>
+          <div class="pane-foot"><button class="gbtn" type="button" id="build-cancel">Cancel</button><span class="spacer"></span><button class="gbtn" type="button" id="build-reup"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m17 8-5-5-5 5"/><path d="M12 3v12"/></svg>Upload a different file</button></div>
         </div>
 
       </div>
@@ -1276,8 +1276,11 @@ body:has(.modal-on) { overflow: hidden; }
   file.addEventListener('change', () => { file.files[0] && handle(file.files[0].name); file.value = ''; });
   $('#choose').addEventListener('click', () => file.click());
   $('#use-example').addEventListener('click', () => handle('Sunrise Yoga waiver.pdf'));
-  function handle(name) { state.file = name; state.uploaded = false; save(); go('setup/building'); }
   let building = null;
+  const stopBuild = () => { clearTimeout(building); building = null; };
+  function handle(name) { stopBuild(); state.file = name; state.uploaded = false; save(); go('setup/building'); }
+  $('#build-cancel').addEventListener('click', () => { stopBuild(); state.uploaded = false; save(); go('setup/upload'); toast('Upload cancelled. Nothing was saved.'); });
+  $('#build-reup').addEventListener('click', () => file.click());
   function runBuild() {
     if (building) return;
     const items = $$('#build li'), bar = $('#build-bar');
