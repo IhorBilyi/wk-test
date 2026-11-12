@@ -661,6 +661,13 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   .toolbar { flex-wrap: wrap; }
   .ed-act .obtn .long { display: none; }
 }
+.appr { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.appr li { display: grid; grid-template-columns: 26px 1fr; gap: 12px; }
+.appr .an { width: 26px; height: 26px; border-radius: 50%; background: var(--green-50); color: var(--green-txt); display: grid; place-items: center; font: 700 12px/1 var(--font-body); }
+.appr b { display: block; font-size: 14px; font-weight: 600; line-height: 1.35; }
+.appr span span { font-size: 13px; color: var(--body); }
+.inline2 input.mono { font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--body); }
+#mb-wait { margin-top: 18px; }
 </style>
 </head>
 <body>
@@ -853,6 +860,23 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
           <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/loc">Back</button><span class="spacer"></span><button class="obtn" type="submit" id="mb-btn">Connect Mindbody&nbsp;→</button></div>
         </form>
 
+        <!-- 2a · approve in Mindbody (auto-generated activation link) -->
+        <div class="pane" data-pane="mb-approve">
+          <div class="pane-body">
+            <p class="eyebrow">Step 2 of 4</p>
+            <h1>Approve WaiverKing in Mindbody</h1>
+            <p class="lede">We made a one-time activation link for site <b data-pending>12345</b>. Opening it and approving is what connects your Mindbody site to WaiverKing.</p>
+            <ol class="appr">
+              <li><span class="an">1</span><span><b>Open the activation link</b><span>It opens Mindbody in a new tab.</span></span></li>
+              <li><span class="an">2</span><span><b>Sign in with the site owner’s Mindbody login</b><span>Only the owner can approve integrations.</span></span></li>
+              <li><span class="an">3</span><span><b>Click Approve</b><span>Then come back to this tab. It updates on its own.</span></span></li>
+            </ol>
+            <div class="sfield"><label for="act-link">Your activation link</label><div class="inline2"><input id="act-link" readonly class="mono"><button class="gbtn" type="button" data-copy="#act-link">Copy</button></div><p class="hint">Not the site owner? Copy the link and send it to them.</p></div>
+            <div class="wait" id="mb-wait" role="status"><span class="pulse"></span><span id="mb-wait-txt">Waiting for approval in Mindbody…</span></div>
+          </div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/mb">Back</button><span class="spacer"></span><button class="obtn" type="button" id="act-open">Open activation link&nbsp;↗</button></div>
+        </div>
+
         <!-- 2b · connected -->
         <div class="pane" data-pane="mb-ok">
           <div class="pane-body">
@@ -866,7 +890,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
               <li><span class="check">✓</span>Signed copies land in each client’s Documents tab</li>
             </ul>
           </div>
-          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/mb">Back</button><span class="spacer"></span><button class="obtn" type="button" data-next="mb-ok">Continue&nbsp;→</button></div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/loc">Back</button><span class="spacer"></span><button class="obtn" type="button" data-next="mb-ok">Continue&nbsp;→</button></div>
         </div>
 
         <!-- 3 · upload -->
@@ -1082,7 +1106,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const KEY = 'wk-signup-v2';
-  const fresh = () => ({ email: 'jamie@sunriseyoga.com', biz: 'Sunrise Yoga Studio', name: 'Jamie Rivera', file: 'Sunrise Yoga waiver.pdf', site: '12345', k: 0, uploaded: false, signedAt: '' });
+  const fresh = () => ({ email: 'jamie@sunriseyoga.com', biz: 'Sunrise Yoga Studio', name: 'Jamie Rivera', file: 'Sunrise Yoga waiver.pdf', site: '12345', k: 0, uploaded: false, signedAt: '', pending: '', code: '' });
   const state = fresh();
   // localStorage so the test link opened in another tab can report back
   const load = () => { try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {} };
@@ -1124,21 +1148,21 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
 
   // ---------- onboarding model ----------
   // k = steps completed (0–4). uploaded = AI form exists (step 3 not confirmed until k ≥ 3).
-  const STEP_OF = { loc: 0, mb: 1, 'mb-ok': 1, upload: 2, building: 2, test: 3, live: 4 };
+  const STEP_OF = { loc: 0, mb: 1, 'mb-approve': 1, 'mb-ok': 1, upload: 2, building: 2, test: 3, live: 4 };
   function currentRoute() {
     const k = state.k;
     if (k <= 0) return 'setup/loc';
-    if (k === 1) return 'setup/mb';
+    if (k === 1) return state.pending ? 'setup/mb-approve' : 'setup/mb';
     if (k === 2) return state.uploaded ? 'review' : 'setup/upload';
     if (k === 3) return 'setup/test';
     return 'live';
   }
   function allowed(pane) {
     const k = state.k;
-    return { loc: true, mb: k >= 1, 'mb-ok': k >= 2, upload: k >= 2, building: k >= 2, review: k >= 2 && state.uploaded, test: k >= 3, live: k >= 4 }[pane];
+    return { loc: true, mb: k >= 1, 'mb-approve': k >= 1 && !!state.pending, 'mb-ok': k >= 2, upload: k >= 2, building: k >= 2, review: k >= 2 && state.uploaded, test: k >= 3, live: k >= 4 }[pane];
   }
-  const stepRoute = i => ['setup/loc', state.k >= 2 ? 'setup/mb-ok' : 'setup/mb', state.uploaded ? 'review' : 'setup/upload', 'setup/test'][i];
-  const nextAfter = { loc: () => state.k >= 2 ? 'setup/mb-ok' : 'setup/mb', 'mb-ok': () => state.uploaded ? 'review' : 'setup/upload' };
+  const stepRoute = i => ['setup/loc', state.k >= 2 ? 'setup/mb-ok' : state.pending ? 'setup/mb-approve' : 'setup/mb', state.uploaded ? 'review' : 'setup/upload', 'setup/test'][i];
+  const nextAfter = { loc: () => state.k >= 2 ? 'setup/mb-ok' : state.pending ? 'setup/mb-approve' : 'setup/mb', 'mb-ok': () => state.uploaded ? 'review' : 'setup/upload' };
   const ACTIVE = ['Shown at the top of your waiver', 'About a minute', 'AI builds the form', 'Sign it on your phone'];
   const doneLabel = i => [state.biz, 'Connected · Site ' + state.site, 'Form ready · in review', 'Signed by you · ' + (state.signedAt || '9:52')][i];
 
@@ -1149,13 +1173,15 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
       const done = i < state.k, now = i === cur, locked = i > state.k;
       li.className = 'rstep' + (done ? ' done' : '') + (now ? ' now' : '');
       li.querySelector('.n').textContent = done && !now ? '✓' : i + 1;
-      li.querySelector('.s').textContent = done ? doneLabel(i) : ACTIVE[i];
+      li.querySelector('.s').textContent = done ? doneLabel(i) : (i === 1 && state.pending ? 'Waiting for your approval' : ACTIVE[i]);
       const b = li.querySelector('button');
       b.setAttribute('aria-disabled', locked); b.title = locked ? 'Finish the steps before this one first' : '';
       if (now) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
     });
     $$('.pane').forEach(p => p.classList.toggle('on', p.dataset.pane === pane));
     if (pane === 'loc') { $('#loc').value = state.biz; }
+    if (pane === 'mb') { $('#siteid').value = state.pending || (state.k >= 2 ? state.site : ''); }
+    if (pane === 'mb-approve') { $$('[data-pending]').forEach(e => e.textContent = state.pending); $('#act-link').value = actLink(); $('#mb-wait').classList.remove('ok'); $('#mb-wait-txt').textContent = 'Waiting for approval in Mindbody…'; $('#act-open').disabled = false; $('#act-open').innerHTML = 'Open activation link&nbsp;↗'; }
     if (pane === 'test') { $('#test-email').value = state.email; paintWait(); }
     if (pane === 'building') runBuild();
   }
@@ -1282,11 +1308,20 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     e.preventDefault();
     const v = $('#siteid').value.trim();
     if (!/^\d{4,6}$/.test(v)) { $('#f-site').classList.add('bad'); $('#siteid').focus(); return; }
-    const btn = $('#mb-btn'); btn.disabled = true; btn.textContent = 'Waiting for Mindbody approval…';
+    // Mindbody needs the site owner to approve WaiverKing through an auto-generated activation link
+    const A = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    state.pending = v; state.code = Array.from({ length: 32 }, () => A[Math.floor(Math.random() * 64)]).join('');
+    save(); go('setup/mb-approve');
+  });
+  const actLink = () => 'clients.mindbodyonline.com/classic/ws?auto=studioId%3d' + state.pending + '%26code%3d' + encodeURIComponent(state.code || '').replace(/%[0-9A-F]{2}/g, m => m.toLowerCase());
+  $('#act-open').addEventListener('click', () => {
+    // Prototype: the real Mindbody page isn't opened; the owner's approval is simulated
+    const b = $('#act-open'); b.disabled = true; b.textContent = 'Opened in Mindbody…';
+    toast('Prototype: pretending you approved WaiverKing in Mindbody');
     setTimeout(() => {
-      btn.disabled = false; btn.innerHTML = 'Connect Mindbody&nbsp;→';
-      state.site = v; state.k = Math.max(state.k, 2); save(); go('setup/mb-ok');
-    }, 1300);
+      $('#mb-wait').classList.add('ok'); $('#mb-wait-txt').textContent = 'Approved in Mindbody. Connecting site ' + state.pending + '…';
+      setTimeout(() => { state.site = state.pending; state.pending = ''; state.k = Math.max(state.k, 2); save(); go('setup/mb-ok'); }, 1100);
+    }, 1800);
   });
 
   // ---------- step 3 · upload + build ----------
@@ -1409,7 +1444,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
       $('#sb-eye').textContent = k === 0 ? 'Finish setting up your studio' : 'Finish setting up ' + state.biz;
       const T = [
         ['Next: name your location', 'You’re exploring a sample waiver. Finish setup to publish your own.'],
-        ['Next: connect Mindbody', 'About a minute. You’ll need the site ID from your Mindbody booking link.'],
+        state.pending ? ['Next: approve WaiverKing in Mindbody', 'Open the activation link for site ' + state.pending + ' and click Approve. Then you’re connected.'] : ['Next: connect Mindbody', 'About a minute. You’ll need the site ID from your Mindbody booking link.'],
         own ? ['Next: check your waiver', 'Your form is ready below. Take a look, then confirm it to continue.'] : ['Next: upload your waiver', 'AI turns your PDF into a form in seconds. Until then, play with the sample below.'],
         ['Last step: send yourself a test link', 'Sign your waiver on your phone, then you’re live.']
       ][k];
