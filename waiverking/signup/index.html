@@ -950,8 +950,7 @@ body:has(.modal-on) { overflow: hidden; }
             <p class="lede">Signed waivers file straight into each client’s Mindbody profile.</p>
             <div class="mbstrip"><span class="mk mbk">mb</span><span><b>Mindbody</b><span>Your booking system</span></span><span class="wire"></span><span class="mk" style="font:700 12px/1 var(--font-body);color:var(--green-txt)">wk</span><span><b>WaiverKing</b><span>Your waiver forms</span></span></div>
             <div class="sfield" id="f-site"><label for="siteid">Mindbody Site ID</label><input id="siteid" inputmode="numeric" placeholder="e.g. 12345" autocomplete="off"><p class="err">Site IDs are numbers, usually 4 to 6 digits.</p></div>
-            <p class="hint">The number at the end of your Mindbody booking link. <button type="button" class="linkbtn" id="where" aria-expanded="false" aria-controls="where-box">Where do I find it?</button></p>
-            <div class="wherebox" id="where-box" hidden><span>Open your Mindbody booking page. The Site ID is the number after <b>studioid=</b>:</span><code>clients.mindbodyonline.com/classic/ws?studioid=<b>12345</b></code></div>
+            <div class="wherebox" id="where-box"><span>Open your Mindbody booking page. The Site ID is the number after <b>studioid=</b>:</span><code>clients.mindbodyonline.com/classic/ws?studioid=<b>12345</b></code></div>
           </div>
           <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/loc">Back</button><span class="spacer"></span><button class="obtn" type="submit" id="mb-btn">Connect Mindbody&nbsp;→</button></div>
         </form>
@@ -1246,7 +1245,6 @@ body:has(.modal-on) { overflow: hidden; }
   });
 
   // ---------- step 2 · Mindbody ----------
-  $('#where').addEventListener('click', e => { const box = $('#where-box'); box.hidden = !box.hidden; e.target.setAttribute('aria-expanded', !box.hidden); });
   $('#siteid').addEventListener('input', () => $('#f-site').classList.remove('bad'));
   $('#mb-form').addEventListener('submit', e => {
     e.preventDefault();
