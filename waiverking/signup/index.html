@@ -495,7 +495,8 @@ body:has(.modal-on) { overflow: hidden; }
 /* ---------- 3c · full-page waiver editor ---------- */
 .edapp { min-height: 100vh; background: var(--app-bg); }
 .ed-top { position: sticky; top: 0; z-index: 5; height: 64px; background: #fff; border-bottom: 1px solid var(--app-line); display: flex; align-items: center; gap: 20px; padding: 0 24px; }
-.ed-top > img { width: 132px; flex: none; }
+.edmain { min-width: 0; }
+.ed-top .ed-doc { padding-left: 0; border-left: 0; }
 .ed-doc { padding-left: 20px; border-left: 1px solid var(--app-line); min-width: 0; }
 .ed-doc b { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; }
 .ed-doc span { font-size: 12px; color: var(--app-muted); white-space: nowrap; }
@@ -630,7 +631,7 @@ body:has(.modal-on) { overflow: hidden; }
   .qr { display: flex; align-items: center; gap: 14px; text-align: left; }
   .qr svg { width: 96px; flex: none; margin: 0; }
   .ed-top { height: auto; min-height: 60px; flex-wrap: wrap; gap: 10px 14px; padding: 10px 16px; }
-  .ed-top > img { width: 108px; }
+
   .ed-doc { display: none; }
   .ed-act { gap: 10px; }
   .ed-act .link.green { display: none; }
@@ -789,10 +790,9 @@ body:has(.modal-on) { overflow: hidden; }
 
 <!-- ======================= 3c · Full-page waiver editor ======================= -->
 <section class="screen" data-screen="review" aria-label="Review your waiver">
-  <div class="edapp">
+  <div class="app edapp"><aside class="side" data-side></aside><div class="edmain">
     <header class="ed-top">
-      <img src="../assets/wk-logo.svg" alt="WaiverKing">
-      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
+      <div class="ed-doc"><b id="ed-wname">Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
       <div class="ed-act">
         <a class="link green" href="#sandbox">Try the sandbox</a>
         <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, go to dashboard</span></span>&nbsp;→</button>
@@ -865,7 +865,7 @@ body:has(.modal-on) { overflow: hidden; }
         </aside>
       </div>
     </div>
-  </div>
+  </div></div>
 </section>
 
 <!-- ======================= Sandbox / dashboard with setup banner ======================= -->
@@ -1346,7 +1346,7 @@ body:has(.modal-on) { overflow: hidden; }
   });
   $('#sugs').addEventListener('mouseover', e => { const li = e.target.closest('.sug'); $$('.hl').forEach(h => h.classList.toggle('flash', !!li && h.id === 'hl' + li.dataset.sug)); });
   $('#sugs').addEventListener('mouseleave', () => $$('.hl').forEach(h => h.classList.remove('flash')));
-  function paintEditor() {}
+  function paintEditor() { $("#ed-wname").textContent = shortBiz() + " waiver"; }
   $('#looks-good').addEventListener('click', () => { save(); go('sandbox'); toast('Changes saved'); });
 
   // ---------- sandbox dashboard + setup banner ----------
