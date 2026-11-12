@@ -51,6 +51,8 @@ button { cursor: pointer; }
 .top img { width: 146px; height: auto; }
 .top p { font-size: 15px; color: var(--body); }
 .top a { color: var(--green-dark); font-weight: 600; text-decoration: none; }
+.login-line { margin-top: 10px; padding-top: 22px; border-top: 1px solid var(--line); text-align: center; font-size: 15px; color: var(--body); }
+.login-line a { color: var(--green-dark); font-weight: 600; text-underline-offset: 3px; }
 .form-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; max-width: 560px; width: 100%; padding: 48px 0 24px; }
 .pill { display: inline-flex; align-self: flex-start; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: var(--green-50); color: var(--green-txt); font: 700 12px/1.25 var(--font-body); letter-spacing: .08em; text-transform: uppercase; }
 .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--green-txt); }
@@ -703,7 +705,6 @@ body:has(.modal-on) { overflow: hidden; }
     <div class="split-left">
       <div class="top">
         <a href="../"><img src="../assets/wk-logo.svg" alt="WaiverKing home" width="146" height="27"></a>
-        <p>Have an account? <a href="https://www.waiverking.com/login">Log in</a></p>
       </div>
       <div class="form-wrap">
         <span class="pill">Start your 15-day free trial</span>
@@ -735,6 +736,7 @@ body:has(.modal-on) { overflow: hidden; }
             Continue with Google
           </button>
           <p class="legal">By creating an account you agree to the <a href="https://www.waiverking.com/terms">Terms of Service</a> and <a href="https://www.waiverking.com/privacy">Privacy Policy</a>.</p>
+          <p class="login-line">Already have an account? <a href="https://www.waiverking.com/login">Log in</a></p>
         </form>
       </div>
     </div>
@@ -748,7 +750,6 @@ body:has(.modal-on) { overflow: hidden; }
     <div class="split-left">
       <div class="top">
         <a href="../"><img src="../assets/wk-logo.svg" alt="WaiverKing home" width="146" height="27"></a>
-        <p>Have an account? <a href="https://www.waiverking.com/login">Log in</a></p>
       </div>
       <div class="form-wrap">
         <button class="back" type="button" data-go="signup">← Back</button>
