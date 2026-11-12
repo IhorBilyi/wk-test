@@ -578,7 +578,7 @@ body:has(.modal-on) { overflow: hidden; }
 .aip .mini .grid2 { grid-template-columns: 1fr; }
 
 /* ---------- sandbox dashboard banner ---------- */
-.sbanner { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto auto; align-items: center; gap: 0 20px; padding: 18px 16px 18px 20px; border-radius: 16px; border: 1px solid #CFE3BF; background: linear-gradient(90deg, #EBF5E3 0%, #fff 55%); box-shadow: 0 1px 2px rgba(0,0,0,.04); margin-bottom: 28px; }
+.sbanner { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; align-items: center; gap: 0 20px; padding: 18px 20px; border-radius: 16px; border: 1px solid #CFE3BF; background: linear-gradient(90deg, #EBF5E3 0%, #fff 55%); box-shadow: 0 1px 2px rgba(0,0,0,.04); margin-bottom: 28px; }
 .sbanner[hidden] { display: none; }
 .ringk { position: relative; width: 56px; height: 56px; }
 .ringk svg { width: 56px; height: 56px; transform: rotate(-90deg); }
@@ -640,9 +640,8 @@ body:has(.modal-on) { overflow: hidden; }
   .ed-head { flex-wrap: wrap; }
   .ed-name { width: 100%; }
   .rte-doc { padding: 24px 18px 32px; min-height: 0; }
-  .sbanner { grid-template-columns: 48px minmax(0, 1fr) 32px; gap: 12px 14px; padding: 16px; align-items: start; }
+  .sbanner { grid-template-columns: 48px minmax(0, 1fr); gap: 12px 14px; padding: 16px; align-items: start; }
   .ringk, .ringk svg { width: 48px; height: 48px; }
-  .sbanner .sb-x { grid-column: 3; grid-row: 1; }
   .sbanner .obtn { grid-column: 1 / -1; grid-row: 2; }
 }
 @media (max-width: 520px) {
@@ -921,7 +920,6 @@ body:has(.modal-on) { overflow: hidden; }
         <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/3</b></div>
         <div><p class="eyebrow" id="sb-eye">Finish setting up your studio</p><h2 id="sb-title">Next: name your location</h2><p class="sbs" id="sb-sub"></p><ul class="schips" id="sb-chips" aria-label="Setup steps"></ul></div>
         <a class="obtn" id="sb-go" href="#setup">Continue setup&nbsp;→</a>
-        <button class="sb-x" type="button" id="sb-x" aria-label="Hide this banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
       <h1 class="title" id="d-title">Explore with a sample waiver</h1>
       <p class="sub" id="d-sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
@@ -1399,12 +1397,10 @@ body:has(.modal-on) { overflow: hidden; }
   $('#ed-refresh').addEventListener('click', () => toast('MindBody field lists refreshed'));
 
   // ---------- sandbox dashboard + setup banner ----------
-  let bannerHidden = false;
-  $('#sb-x').addEventListener('click', () => { bannerHidden = true; $('#sbanner').hidden = true; toast('Banner hidden. Pick up setup any time from Get started.'); });
   const CHIPS = ['Location name', 'Mindbody', 'Upload waiver'];
   function paintDash() {
     const k = Math.min(state.k, 3), own = state.uploaded, live = k >= 3;
-    const ban = $('#sbanner'); ban.hidden = live || bannerHidden;
+    const ban = $('#sbanner'); ban.hidden = live;
     if (!live) {
       $('#ring-n').textContent = k + '/3';
       $('#ring-val').style.strokeDashoffset = 150.8 * (1 - k / 3);
