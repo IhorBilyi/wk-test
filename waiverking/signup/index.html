@@ -360,7 +360,7 @@ button { cursor: pointer; }
 /* setup modal sits on top of the real sandbox dashboard */
 [data-screen="sandbox"] > .app { transition: filter .3s ease; }
 .modal-on > .app { filter: blur(3px); }
-.screen.on[data-screen="sandbox"] { animation: fade-in 320ms ease both; } /* no transform: it would break the fixed scrim */
+.screen.on[data-screen="sandbox"], .screen.on[data-screen="review"] { animation: fade-in 320ms ease both; } /* no transform: it would break the fixed scrim */
 [data-screen="sandbox"] .scrim { display: none; }
 [data-screen="sandbox"].modal-on .scrim { display: grid; }
 body:has(.modal-on) { overflow: hidden; }
@@ -693,6 +693,56 @@ body:has(.modal-on) { overflow: hidden; }
 @media (max-width: 1720px) { .ed-tabrow { flex-direction: column; align-items: stretch; gap: 12px; } .cached { align-self: flex-end; order: -1; margin: 0; } }
 @media (max-width: 960px) { .cached { align-self: flex-start; } }
 @media (max-width: 960px) { .ed-head .ed-name { width: 100%; } .ed-vsep { display: none; } .ed-head .ebtn { flex: 1; } .ed-notice { font-size: 12.5px; } }
+/* ---------- phone layer (Mobbin refs: Quartz menu drawer, Perplexity / Facebook bottom sheets) ---------- */
+.burger, .aip-sheet-head, .ed-mbar, .sheet-scrim, .nav-scrim { display: none; }
+@media (max-width: 960px) {
+  .side { position: sticky; top: 0; z-index: 30; justify-content: space-between; }
+  .burger { display: grid; place-items: center; width: 40px; height: 40px; border: 0; background: none; border-radius: 10px; color: var(--ink); margin-right: -8px; }
+  .burger:hover { background: #F3F5F7; }
+  .burger .i-x, .side.open .burger .i-menu { display: none; }
+  .side.open .burger .i-x { display: block; }
+  .side.open { position: fixed; inset: 0 auto 0 0; width: min(300px, 86vw); height: 100%; flex-direction: column; align-items: stretch; justify-content: flex-start; padding: 16px 12px 20px; border-right: 1px solid var(--app-line); border-bottom: 0; overflow-y: auto; z-index: 60; box-shadow: 0 20px 60px rgba(0,0,0,.2); animation: drawer-in 280ms var(--ease-out) both; }
+  @keyframes drawer-in { from { transform: translateX(-100%); } }
+  .side.open .logo { margin: 4px 6px 18px; width: 140px; }
+  .side.open .burger { position: absolute; top: 12px; right: 18px; }
+  .side.open .acct, .side.open .navsec, .side.open .nav { display: block; }
+  .side.open .acct { display: flex; }
+  .side.open .trial { display: block; margin-top: auto; }
+  .nav-scrim { position: fixed; inset: 0; z-index: 55; background: rgba(28,27,25,.42); }
+  body.nav-open { overflow: hidden; }
+  body.nav-open .nav-scrim { display: block; animation: fade-in 200ms ease both; }
+
+  /* setup modal: a sheet over the blurred sandbox instead of a full page */
+  .scrim { background: rgba(28,27,25,.42); padding: 14px 0 0; }
+  .modal { border-radius: 20px 20px 0 0; min-height: calc(100% - 14px); }
+  .rail { border-radius: 20px 20px 0 0; }
+
+  /* editor */
+  .ed { padding-bottom: 96px; }
+  .ed-head [id="ed-save"] { display: none; }
+  .ed-head .ebtn.ghost { flex: 0 0 auto; }
+  .rte-bar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+  .rte-bar button { flex: none; }
+  .aip { position: fixed; left: 0; right: 0; bottom: 0; top: auto; z-index: 50; max-height: 82vh; overflow-y: auto; border-radius: 18px 18px 0 0; border: 0; box-shadow: 0 -10px 40px rgba(0,0,0,.18); transform: translateY(105%); transition: transform .35s var(--ease-out); }
+  .aip.open { transform: none; }
+  .aip-sheet-head { display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1; background: #fff; padding: 18px 16px 10px; }
+  .aip-sheet-head b { font-size: 16px; font-weight: 600; }
+  .aip-sheet-head .grab { position: absolute; left: 50%; top: 7px; width: 36px; height: 4px; border-radius: 4px; background: #D9DDE3; transform: translateX(-50%); }
+  .aip-close { width: 32px; height: 32px; border: 0; border-radius: 50%; background: #F1F2F4; color: var(--app-muted); display: grid; place-items: center; }
+  .aip-tabs { position: sticky; top: 60px; background: #fff; z-index: 1; }
+  .sheet-scrim { position: fixed; inset: 0; z-index: 45; background: rgba(28,27,25,.4); }
+  .sheet-scrim.on { display: block; animation: fade-in 200ms ease both; }
+  body.sheet-open { overflow: hidden; }
+  .ed-mbar { display: flex; gap: 10px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); border-top: 1px solid var(--app-line); backdrop-filter: blur(8px); }
+  .ed-mbar .ed-mai { flex: 1; height: 44px; border: 1px solid #CFE3BF; border-radius: 8px; background: var(--app-green-50); color: var(--app-green); font: 600 15px/1 var(--font-body); display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+  .ed-mbar .ed-mai .cnt { background: var(--app-green); color: #fff; border-radius: 999px; padding: 3px 7px; font-size: 12px; }
+  .ed-mbar .ed-mai .cnt:empty { display: none; }
+  .ed-mbar .ebtn { flex: 0 0 auto; padding: 0 28px; }
+
+  /* dashboard */
+  .main { padding: 20px 16px 24px; }
+  .sbanner h2 { font-size: 16px; }
+}
 </style>
 </head>
 <body>
@@ -796,6 +846,7 @@ body:has(.modal-on) { overflow: hidden; }
 <!-- app shell sidebar template -->
 <template id="side-tpl">
   <img class="logo" src="../assets/wk-logo.svg" alt="WaiverKing">
+  <button class="burger" type="button" aria-label="Open menu" aria-expanded="false"><svg class="i-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg><svg class="i-x" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   <div class="acct"><span class="avatar" data-initials>SY</span><span><b data-biz>Sunrise Yoga Studio</b><span data-name>Jamie Rivera</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
   <div class="navsec">WORKSPACE</div>
   <nav class="nav">
@@ -876,7 +927,8 @@ body:has(.modal-on) { overflow: hidden; }
             <p id="sig-line">Signature: <span class="tok" contenteditable="false">&lt;SIGNATURE&gt;</span> &nbsp; Date: <span class="tok" contenteditable="false">&lt;SIGNDATE&gt;</span></p>
           </div>
         </div>
-        <aside class="aip" aria-label="Waiver assistant">
+        <aside class="aip" id="aip" aria-label="Waiver assistant">
+          <div class="aip-sheet-head"><span class="grab" aria-hidden="true"></span><b>Waiver assistant</b><button type="button" class="aip-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
           <div class="aip-tabs" role="tablist">
             <button type="button" role="tab" class="on" aria-selected="true" data-aip="ai">✦ AI review <span class="cnt" id="sug-cnt">3</span></button>
             <button type="button" role="tab" aria-selected="false" data-aip="fields">{ } Insert field</button>
@@ -909,6 +961,11 @@ body:has(.modal-on) { overflow: hidden; }
       </div>
     </div>
   </div></div>
+  <div class="ed-mbar">
+    <button type="button" class="ed-mai" id="ed-mai">✦ AI review <span class="cnt" id="sug-cnt-m">3</span></button>
+    <button type="button" class="ebtn solid" data-save>Save</button>
+  </div>
+  <div class="sheet-scrim" id="aip-scrim"></div>
 </section>
 
 <!-- ======================= Sandbox / dashboard with setup banner ======================= -->
@@ -1443,6 +1500,22 @@ body:has(.modal-on) { overflow: hidden; }
     $('#client').classList.add('signed');
     if (!$('#client').dataset.demo) { load(); state.signedAt = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s?[AP]M$/i, ''); save(); }
   });
+
+  // ---------- phone: menu drawer + assistant sheet ----------
+  const navScrim = document.createElement('div'); navScrim.className = 'nav-scrim'; document.body.append(navScrim);
+  const closeNav = () => { $$('.side.open').forEach(sd => { sd.classList.remove('open'); sd.querySelector('.burger').setAttribute('aria-expanded', 'false'); }); document.body.classList.remove('nav-open'); };
+  $$('.side .burger').forEach(b => b.addEventListener('click', () => {
+    const sd = b.closest('.side'), open = !sd.classList.contains('open');
+    closeNav(); if (open) { sd.classList.add('open'); b.setAttribute('aria-expanded', 'true'); document.body.classList.add('nav-open'); }
+  }));
+  navScrim.addEventListener('click', closeNav);
+  addEventListener('hashchange', closeNav);
+  const sheet = (open) => { $('#aip').classList.toggle('open', open); $('#aip-scrim').classList.toggle('on', open); document.body.classList.toggle('sheet-open', open); };
+  $('#ed-mai').addEventListener('click', () => sheet(true));
+  $('.aip-close').addEventListener('click', () => sheet(false));
+  $('#aip-scrim').addEventListener('click', () => sheet(false));
+  $('[data-save]').addEventListener('click', () => toast('Waiver saved'));
+  new MutationObserver(() => { $('#sug-cnt-m').textContent = $('#sug-cnt').textContent; }).observe($('#sug-cnt'), { childList: true, characterData: true, subtree: true });
 
   show();
 })();
