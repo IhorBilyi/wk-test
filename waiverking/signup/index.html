@@ -357,9 +357,13 @@ button { cursor: pointer; }
 .eyebrow { font: 700 12px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--green-txt); }
 
 /* backdrop app behind the modal */
-[data-screen="setup"] > .app { filter: blur(2px); }
-.screen.on[data-screen="setup"] { animation: none; } /* a transform here would break the fixed scrim */
-body:has([data-screen="setup"].on) { overflow: hidden; }
+/* setup modal sits on top of the real sandbox dashboard */
+[data-screen="sandbox"] > .app { transition: filter .3s ease; }
+.modal-on > .app { filter: blur(3px); }
+.screen.on[data-screen="sandbox"] { animation: fade-in 320ms ease both; } /* no transform: it would break the fixed scrim */
+[data-screen="sandbox"] .scrim { display: none; }
+[data-screen="sandbox"].modal-on .scrim { display: grid; }
+body:has(.modal-on) { overflow: hidden; }
 .scrim { position: fixed; inset: 0; z-index: 20; background: rgba(28,27,25,.42); display: grid; place-items: center; padding: 32px 24px; overflow-y: auto; }
 .screen.on .scrim { animation: fade-in 240ms ease both; }
 @keyframes fade-in { from { opacity: 0; } }
@@ -783,14 +787,118 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
 </template>
 <template id="foot-tpl"><span>© 2026 WaiverKing</span><span><a href="https://www.waiverking.com/terms">Terms</a><a href="https://www.waiverking.com/privacy">Privacy</a><a href="https://www.waiverking.com/contact">Contact</a></span></template>
 
-<!-- ======================= 3 · Setup modal (steps 1–4 + live) ======================= -->
-<section class="screen" data-screen="setup" aria-label="Set up your studio">
-  <div class="app" inert aria-hidden="true"><aside class="side" data-side></aside>
+<!-- ======================= 3c · Full-page waiver editor ======================= -->
+<section class="screen" data-screen="review" aria-label="Review your waiver">
+  <div class="edapp">
+    <header class="ed-top">
+      <img src="../assets/wk-logo.svg" alt="WaiverKing">
+      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
+      <div class="ed-act">
+        <a class="link green" href="#sandbox">Try the sandbox</a>
+        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, go to dashboard</span></span>&nbsp;→</button>
+        <button class="x" type="button" data-close aria-label="Close the editor and go to your dashboard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+    </header>
+    <div class="ed">
+      <h1 class="sr">Review your waiver</h1>
+      <div class="ed-head">
+        <input class="ed-name" value="Liability waiver and release" aria-label="Waiver name">
+        <span class="spacer"></span>
+        <span class="synced"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Mindbody fields synced</span>
+        <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open preview</a>
+      </div>
+      <nav class="ed-tabs" aria-label="Waiver settings">
+        <div class="tg"><span class="tgl">Content</span><div><button type="button" class="on" aria-current="page">Waiver content</button><button type="button" data-tab-soon>Child info</button><button type="button" data-tab-soon>Additional adult info</button><button type="button" data-tab-soon>Additional docs</button><button type="button" data-tab-soon>Email</button></div></div>
+        <div class="tg"><span class="tgl">Behavior</span><div><button type="button" data-tab-soon>Options</button><button type="button" data-tab-soon>Privacy</button></div></div>
+        <div class="tg"><span class="tgl">Presentation</span><div><button type="button" data-tab-soon>Design</button></div></div>
+      </nav>
+      <div class="ed-grid">
+        <div class="rte">
+          <div class="rte-bar" role="toolbar" aria-label="Formatting">
+            <button type="button" data-cmd="formatBlock" data-arg="p">Paragraph ▾</button><span class="sep"></span>
+            <button type="button" data-cmd="bold" aria-label="Bold"><b>B</b></button><button type="button" data-cmd="italic" aria-label="Italic"><i>I</i></button><button type="button" data-cmd="underline" aria-label="Underline"><u>U</u></button><span class="sep"></span>
+            <button type="button" data-cmd="insertUnorderedList" aria-label="Bulleted list">•≡</button><button type="button" data-cmd="insertOrderedList" aria-label="Numbered list">1≡</button><span class="sep"></span>
+            <button type="button" data-cmd="justifyLeft" aria-label="Align left">≡</button><button type="button" id="rte-link">Link</button><span class="sep"></span>
+            <button type="button" class="ins" id="rte-ins">{ } Insert field ▾</button>
+            <span class="spacer"></span><button type="button" data-toast="Source view isn’t part of this prototype">Source</button>
+          </div>
+          <div class="rte-doc" id="rte" contenteditable="true" spellcheck="false" aria-label="Waiver text">
+            <h2>Liability waiver and release</h2>
+            <p class="addr"><span data-biz>Sunrise Yoga Studio</span> · 12 Ocean Ave, Santa Monica</p>
+            <p>I, <span class="tok" contenteditable="false">&lt;CLIENTFIRSTNAME&gt;</span> <span class="tok" contenteditable="false">&lt;CLIENTLASTNAME&gt;</span>, born <span class="tok" contenteditable="false">&lt;CLIENTBIRTHDATE&gt;</span>, understand that:</p>
+            <p>Yoga involves physical activity and carries a risk of injury. I take part voluntarily, follow the teacher’s instructions, and release <span data-biz>Sunrise Yoga Studio</span>, its staff and teachers from liability for any injury that may happen during class, except in cases of gross negligence. I confirm I am in good health and have told the teacher about any condition that may affect my practice.</p>
+            <p><span class="hl" id="hl1"><span class="mk" contenteditable="false">1</span>Emergency contact: <span class="tok" contenteditable="false">&lt;EMERGENCYCONTACT&gt;</span> <span class="tok" contenteditable="false">&lt;EMERGENCYPHONE&gt;</span></span></p>
+            <p>Health issues: <span class="tok" contenteditable="false">&lt;HEALTHISSUES&gt;</span></p>
+            <p><span class="hl" id="hl2"><span class="mk" contenteditable="false">2</span>If under 18, parent or guardian signs below.</span></p>
+            <p id="sig-line">Signature: <span class="tok" contenteditable="false">&lt;SIGNATURE&gt;</span> &nbsp; Date: <span class="tok" contenteditable="false">&lt;SIGNDATE&gt;</span></p>
+          </div>
+        </div>
+        <aside class="aip" aria-label="Waiver assistant">
+          <div class="aip-tabs" role="tablist">
+            <button type="button" role="tab" class="on" aria-selected="true" data-aip="ai">✦ AI review <span class="cnt" id="sug-cnt">3</span></button>
+            <button type="button" role="tab" aria-selected="false" data-aip="fields">{ } Insert field</button>
+            <button type="button" role="tab" aria-selected="false" data-aip="prev">Preview</button>
+          </div>
+          <div class="aip-pane on" data-aip-pane="ai">
+            <p class="meta">Built from <span data-filename>Sunrise Yoga waiver.pdf</span> in 8 seconds</p>
+            <h3>Your waiver is ready</h3>
+            <div class="stats"><div class="stat"><b id="st-fields">8</b><span>Mindbody fields</span></div><div class="stat"><b>3</b><span>sections</span></div><div class="stat"><b id="st-sigs">1</b><span>signature</span></div></div>
+            <div class="review"><b>In review by our team</b>A person checks every field against your PDF. You can keep going meanwhile.</div>
+            <h4>Suggestions</h4>
+            <ul class="sugs" id="sugs">
+              <li class="sug" data-sug="1"><span class="mk">1</span><div><b>Split emergency contact into name and phone</b><p>Mindbody stores them as two fields.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+              <li class="sug" data-sug="2"><span class="mk">2</span><div><b>Add a guardian signature for minors</b><p>Your PDF mentions under-18s but has no guardian field.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+              <li class="sug" data-sug="3"><span class="mk grey">3</span><div><b>Use &lt;CLIENTAGE&gt; instead of asking for age</b><p>It fills in from Mindbody automatically.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+            </ul>
+            <p class="sugs-done" id="sugs-done" hidden>All suggestions handled. Our team still checks every field against your PDF.</p>
+            <a class="link green" href="#setup/upload" style="color:var(--green-txt)">Upload a different file</a>
+          </div>
+          <div class="aip-pane" data-aip-pane="fields">
+            <p class="meta">Click in the waiver text, then pick a field. It fills in from Mindbody when a client signs.</p>
+            <ul class="fields" id="fields"></ul>
+          </div>
+          <div class="aip-pane" data-aip-pane="prev">
+            <p class="meta">What clients see on their phone</p>
+            <div class="mini"><div class="doc" data-doc></div></div>
+            <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open full preview&nbsp;↗</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Sandbox / dashboard with setup banner ======================= -->
+<section class="screen" data-screen="sandbox" aria-label="Sandbox">
+  <div class="app" id="dash-app"><aside class="side" data-side></aside>
     <main class="main"><div class="main-in">
-      <h2 class="title">Welcome, <span data-first>Jamie</span></h2>
-      <p class="sub">Let’s get <span data-biz>Sunrise Yoga Studio</span> live. Three short steps, about 5 minutes.</p>
+      <div class="sbanner" id="sbanner" role="region" aria-label="Finish setting up">
+        <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/3</b></div>
+        <div><p class="eyebrow" id="sb-eye">Finish setting up your studio</p><h2 id="sb-title">Next: name your location</h2><p class="sbs" id="sb-sub"></p><ul class="schips" id="sb-chips" aria-label="Setup steps"></ul></div>
+        <a class="obtn" id="sb-go" href="#setup">Continue setup&nbsp;→</a>
+        <button class="sb-x" type="button" id="sb-x" aria-label="Hide this banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <h1 class="title" id="d-title">Explore with a sample waiver</h1>
+      <p class="sub" id="d-sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
+      <div class="cols">
+        <div class="card" style="padding:20px">
+          <div class="toolbar"><b style="font-size:15px" id="d-wname">Sample waiver</b><span class="tag amber" id="d-tag">SAMPLE</span>
+            <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
+          <div class="stage" data-stage><div class="doc" id="d-doc"></div></div>
+        </div>
+        <div class="card vstack">
+          <h2 class="ctitle">Try it like a client</h2>
+          <div class="afield"><label for="demo-link">Test link</label><div class="inline"><input id="demo-link" readonly value="sign.waiverking.com/demo-yoga"><button class="abtn sec" type="button" data-copy="#demo-link">Copy</button></div></div>
+          <div class="vstack tight"><a class="abtn pri" id="d-open" href="#sign-demo" target="_blank" rel="noopener">Open test link&nbsp; ↗</a><button class="abtn sec" type="button" data-toast="Test link sent to your phone (prototype)">Send to my phone</button></div>
+          <div class="hr"></div>
+          <b style="font-size:14px">Things to try</b>
+          <ul class="todo" id="todo"><li>Sign the waiver on your phone</li><li>Find the signed copy in Signed forms</li><li>Change a field in the form editor</li></ul>
+          <p style="font-size:13px;color:var(--app-muted)" id="d-foot">This is sample data. Nothing here reaches Mindbody.</p>
+        </div>
+      </div>
     </div><footer class="foot" data-foot></footer></main>
   </div>
+  <!-- setup modal (steps 1–3), shown over the blurred sandbox -->
   <div class="scrim">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rail-title">
       <aside class="rail">
@@ -917,119 +1025,6 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   </div>
 </section>
 
-<!-- ======================= 3c · Full-page waiver editor ======================= -->
-<section class="screen" data-screen="review" aria-label="Review your waiver">
-  <div class="edapp">
-    <header class="ed-top">
-      <img src="../assets/wk-logo.svg" alt="WaiverKing">
-      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
-      <div class="ed-act">
-        <a class="link green" href="#sandbox">Try the sandbox</a>
-        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, go to dashboard</span></span>&nbsp;→</button>
-        <button class="x" type="button" data-close aria-label="Close the editor and go to your dashboard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      </div>
-    </header>
-    <div class="ed">
-      <h1 class="sr">Review your waiver</h1>
-      <div class="ed-head">
-        <input class="ed-name" value="Liability waiver and release" aria-label="Waiver name">
-        <span class="spacer"></span>
-        <span class="synced"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Mindbody fields synced</span>
-        <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open preview</a>
-      </div>
-      <nav class="ed-tabs" aria-label="Waiver settings">
-        <div class="tg"><span class="tgl">Content</span><div><button type="button" class="on" aria-current="page">Waiver content</button><button type="button" data-tab-soon>Child info</button><button type="button" data-tab-soon>Additional adult info</button><button type="button" data-tab-soon>Additional docs</button><button type="button" data-tab-soon>Email</button></div></div>
-        <div class="tg"><span class="tgl">Behavior</span><div><button type="button" data-tab-soon>Options</button><button type="button" data-tab-soon>Privacy</button></div></div>
-        <div class="tg"><span class="tgl">Presentation</span><div><button type="button" data-tab-soon>Design</button></div></div>
-      </nav>
-      <div class="ed-grid">
-        <div class="rte">
-          <div class="rte-bar" role="toolbar" aria-label="Formatting">
-            <button type="button" data-cmd="formatBlock" data-arg="p">Paragraph ▾</button><span class="sep"></span>
-            <button type="button" data-cmd="bold" aria-label="Bold"><b>B</b></button><button type="button" data-cmd="italic" aria-label="Italic"><i>I</i></button><button type="button" data-cmd="underline" aria-label="Underline"><u>U</u></button><span class="sep"></span>
-            <button type="button" data-cmd="insertUnorderedList" aria-label="Bulleted list">•≡</button><button type="button" data-cmd="insertOrderedList" aria-label="Numbered list">1≡</button><span class="sep"></span>
-            <button type="button" data-cmd="justifyLeft" aria-label="Align left">≡</button><button type="button" id="rte-link">Link</button><span class="sep"></span>
-            <button type="button" class="ins" id="rte-ins">{ } Insert field ▾</button>
-            <span class="spacer"></span><button type="button" data-toast="Source view isn’t part of this prototype">Source</button>
-          </div>
-          <div class="rte-doc" id="rte" contenteditable="true" spellcheck="false" aria-label="Waiver text">
-            <h2>Liability waiver and release</h2>
-            <p class="addr"><span data-biz>Sunrise Yoga Studio</span> · 12 Ocean Ave, Santa Monica</p>
-            <p>I, <span class="tok" contenteditable="false">&lt;CLIENTFIRSTNAME&gt;</span> <span class="tok" contenteditable="false">&lt;CLIENTLASTNAME&gt;</span>, born <span class="tok" contenteditable="false">&lt;CLIENTBIRTHDATE&gt;</span>, understand that:</p>
-            <p>Yoga involves physical activity and carries a risk of injury. I take part voluntarily, follow the teacher’s instructions, and release <span data-biz>Sunrise Yoga Studio</span>, its staff and teachers from liability for any injury that may happen during class, except in cases of gross negligence. I confirm I am in good health and have told the teacher about any condition that may affect my practice.</p>
-            <p><span class="hl" id="hl1"><span class="mk" contenteditable="false">1</span>Emergency contact: <span class="tok" contenteditable="false">&lt;EMERGENCYCONTACT&gt;</span> <span class="tok" contenteditable="false">&lt;EMERGENCYPHONE&gt;</span></span></p>
-            <p>Health issues: <span class="tok" contenteditable="false">&lt;HEALTHISSUES&gt;</span></p>
-            <p><span class="hl" id="hl2"><span class="mk" contenteditable="false">2</span>If under 18, parent or guardian signs below.</span></p>
-            <p id="sig-line">Signature: <span class="tok" contenteditable="false">&lt;SIGNATURE&gt;</span> &nbsp; Date: <span class="tok" contenteditable="false">&lt;SIGNDATE&gt;</span></p>
-          </div>
-        </div>
-        <aside class="aip" aria-label="Waiver assistant">
-          <div class="aip-tabs" role="tablist">
-            <button type="button" role="tab" class="on" aria-selected="true" data-aip="ai">✦ AI review <span class="cnt" id="sug-cnt">3</span></button>
-            <button type="button" role="tab" aria-selected="false" data-aip="fields">{ } Insert field</button>
-            <button type="button" role="tab" aria-selected="false" data-aip="prev">Preview</button>
-          </div>
-          <div class="aip-pane on" data-aip-pane="ai">
-            <p class="meta">Built from <span data-filename>Sunrise Yoga waiver.pdf</span> in 8 seconds</p>
-            <h3>Your waiver is ready</h3>
-            <div class="stats"><div class="stat"><b id="st-fields">8</b><span>Mindbody fields</span></div><div class="stat"><b>3</b><span>sections</span></div><div class="stat"><b id="st-sigs">1</b><span>signature</span></div></div>
-            <div class="review"><b>In review by our team</b>A person checks every field against your PDF. You can keep going meanwhile.</div>
-            <h4>Suggestions</h4>
-            <ul class="sugs" id="sugs">
-              <li class="sug" data-sug="1"><span class="mk">1</span><div><b>Split emergency contact into name and phone</b><p>Mindbody stores them as two fields.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
-              <li class="sug" data-sug="2"><span class="mk">2</span><div><b>Add a guardian signature for minors</b><p>Your PDF mentions under-18s but has no guardian field.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
-              <li class="sug" data-sug="3"><span class="mk grey">3</span><div><b>Use &lt;CLIENTAGE&gt; instead of asking for age</b><p>It fills in from Mindbody automatically.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
-            </ul>
-            <p class="sugs-done" id="sugs-done" hidden>All suggestions handled. Our team still checks every field against your PDF.</p>
-            <a class="link green" href="#setup/upload" style="color:var(--green-txt)">Upload a different file</a>
-          </div>
-          <div class="aip-pane" data-aip-pane="fields">
-            <p class="meta">Click in the waiver text, then pick a field. It fills in from Mindbody when a client signs.</p>
-            <ul class="fields" id="fields"></ul>
-          </div>
-          <div class="aip-pane" data-aip-pane="prev">
-            <p class="meta">What clients see on their phone</p>
-            <div class="mini"><div class="doc" data-doc></div></div>
-            <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open full preview&nbsp;↗</a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ======================= Sandbox / dashboard with setup banner ======================= -->
-<section class="screen" data-screen="sandbox" aria-label="Sandbox">
-  <div class="app"><aside class="side" data-side></aside>
-    <main class="main"><div class="main-in">
-      <div class="sbanner" id="sbanner" role="region" aria-label="Finish setting up">
-        <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/3</b></div>
-        <div><p class="eyebrow" id="sb-eye">Finish setting up your studio</p><h2 id="sb-title">Next: name your location</h2><p class="sbs" id="sb-sub"></p><ul class="schips" id="sb-chips" aria-label="Setup steps"></ul></div>
-        <a class="obtn" id="sb-go" href="#setup">Continue setup&nbsp;→</a>
-        <button class="sb-x" type="button" id="sb-x" aria-label="Hide this banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      </div>
-      <h1 class="title" id="d-title">Explore with a sample waiver</h1>
-      <p class="sub" id="d-sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
-      <div class="cols">
-        <div class="card" style="padding:20px">
-          <div class="toolbar"><b style="font-size:15px" id="d-wname">Sample waiver</b><span class="tag amber" id="d-tag">SAMPLE</span>
-            <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
-          <div class="stage" data-stage><div class="doc" id="d-doc"></div></div>
-        </div>
-        <div class="card vstack">
-          <h2 class="ctitle">Try it like a client</h2>
-          <div class="afield"><label for="demo-link">Test link</label><div class="inline"><input id="demo-link" readonly value="sign.waiverking.com/demo-yoga"><button class="abtn sec" type="button" data-copy="#demo-link">Copy</button></div></div>
-          <div class="vstack tight"><a class="abtn pri" id="d-open" href="#sign-demo" target="_blank" rel="noopener">Open test link&nbsp; ↗</a><button class="abtn sec" type="button" data-toast="Test link sent to your phone (prototype)">Send to my phone</button></div>
-          <div class="hr"></div>
-          <b style="font-size:14px">Things to try</b>
-          <ul class="todo" id="todo"><li>Sign the waiver on your phone</li><li>Find the signed copy in Signed forms</li><li>Change a field in the form editor</li></ul>
-          <p style="font-size:13px;color:var(--app-muted)" id="d-foot">This is sample data. Nothing here reaches Mindbody.</p>
-        </div>
-      </div>
-    </div><footer class="foot" data-foot></footer></main>
-  </div>
-</section>
-
 <!-- ======================= Client view (test link) ======================= -->
 <section class="screen" data-screen="sign" aria-label="Sign the waiver">
   <div class="client" id="client">
@@ -1141,7 +1136,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   $$('[data-next]').forEach(b => b.addEventListener('click', () => go(nextAfter[b.dataset.next]())));
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    const on = $('.screen.on'); if (on && (on.dataset.screen === 'setup')) go('sandbox');
+    if ($('[data-screen="sandbox"]').classList.contains('modal-on')) go('sandbox');
   });
 
   // ---------- routing ----------
@@ -1154,10 +1149,11 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     if (pane && !allowed(pane)) { location.replace('#' + currentRoute()); return; }
     if (id === 'review' && !allowed('review')) { location.replace('#' + currentRoute()); return; }
     const demo = id === 'sign-demo'; if (demo) id = 'sign';
-    const target = screens.find(s => s.dataset.screen === id) || screens[0];
+    const target = screens.find(s => s.dataset.screen === (id === 'setup' ? 'sandbox' : id)) || screens[0];
     paint(); save();
     if (id === 'setup') paintSetup(pane);
-    if (id === 'sandbox') paintDash();
+    if (id === 'sandbox' || id === 'setup') paintDash();
+    const dash = $('[data-screen="sandbox"]'); dash.classList.toggle('modal-on', id === 'setup'); $('#dash-app').inert = id === 'setup';
     if (id === 'review') paintEditor();
     if (id === 'sign') {
       const b = demo ? 'Demo Yoga Studio' : state.biz;
@@ -1166,8 +1162,8 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     }
     const was = $('.screen.on');
     screens.forEach(s => s.classList.toggle('on', s === target));
-    if (was === target && pane) { /* pane change only: keep modal still */ } else window.scrollTo(0, 0);
-    document.title = (target.getAttribute('aria-label') || 'Sign up') + ' · WaiverKing';
+    if (was === target) { /* pane change only: keep modal still */ } else window.scrollTo(0, 0);
+    document.title = (id === 'setup' ? 'Set up your studio' : (target.getAttribute('aria-label') || 'Sign up')) + ' · WaiverKing';
     const first = id === 'setup' ? $('.pane.on h1') : target.querySelector('h1, h4');
     if (first && id !== 'signup') { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
     if (id === 'verify') setTimeout(() => $('#otp input').focus(), 50), startResend();
@@ -1293,7 +1289,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
       if (i === items.length) {
         building = setTimeout(() => {
           building = null; state.uploaded = true; state.k = 3; save(); // the waiver is built: setup is finished
-          if ($('[data-pane="building"]').classList.contains('on') && $('[data-screen="setup"]').classList.contains('on')) { go('review'); toast('Setup complete. ' + state.biz + ' is live.'); }
+          if ($('[data-pane="building"]').classList.contains('on') && $('[data-screen="sandbox"]').classList.contains('modal-on')) { go('review'); toast('Setup complete. ' + state.biz + ' is live.'); }
           else toast('Your waiver is ready to review');
         }, 450);
         return;
