@@ -343,6 +343,324 @@ button { cursor: pointer; }
   .foot { flex-direction: column; gap: 8px; } .foot a { margin: 0 12px 0 0; }
   .diagram { grid-template-columns: 84px 1fr 84px; } .tile { width: 84px; height: 84px; border-radius: 20px; } .tile img { width: 66px; } .tile .mb { font-size: 12px; }
 }
+/* =========================================================
+   Onboarding v2: setup modal, full-page editor, sandbox banner
+   ========================================================= */
+.obtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: var(--orange); color: #fff; font: 600 15px/1 var(--font-body); text-decoration: none; white-space: nowrap; box-shadow: 0 2px 4px rgba(0,0,0,.06), 0 6px 14px rgba(233,119,14,.18); transition: background-color .15s, transform .15s; }
+.obtn:hover { background: #D96C08; }
+.obtn:active { transform: scale(.98); }
+.obtn[disabled] { opacity: .55; cursor: progress; box-shadow: none; }
+.gbtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); font: 600 15px/1 var(--font-body); text-decoration: none; white-space: nowrap; transition: background-color .15s; }
+.gbtn:hover { background: #FAF8F5; }
+.gbtn.sm, .obtn.sm { height: 36px; padding: 0 14px; font-size: 14px; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--green-txt); font: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.eyebrow { font: 700 12px/1.2 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--green-txt); }
+
+/* backdrop app behind the modal */
+[data-screen="setup"] > .app { filter: blur(2px); }
+.screen.on[data-screen="setup"] { animation: none; } /* a transform here would break the fixed scrim */
+body:has([data-screen="setup"].on) { overflow: hidden; }
+.scrim { position: fixed; inset: 0; z-index: 20; background: rgba(28,27,25,.42); display: grid; place-items: center; padding: 32px 24px; overflow-y: auto; }
+.screen.on .scrim { animation: fade-in 240ms ease both; }
+@keyframes fade-in { from { opacity: 0; } }
+.modal { position: relative; width: min(960px, 100%); min-height: 620px; background: #fff; border-radius: 20px; box-shadow: 0 30px 80px rgba(20,20,18,.28), 0 2px 6px rgba(0,0,0,.08); display: grid; grid-template-columns: 300px minmax(0, 1fr); overflow: clip; }
+.screen.on .modal { animation: modal-in 420ms var(--ease-out) both; }
+@keyframes modal-in { from { opacity: 0; transform: translateY(14px) scale(.985); } }
+
+/* step rail */
+.rail { background: linear-gradient(180deg, #EBF5E3 0%, #fff 100%); border-right: 1px solid #EEF0EA; padding: 32px 22px 22px; display: flex; flex-direction: column; }
+.rail-title { font: 800 24px/1.2 var(--font-display); letter-spacing: -.01em; padding: 0 2px; text-wrap: balance; }
+.rail-sub { font-size: 13px; color: var(--body); margin-top: 8px; padding: 0 2px; }
+.rsteps { list-style: none; margin: 28px 0 24px; padding: 0; }
+.rstep { position: relative; padding-bottom: 20px; }
+.rstep:last-child { padding-bottom: 0; }
+.rstep:not(:last-child)::after { content: ""; position: absolute; left: 13px; top: 30px; bottom: 2px; width: 1.5px; background: #D9D4CC; border-radius: 2px; }
+.rstep.done:not(:last-child)::after { background: #82DE7A; }
+.rstep button { display: grid; grid-template-columns: 24px 1fr; gap: 12px; align-items: start; width: 100%; text-align: left; background: none; border: 0; padding: 2px; border-radius: 8px; }
+.rstep button[aria-disabled="true"] { cursor: not-allowed; }
+.rstep .n { width: 24px; height: 24px; border-radius: 50%; border: 1.5px solid #D9D4CC; background: #fff; color: #8A857E; display: grid; place-items: center; font: 600 11px/1 var(--font-body); transition: background-color .2s, border-color .2s, color .2s; }
+.rstep.done .n { background: #82DE7A; border-color: #82DE7A; color: #1F3D1C; }
+.rstep.now .n { background: #1F3D1C; border-color: #1F3D1C; color: #fff; }
+.rstep b { display: block; font-size: 14px; font-weight: 600; line-height: 1.35; color: #8A857E; }
+.rstep.now b, .rstep.done b { color: var(--ink); }
+.rstep .s { display: block; font-size: 12px; color: var(--muted); line-height: 1.4; margin-top: 1px; }
+.rstep.now .s, .rstep.done .s { color: var(--body); }
+.rstep.done:not(.now) button:hover b { text-decoration: underline; }
+
+/* charcoal sandbox card (Figma 423:484) */
+.sbx { margin-top: auto; position: relative; border-radius: 14px; padding: 16px 16px 14px; color: #fff; background: radial-gradient(120% 100% at 100% 0%, #44423C 0%, #262522 55%, #171715 100%); box-shadow: 0 12px 28px rgba(0,0,0,.2); display: grid; grid-template-columns: minmax(0, 1fr) 88px; column-gap: 8px; }
+.sbx b { font: 600 15px/1.25 var(--font-body); }
+.sbx p { font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,.7); margin-top: 6px; }
+.sbx svg { grid-column: 2; grid-row: 1; align-self: start; margin: -6px -6px 0 0; }
+.sbx a { grid-column: 1 / -1; margin-top: 12px; height: 38px; border-radius: 9px; background: #fff; color: var(--ink); display: flex; align-items: center; justify-content: center; gap: 6px; font: 600 13.5px/1 var(--font-body); text-decoration: none; transition: background-color .15s, transform .15s; }
+.sbx a:hover { background: #F3F0EA; }
+.sbx a:active { transform: scale(.98); }
+
+/* panes */
+.panes { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.x { position: absolute; top: 20px; right: 20px; z-index: 2; width: 36px; height: 36px; border-radius: 50%; border: 0; background: #F3F0EA; color: var(--body); display: grid; place-items: center; transition: background-color .15s; }
+.x:hover { background: #E9E4DC; color: var(--ink); }
+.pane { display: none; flex: 1; flex-direction: column; min-width: 0; }
+.pane.on { display: flex; animation: pane-in 360ms var(--ease-out) both; }
+@keyframes pane-in { from { opacity: 0; transform: translateX(10px); } }
+.pane-body { flex: 1; padding: 56px 48px 32px; display: flex; flex-direction: column; }
+.pane h1 { font: 800 30px/1.15 var(--font-display); letter-spacing: -.01em; margin: 12px 56px 10px 0; text-wrap: balance; }
+.lede { font-size: 15px; color: var(--body); max-width: 560px; }
+.pane-body > .lede { margin-bottom: 28px; }
+.pane-foot { display: flex; align-items: center; gap: 12px; border-top: 1px solid #EEECE8; padding: 16px 48px; min-height: 76px; }
+.pane-foot .note-txt { font-size: 13px; color: var(--body); }
+.sfield label { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+.sfield input { width: 100%; height: 52px; border: 1px solid var(--line); border-radius: 10px; padding: 0 16px; font-size: 16px; background: #fff; box-shadow: 0 1px 2px rgba(0,0,0,.03); transition: border-color .15s, box-shadow .15s; }
+.sfield input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-100); }
+.sfield.bad input { border-color: #D93B3B; }
+.sfield + .hint, .sfield .hint { margin-top: 10px; }
+.sfield + .sfield { margin-top: 18px; }
+
+/* Mindbody tiles */
+.mbstrip { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border-radius: 14px; background: #F7F5F1; border: 1px solid #EEEAE3; margin-bottom: 24px; }
+.mbstrip .mk { width: 44px; height: 44px; border-radius: 12px; background: #fff; box-shadow: 0 2px 6px rgba(0,0,0,.06); display: grid; place-items: center; flex: none; }
+.mbstrip .mk.mbk { font: 700 12px/1 var(--font-body); color: var(--ink); }
+.mbstrip .mk img { width: 32px; }
+.mbstrip b { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.mbstrip span span { font-size: 12px; color: var(--body); }
+.mbstrip .wire { flex: 1; min-width: 24px; height: 0; border-top: 1.5px dashed #BDB6AA; position: relative; }
+.mbstrip .wire::after { content: "⇄"; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%); background: #F7F5F1; padding: 0 6px; color: var(--body); font-size: 14px; }
+.mbstrip.linked { background: #F3F9EE; border-color: #D5E9C6; }
+.mbstrip.linked .wire { border-top-style: solid; border-color: var(--green); }
+.mbstrip.linked .wire::after { content: "✓"; background: var(--green); color: #fff; width: 22px; height: 22px; border-radius: 50%; padding: 0; display: grid; place-items: center; font-size: 12px; font-weight: 700; transform: translate(-50%, -50%); }
+.wherebox { margin-top: 12px; background: #F7F5F1; border-radius: 10px; padding: 14px; font-size: 13px; color: var(--body); display: flex; flex-direction: column; gap: 6px; }
+.wherebox code { font: 500 13px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); word-break: break-all; }
+.wherebox code b { color: var(--green-txt); }
+.okmark { width: 56px; height: 56px; border-radius: 50%; background: var(--green-50); color: var(--green-txt); display: grid; place-items: center; margin-bottom: 18px; }
+.screen.on .pane.on .okmark { animation: pop 520ms var(--ease-out) both; }
+.oklist { list-style: none; margin: 4px 0 0; padding: 0; display: flex; flex-direction: column; gap: 12px; font-size: 14px; }
+.oklist li { display: flex; gap: 10px; align-items: flex-start; }
+
+/* upload + building */
+.updrop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 36px 24px; border: 1.5px dashed #B9D3A8; border-radius: 14px; background: #F8FBF5; cursor: pointer; transition: background-color .15s, border-color .15s; }
+.updrop:hover, .updrop.over { background: #EFF7E9; border-color: var(--green); }
+.updrop .ico { width: 52px; height: 52px; border-radius: 12px; background: #fff; box-shadow: 0 2px 8px rgba(30,61,28,.1); color: var(--green-txt); display: grid; place-items: center; font: 700 12px/1 var(--font-body); }
+.updrop b { font-size: 16px; }
+.updrop span { font-size: 13px; color: var(--body); }
+.upmeta { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 16px; font-size: 13px; color: var(--body); }
+.upmeta span { display: inline-flex; align-items: center; gap: 6px; }
+.upmeta span::before { content: "✓"; color: var(--green); font-weight: 700; }
+.filecard { display: flex; align-items: center; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 22px; }
+.filecard .ico { width: 40px; height: 40px; border-radius: 8px; background: #FCEDE3; color: #C2410C; display: grid; place-items: center; font: 700 11px/1 var(--font-body); flex: none; }
+.filecard b { display: block; font-size: 14px; font-weight: 600; }
+.filecard span span { font-size: 12px; color: var(--body); }
+.build { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.build li { display: flex; align-items: center; gap: 12px; font-size: 15px; color: var(--muted); transition: color .2s; }
+.build li::before { content: ""; width: 20px; height: 20px; border-radius: 50%; border: 1.5px solid #D9D4CC; flex: none; box-sizing: border-box; }
+.build li.now { color: var(--ink); font-weight: 500; }
+.build li.now::before { border-color: var(--green-100); border-top-color: var(--green); animation: spin .8s linear infinite; }
+.build li.done { color: var(--ink); }
+.build li.done::before { border: 0; background: #82DE7A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231F3D1C' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.bbar { height: 6px; border-radius: 6px; background: #EEEAE3; overflow: hidden; margin-top: 28px; }
+.bbar i { display: block; height: 100%; width: 0; border-radius: 6px; background: var(--green); transition: width .9s var(--ease-out); }
+
+/* test link */
+.tgrid { display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 28px; align-items: start; }
+.inline2 { display: flex; gap: 10px; }
+.inline2 input { flex: 1; min-width: 0; }
+.inline2 input { height: 52px; border: 1px solid var(--line); border-radius: 10px; padding: 0 16px; font-size: 16px; background: #fff; }
+.inline2 input:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px var(--green-100); }
+.inline2 .gbtn { height: 52px; }
+.inline2 input[readonly] { background: #FAF8F5; color: var(--ink); }
+.qr { border: 1px solid var(--line); border-radius: 14px; padding: 14px; text-align: center; font-size: 12.5px; color: var(--body); display: block; text-decoration: none; transition: border-color .15s; }
+.qr:hover { border-color: var(--green); }
+.qr svg { width: 100%; height: auto; display: block; margin-bottom: 8px; }
+.wait { margin-top: 24px; display: flex; align-items: center; gap: 12px; padding: 14px 16px; border-radius: 12px; background: #F7F5F1; font-size: 14px; color: var(--body); }
+.wait .pulse { width: 10px; height: 10px; border-radius: 50%; background: #E9A23B; flex: none; box-shadow: 0 0 0 0 rgba(233,162,59,.5); animation: pulse 1.6s ease-out infinite; }
+@keyframes pulse { to { box-shadow: 0 0 0 10px rgba(233,162,59,0); } }
+.wait.ok { background: #F3F9EE; color: var(--ink); }
+.wait.ok .pulse { background: var(--green); animation: none; }
+
+/* live */
+.livebody { align-items: center; text-align: center; justify-content: center; }
+.livebody h1 { margin: 18px 0 10px; }
+.livebody .lede { margin: 0 auto 26px; }
+.livebody .inline2 { width: 100%; max-width: 520px; text-align: left; }
+.share { margin-top: 26px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.share > span { font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.share div { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.share button { border: 1px solid var(--line); background: #fff; border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 500; transition: background-color .15s; }
+.share button:hover { background: #FAF8F5; }
+
+/* ---------- 3c · full-page waiver editor ---------- */
+.edapp { min-height: 100vh; background: var(--app-bg); }
+.ed-top { position: sticky; top: 0; z-index: 5; height: 64px; background: #fff; border-bottom: 1px solid var(--app-line); display: flex; align-items: center; gap: 20px; padding: 0 24px; }
+.ed-top > img { width: 132px; flex: none; }
+.ed-doc { padding-left: 20px; border-left: 1px solid var(--app-line); min-width: 0; }
+.ed-doc b { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.ed-doc span { font-size: 12px; color: var(--app-muted); white-space: nowrap; }
+.ed-steps { list-style: none; margin: 0 0 0 auto; padding: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--app-faint); }
+.ed-steps li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.ed-steps li + li::before { content: ""; width: 28px; height: 1.5px; background: #D9DDE3; margin-right: 2px; }
+.ed-steps .n { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #D9D4CC; display: grid; place-items: center; font: 600 11px/1 var(--font-body); }
+.ed-steps .done { color: var(--ink); }
+.ed-steps .done .n { background: #82DE7A; border-color: #82DE7A; color: #1F3D1C; }
+.ed-steps .now { color: var(--ink); font-weight: 600; }
+.ed-steps .now .n { background: #1F3D1C; border-color: #1F3D1C; color: #fff; }
+.ed-steps a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; }
+.ed-steps a:hover { text-decoration: underline; }
+.ed-act { display: flex; align-items: center; gap: 16px; margin-left: auto; }
+.ed-act .link.green { font-size: 14px; }
+.ed-top .x { position: static; }
+.ed { max-width: 1392px; margin: 0 auto; padding: 24px 40px 40px; }
+.ed-head { display: flex; align-items: center; gap: 12px; }
+.ed-name { width: 420px; max-width: 100%; height: 44px; border: 1px solid var(--app-field); border-radius: 8px; padding: 0 14px; font-size: 15px; background: #fff; }
+.ed-name:focus { outline: none; border-color: #3B7D33; box-shadow: 0 0 0 3px var(--app-green-50); }
+.synced { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border: 1px solid var(--app-line); border-radius: 8px; background: #fff; font-size: 12.5px; color: var(--app-muted); white-space: nowrap; }
+.ed-tabs { display: flex; gap: 28px; margin: 18px 0 20px; border-bottom: 1px solid var(--app-line); overflow-x: auto; scrollbar-width: none; }
+.ed-tabs .tg { flex: none; }
+.ed-tabs .tgl { display: inline-block; font: 700 10px/1 var(--font-body); letter-spacing: .08em; color: var(--app-muted); background: #EBEDF0; padding: 4px 7px; border-radius: 4px; text-transform: uppercase; }
+.ed-tabs .tg > div { display: flex; gap: 20px; margin-top: 8px; }
+.ed-tabs button { background: none; border: 0; padding: 4px 0 12px; font-size: 14.5px; color: #4A525C; border-bottom: 2px solid transparent; white-space: nowrap; }
+.ed-tabs button:hover { color: var(--ink); }
+.ed-tabs button.on { color: var(--app-green); border-bottom-color: var(--app-green); font-weight: 600; }
+.ed-grid { display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 24px; align-items: start; }
+.rte { background: #fff; border: 1px solid var(--app-line); border-radius: 10px; overflow: hidden; }
+.rte-bar { display: flex; align-items: center; gap: 4px; padding: 6px 10px; border-bottom: 1px solid var(--app-line); background: #FBFBFC; flex-wrap: wrap; }
+.rte-bar button { background: none; border: 0; height: 30px; min-width: 30px; padding: 0 8px; border-radius: 6px; font-size: 13px; color: #3A4048; display: inline-flex; align-items: center; justify-content: center; gap: 4px; }
+.rte-bar button:hover { background: #EEF0F3; }
+.rte-bar .sep { width: 1px; height: 18px; background: var(--app-line); margin: 0 4px; }
+.rte-bar .ins { background: var(--app-green-50); color: var(--app-green); font-weight: 600; }
+.rte-bar .ins:hover { background: #DDEED4; }
+.rte-doc { padding: 36px 48px 56px; min-height: 560px; font-size: 15px; line-height: 1.65; color: #2A2E33; }
+.rte-doc:focus { outline: none; }
+.rte-doc h2 { font-size: 24px; font-weight: 700; line-height: 1.25; margin-bottom: 8px; color: var(--ink); }
+.rte-doc p { margin: 0 0 14px; }
+.rte-doc .addr { font-size: 13px; color: var(--app-muted); }
+.tok { display: inline-block; font: 600 11.5px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: #2F6B2A; background: #EAF4E6; border: 1px solid #CFE3BF; border-radius: 4px; padding: 4px 6px; margin: 0 2px; vertical-align: 1px; user-select: all; }
+.hl { display: inline-block; background: var(--amber-bg); border: 1px dashed var(--amber-line); border-radius: 6px; padding: 2px 8px 2px 4px; transition: background-color .3s, border-color .3s; }
+.hl .mk { display: inline-grid; place-items: center; width: 18px; height: 18px; border-radius: 50%; background: #E9A23B; color: #fff; font: 700 10.5px/1 var(--font-body); margin-right: 6px; vertical-align: 1px; }
+.hl.flash { background: #FFEFC2; border-color: #E9A23B; }
+.hl.plain { background: none; border-color: transparent; padding: 0; }
+.hl.plain .mk { display: none; }
+.added { background: #F3F9EE; border-radius: 6px; animation: added 1.6s ease both; }
+@keyframes added { from { background: #DCF3D6; } to { background: transparent; } }
+
+.aip { position: sticky; top: 88px; background: #fff; border: 1px solid var(--app-line); border-radius: 10px; overflow: hidden; }
+.aip-tabs { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid var(--app-line); }
+.aip-tabs button { background: none; border: 0; height: 44px; font-size: 13.5px; color: #4A525C; border-bottom: 2px solid transparent; display: flex; align-items: center; justify-content: center; gap: 6px; }
+.aip-tabs button.on { background: var(--app-green-50); color: var(--app-green); font-weight: 600; border-bottom-color: var(--app-green); }
+.aip-tabs .cnt { font-weight: 700; }
+.aip-pane { display: none; padding: 18px; flex-direction: column; gap: 14px; }
+.aip-pane.on { display: flex; }
+.aip .meta { font-size: 12px; color: var(--app-muted); }
+.aip h3 { font-size: 17px; font-weight: 600; margin-top: -8px; }
+.aip .stats { gap: 8px; }
+.aip .stat { background: #fff; border-color: var(--app-line); padding: 10px 12px; }
+.aip .stat b { font-size: 18px; }
+.aip .stat span { white-space: nowrap; font-size: 11.5px; }
+.aip .review { background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 8px; padding: 10px 12px; font-size: 12.5px; color: var(--amber-txt); line-height: 1.45; }
+.aip .review b { display: block; font-size: 13px; }
+.aip h4 { margin: 4px 0 0; font-size: 14px; font-weight: 600; }
+.sugs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.sug { display: grid; grid-template-columns: 22px 1fr; gap: 10px; border: 1px solid var(--app-line); border-radius: 8px; padding: 12px; transition: opacity .3s, transform .3s var(--ease-out), border-color .2s; }
+.sug:hover { border-color: #C9CED5; }
+.sug .mk { width: 20px; height: 20px; border-radius: 50%; background: #E9A23B; color: #fff; display: grid; place-items: center; font: 700 10.5px/1 var(--font-body); }
+.sug .mk.grey { background: #C9CED5; }
+.sug b { display: block; font-size: 13.5px; font-weight: 600; line-height: 1.35; }
+.sug p { font-size: 12.5px; color: var(--app-muted); margin-top: 2px; }
+.sug .acts { display: flex; gap: 14px; margin-top: 8px; }
+.sug .acts button { background: none; border: 0; padding: 0; font: 600 12.5px/1.2 var(--font-body); color: var(--app-green); }
+.sug .acts button + button { color: var(--app-muted); font-weight: 500; }
+.sug .acts button:hover { text-decoration: underline; }
+.sug.applied { border-color: #CFE3BF; background: #F7FBF4; }
+.sug.applied .mk { background: var(--app-green); }
+.sug.gone { opacity: 0; transform: translateX(12px); }
+.sugs-done { font-size: 13px; color: var(--app-muted); background: #F7F8FA; border-radius: 8px; padding: 12px; }
+.fields { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.fields button { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #fff; border: 1px solid var(--app-line); border-radius: 8px; padding: 8px 10px; font-size: 13px; color: #3A4048; text-align: left; }
+.fields button:hover { border-color: #A9C99A; background: #F7FBF4; }
+.fields .tok { margin: 0; }
+.aip .mini { background: var(--app-bg); border-radius: 8px; padding: 14px; display: flex; justify-content: center; }
+.aip .mini .doc { width: 100%; padding: 18px; gap: 10px; }
+.aip .mini .doc h4 { font-size: 17px; }
+.aip .mini .grid2 { grid-template-columns: 1fr; }
+
+/* ---------- sandbox dashboard banner ---------- */
+.sbanner { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto auto; align-items: center; gap: 0 20px; padding: 18px 16px 18px 20px; border-radius: 16px; border: 1px solid #CFE3BF; background: linear-gradient(90deg, #EBF5E3 0%, #fff 55%); box-shadow: 0 1px 2px rgba(0,0,0,.04); margin-bottom: 28px; }
+.sbanner[hidden] { display: none; }
+.ringk { position: relative; width: 56px; height: 56px; }
+.ringk svg { width: 56px; height: 56px; transform: rotate(-90deg); }
+.ringk circle { fill: none; stroke-width: 5; }
+.ringk .trk { stroke: #DCEBD0; }
+.ringk .val { stroke: var(--green); stroke-linecap: round; transition: stroke-dashoffset .8s var(--ease-out); }
+.ringk b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 14px; font-weight: 700; color: var(--green-dark); }
+.sbanner h2 { font-size: 17px; font-weight: 600; line-height: 1.3; margin-top: 4px; }
+.sbanner .eyebrow { font-size: 11px; }
+.sbanner p.sbs { font-size: 13.5px; color: var(--body); margin-top: 2px; }
+.schips { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.schips li { display: inline-flex; align-items: center; gap: 5px; height: 26px; padding: 0 10px; border-radius: 999px; font-size: 12px; font-weight: 500; }
+.schips .done { background: rgba(107,165,57,.12); color: var(--green-txt); }
+.schips .done::before { content: "✓"; font-weight: 700; }
+.schips .now { background: #fff; border: 1.5px solid #1F3D1C; color: var(--ink); font-weight: 600; }
+.schips .now::before, .schips .td::before { content: ""; width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid currentColor; }
+/* */.schips .td { background: #F1EFEA; color: #8A857E; }
+.sb-x { width: 32px; height: 32px; border: 0; background: none; border-radius: 50%; color: var(--app-muted); display: grid; place-items: center; }
+.sb-x:hover { background: rgba(0,0,0,.05); }
+.side .nav a.on .badge { background: var(--app-green); }
+
+@media (max-width: 1180px) {
+  .ed-grid { grid-template-columns: 1fr; }
+  .aip { position: static; }
+  .ed-steps { display: none; }
+  .ed { padding: 20px 24px 32px; }
+}
+@media (max-width: 960px) {
+  .scrim { padding: 0; place-items: stretch; background: #fff; }
+  .modal { min-height: 100%; border-radius: 0; grid-template-columns: 1fr; grid-template-rows: auto 1fr; box-shadow: none; }
+  .rail { border-right: 0; border-bottom: 1px solid #EEF0EA; padding: 20px 16px 16px; background: linear-gradient(180deg, #EBF5E3, #F6FBF2); }
+  .rail-title { font-size: 20px; padding-right: 48px; }
+  .rsteps { display: flex; gap: 6px; margin: 16px 0 14px; }
+  .rstep { flex: 1; padding: 0; }
+  .rstep:not(:last-child)::after { display: none; }
+  .rstep button { display: flex; flex-direction: column; gap: 6px; padding: 0; }
+  .rstep button::after { content: ""; display: block; height: 4px; width: 100%; border-radius: 4px; background: #DED9D0; order: -1; }
+  .rstep.done button::after { background: #82DE7A; }
+  .rstep.now button::after { background: #1F3D1C; }
+  .rstep .n, .rstep .s { display: none; }
+  .rstep b { font-size: 11.5px; line-height: 1.25; }
+  .sbx { grid-template-columns: minmax(0, 1fr) auto; align-items: center; padding: 12px 12px 12px 14px; }
+  .sbx svg { display: none; }
+  .sbx p { display: none; }
+  .sbx a { grid-column: 2; grid-row: 1; margin: 0; padding: 0 12px; height: 34px; }
+  .x { top: 14px; right: 12px; }
+  .pane-body { padding: 28px 16px 24px; }
+  .pane h1 { font-size: 26px; margin-right: 0; }
+  .pane-foot { padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); min-height: 0; position: sticky; bottom: 0; background: #fff; }
+  .tgrid { grid-template-columns: 1fr; }
+  .qr { display: flex; align-items: center; gap: 14px; text-align: left; }
+  .qr svg { width: 96px; flex: none; margin: 0; }
+  .ed-top { height: auto; min-height: 60px; flex-wrap: wrap; gap: 10px 14px; padding: 10px 16px; }
+  .ed-top > img { width: 108px; }
+  .ed-doc { display: none; }
+  .ed-act { gap: 10px; }
+  .ed-act .link.green { display: none; }
+  .ed-act .obtn { height: 38px; padding: 0 14px; font-size: 14px; }
+  .ed { padding: 16px; }
+  .ed-head { flex-wrap: wrap; }
+  .ed-name { width: 100%; }
+  .rte-doc { padding: 24px 18px 32px; min-height: 0; }
+  .sbanner { grid-template-columns: 48px minmax(0, 1fr) 32px; gap: 12px 14px; padding: 16px; align-items: start; }
+  .ringk, .ringk svg { width: 48px; height: 48px; }
+  .sbanner .sb-x { grid-column: 3; grid-row: 1; }
+  .sbanner .obtn { grid-column: 1 / -1; grid-row: 2; }
+}
+@media (max-width: 520px) {
+  .pane-foot .note-txt { display: none; }
+  .pane-foot .obtn { flex: 1; }
+  .mbstrip { padding: 12px; gap: 10px; }
+  .mbstrip span span { display: none; }
+  .inline2 { flex-direction: column; }
+  .inline2 input { flex: none; }
+  .toolbar { flex-wrap: wrap; }
+  .ed-act .obtn .long { display: none; }
+}
 </style>
 </head>
 <body>
@@ -380,7 +698,7 @@ button { cursor: pointer; }
           </div>
           <button class="btn btn-orange w100" type="submit" id="create-btn">Create my free account&nbsp; →</button>
           <div class="or">or</div>
-          <button class="gsi" type="button" data-go="start" data-google>
+          <button class="gsi" type="button" data-go="setup" data-google>
             <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
             Continue with Google
           </button>
@@ -450,7 +768,7 @@ button { cursor: pointer; }
   <div class="acct"><span class="avatar" data-initials>SY</span><span><b data-biz>Sunrise Yoga Studio</b><span data-name>Jamie Rivera</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
   <div class="navsec">WORKSPACE</div>
   <nav class="nav">
-    <a href="#start" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Get started<span class="badge" data-badge>1/4</span></a>
+    <a href="#setup" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Get started<span class="badge" data-badge>1/4</span></a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Locations</a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>Bulk edit</a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 20v-4M12 20V10M18 20V4"/></svg>Statistics</a>
@@ -469,137 +787,268 @@ button { cursor: pointer; }
 </template>
 <template id="foot-tpl"><span>© 2026 WaiverKing</span><span><a href="https://www.waiverking.com/terms">Terms</a><a href="https://www.waiverking.com/privacy">Privacy</a><a href="https://www.waiverking.com/contact">Contact</a></span></template>
 
-<!-- ======================= 3 · Get started ======================= -->
-<section class="screen" data-screen="start" aria-label="Get started">
-  <div class="app"><aside class="side" data-side></aside>
+<!-- ======================= 3 · Setup modal (steps 1–4 + live) ======================= -->
+<section class="screen" data-screen="setup" aria-label="Set up your studio">
+  <div class="app" inert aria-hidden="true"><aside class="side" data-side></aside>
     <main class="main"><div class="main-in">
-      <h1 class="title">Welcome, <span data-first>Jamie</span></h1>
+      <h2 class="title">Welcome, <span data-first>Jamie</span></h2>
       <p class="sub">Let’s get <span data-biz>Sunrise Yoga Studio</span> live. Four short steps, about 5 minutes.</p>
-      <div class="card" style="max-width:700px">
-        <div class="row"><h2 class="ctitle" style="font-size:18px">Get set up</h2><span class="spacer"></span><span style="font-size:14px;font-weight:600;color:var(--app-green)">1 of 4 done</span></div>
-        <div class="progress"><i></i></div>
-        <div class="step done"><span class="num done">✓</span><div><h3>Create your account</h3></div></div>
-        <div class="step"><span class="num now">2</span><div>
-          <h3>Upload your current waiver</h3>
-          <p>AI turns your PDF into an online form in seconds. Our team double-checks it afterwards, and you can share it right away.</p>
-          <label class="drop" id="drop">
-            <span class="ico">PDF</span>
-            <span><b>Drop your waiver PDF here</b><span>PDF, DOC or DOCX · ready in seconds · first form free</span></span>
-            <span class="abtn pri" role="button">Choose file</span>
-            <input type="file" id="file" accept=".pdf,.doc,.docx" class="sr">
-          </label>
-          <div class="processing" id="processing" aria-live="polite">
-            <div class="row"><b style="font-size:15px" id="proc-title">Reading your PDF…</b><span class="spacer"></span><span style="font-size:13px;color:var(--app-muted)" id="proc-file"></span></div>
-            <div class="bar"><i id="proc-bar"></i></div>
-          </div>
-          <p class="sandbox-link"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31M14 9.3V2M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0M5.52 16h12.96"/></svg>No PDF handy? <a class="link green" href="#sandbox">Explore with a sample waiver&nbsp; →</a></p>
-        </div></div>
-        <div class="step"><span class="num">3</span><div><h3>Connect your Mindbody site</h3><p>Paste your Site ID so signed waivers file into each client’s Mindbody profile.</p></div></div>
-        <div class="step"><span class="num">4</span><div><h3>Send yourself a test link</h3><p>See exactly what your clients will sign, on your phone.</p></div></div>
-      </div>
     </div><footer class="foot" data-foot></footer></main>
+  </div>
+  <div class="scrim">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rail-title">
+      <aside class="rail">
+        <h2 class="rail-title" id="rail-title">Get your studio live</h2>
+        <p class="rail-sub">4 short steps · about 5 minutes</p>
+        <ol class="rsteps" id="rsteps" aria-label="Setup steps">
+          <li class="rstep"><button type="button"><span class="n">1</span><span><b>Name your location</b><span class="s">Shown at the top of your waiver</span></span></button></li>
+          <li class="rstep"><button type="button"><span class="n">2</span><span><b>Connect Mindbody</b><span class="s">About a minute</span></span></button></li>
+          <li class="rstep"><button type="button"><span class="n">3</span><span><b>Upload your waiver</b><span class="s">AI builds the form</span></span></button></li>
+          <li class="rstep"><button type="button"><span class="n">4</span><span><b>Send a test link</b><span class="s">Sign it on your phone</span></span></button></li>
+        </ol>
+        <div class="sbx">
+          <div><b>Explore the sandbox</b><p>No PDF handy? Try a sample waiver.</p></div>
+          <svg width="92" height="76" viewBox="0 0 92 76" aria-hidden="true">
+            <defs><linearGradient id="sbx-ck" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#A3E897"/><stop offset="1" stop-color="#4E9A35"/></linearGradient></defs>
+            <rect x="22" y="14" width="44" height="56" rx="4" fill="#BDB4A2" transform="rotate(-14 44 42)"/>
+            <rect x="26" y="11" width="44" height="56" rx="4" fill="#DCD4C3" transform="rotate(-6 48 39)"/>
+            <rect x="32" y="9" width="44" height="56" rx="4" fill="#FBF7EE"/>
+            <text x="38" y="20.5" font-family="Inter, sans-serif" font-size="5.4" font-weight="700" letter-spacing="1.1" fill="#8A857E">WAIVER</text>
+            <rect x="38" y="25" width="32" height="2" rx="1" fill="#E5DECF"/><rect x="38" y="30" width="27" height="2" rx="1" fill="#E5DECF"/><rect x="38" y="35" width="32" height="2" rx="1" fill="#E5DECF"/><rect x="38" y="40" width="20" height="2" rx="1" fill="#E5DECF"/>
+            <path d="M39 54c2.4-5 4.4-5.4 5-1.4.5 3.4 2.6 3.2 4.4-.6 1.6-3.2 3-2.8 3.4.2.4 2.6 2.4 2.4 5.6-1" stroke="#2B2A27" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+            <line x1="38" y1="58" x2="70" y2="58" stroke="#DDD5C4" stroke-width="1"/>
+            <circle cx="76" cy="11" r="9.5" fill="url(#sbx-ck)" stroke="#fff" stroke-width="2.2"/>
+            <path d="m72 11.2 2.7 2.7 5.4-5.6" stroke="#fff" stroke-width="2.1" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <a href="#sandbox">Open the sandbox&nbsp;→</a>
+        </div>
+      </aside>
+
+      <div class="panes">
+        <button class="x" type="button" data-close aria-label="Close setup and explore the sandbox. Your progress is saved."><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+
+        <!-- 1 · location -->
+        <form class="pane" data-pane="loc" id="loc-form" novalidate>
+          <div class="pane-body">
+            <p class="eyebrow">Step 1 of 4</p>
+            <h1>What’s your location called?</h1>
+            <p class="lede">This is the name clients see at the top of your waiver. You can change it any time.</p>
+            <div class="sfield" id="f-loc"><label for="loc">Location name</label><input id="loc" autocomplete="organization" required><p class="err">Add a name for this location</p></div>
+            <p class="hint">Have more than one location? You can add the others later.</p>
+          </div>
+          <div class="pane-foot"><span class="spacer"></span><button class="obtn" type="submit">Continue&nbsp;→</button></div>
+        </form>
+
+        <!-- 2 · Mindbody -->
+        <form class="pane" data-pane="mb" id="mb-form" novalidate>
+          <div class="pane-body">
+            <p class="eyebrow">Step 2 of 4</p>
+            <h1>Connect your Mindbody site</h1>
+            <p class="lede">Signed waivers file straight into each client’s Mindbody profile.</p>
+            <div class="mbstrip"><span class="mk mbk">mb</span><span><b>Mindbody</b><span>Your booking system</span></span><span class="wire"></span><span class="mk" style="font:700 12px/1 var(--font-body);color:var(--green-txt)">wk</span><span><b>WaiverKing</b><span>Your waiver forms</span></span></div>
+            <div class="sfield" id="f-site"><label for="siteid">Mindbody Site ID</label><input id="siteid" inputmode="numeric" placeholder="e.g. 12345" autocomplete="off"><p class="err">Site IDs are numbers, usually 4 to 6 digits.</p></div>
+            <p class="hint">The number at the end of your Mindbody booking link. <button type="button" class="linkbtn" id="where" aria-expanded="false" aria-controls="where-box">Where do I find it?</button></p>
+            <div class="wherebox" id="where-box" hidden><span>Open your Mindbody booking page. The Site ID is the number after <b>studioid=</b>:</span><code>clients.mindbodyonline.com/classic/ws?studioid=<b>12345</b></code></div>
+          </div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/loc">Back</button><span class="spacer"></span><button class="obtn" type="submit" id="mb-btn">Connect Mindbody&nbsp;→</button></div>
+        </form>
+
+        <!-- 2b · connected -->
+        <div class="pane" data-pane="mb-ok">
+          <div class="pane-body">
+            <span class="okmark" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+            <p class="eyebrow">Step 2 of 4 · Done</p>
+            <h1>You’re connected to Mindbody</h1>
+            <p class="lede">From now on, every signed waiver files into the client’s Mindbody profile on its own.</p>
+            <div class="mbstrip linked"><span class="mk mbk">mb</span><span><b data-biz>Sunrise Yoga Studio</b><span>Site <span data-site>12345</span></span></span><span class="wire"></span><span class="mk" style="font:700 12px/1 var(--font-body);color:var(--green-txt)">wk</span><span><b>WaiverKing</b><span>Connected just now</span></span></div>
+            <ul class="oklist">
+              <li><span class="check">✓</span>Client name, birthday and email fill in from Mindbody</li>
+              <li><span class="check">✓</span>Signed copies land in each client’s Documents tab</li>
+            </ul>
+          </div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/mb">Back</button><span class="spacer"></span><button class="obtn" type="button" data-next="mb-ok">Continue&nbsp;→</button></div>
+        </div>
+
+        <!-- 3 · upload -->
+        <div class="pane" data-pane="upload">
+          <div class="pane-body">
+            <p class="eyebrow">Step 3 of 4</p>
+            <h1>Upload your current waiver</h1>
+            <p class="lede">AI turns your PDF into an online form in seconds. Then a person on our team checks it against your PDF.</p>
+            <label class="updrop" id="drop">
+              <span class="ico">PDF</span>
+              <b>Drop your waiver here, or choose a file</b>
+              <span>PDF, DOC or DOCX · your first form is built free</span>
+              <input type="file" id="file" accept=".pdf,.doc,.docx" class="sr">
+            </label>
+            <div class="upmeta"><span>Mindbody fields matched for you</span><span>Edit anything before it goes live</span></div>
+            <p class="hint" style="margin-top:18px">No file on this computer? <button type="button" class="linkbtn" id="use-example">Use an example PDF</button></p>
+          </div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="setup/mb-ok">Back</button><span class="spacer"></span><button class="obtn" type="button" id="choose">Choose file</button></div>
+        </div>
+
+        <!-- 3b · building -->
+        <div class="pane" data-pane="building" aria-live="polite">
+          <div class="pane-body">
+            <p class="eyebrow">Step 3 of 4</p>
+            <h1>Building your online waiver…</h1>
+            <p class="lede">This usually takes under 10 seconds.</p>
+            <div class="filecard"><span class="ico">PDF</span><span><b data-filename>Sunrise Yoga waiver.pdf</b><span>Uploaded just now</span></span></div>
+            <ul class="build" id="build"><li>Reading your PDF</li><li>Finding fields and sections</li><li>Matching fields to Mindbody</li><li>Checking for anything missing</li></ul>
+            <div class="bbar"><i id="build-bar"></i></div>
+          </div>
+          <div class="pane-foot"><span class="note-txt">You can close this. We’ll keep building.</span><span class="spacer"></span><button class="obtn" type="button" disabled>Building…</button></div>
+        </div>
+
+        <!-- 4 · test link -->
+        <div class="pane" data-pane="test">
+          <div class="pane-body">
+            <p class="eyebrow">Step 4 of 4</p>
+            <h1>See it the way clients will</h1>
+            <p class="lede">Open the link on your phone and sign it. This is exactly what your clients get.</p>
+            <div class="tgrid">
+              <div>
+                <div class="sfield"><label for="test-link">Your waiver link</label><div class="inline2"><input id="test-link" readonly value="sign.waiverking.com/sunrise-yoga"><button class="gbtn" type="button" data-copy="#test-link">Copy</button></div></div>
+                <form class="sfield" id="send-form" novalidate><label for="test-email">Send a test to</label><div class="inline2"><input id="test-email" type="email" autocomplete="email"><button class="gbtn" type="submit">Send</button></div></form>
+              </div>
+              <a class="qr" href="#sign" target="_blank" rel="noopener" aria-label="Open the test link in a new tab"><svg viewBox="0 0 25 25" id="qr" shape-rendering="crispEdges" aria-hidden="true"></svg><span>Scan with your phone</span></a>
+            </div>
+            <div class="wait" id="wait" role="status"><span class="pulse"></span><span id="wait-txt">Waiting for your test signature… it shows up here the moment you sign.</span></div>
+          </div>
+          <div class="pane-foot"><button class="gbtn" type="button" data-go="review">Back</button><span class="spacer"></span><button class="obtn" type="button" id="finish">Finish setup&nbsp;→</button></div>
+        </div>
+
+        <!-- 5 · live -->
+        <div class="pane" data-pane="live">
+          <div class="pane-body livebody">
+            <div class="mark" aria-hidden="true"><span class="ring"></span><span class="core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="confetti"><i style="left:44px;top:40px;background:#E9770E;--x:-58px;--y:-24px;--r:-40deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:58px;--y:-30px;--r:30deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:52px;--y:30px;--r:70deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:-50px;--y:30px;--r:-60deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:-26px;--y:-50px;--r:20deg"></i><i style="left:44px;top:40px;background:#E9770E;--x:30px;--y:-52px;--r:-20deg"></i></span></div>
+            <h1><span data-biz>Sunrise Yoga Studio</span> is live</h1>
+            <p class="lede">Share your waiver link with clients. Every signed waiver files into their Mindbody profile.</p>
+            <div class="inline2"><input id="live-link" readonly value="sign.waiverking.com/sunrise-yoga" aria-label="Your waiver link"><button class="gbtn" type="button" data-copy="#live-link">Copy link</button></div>
+            <div class="share"><span>Where to share it</span><div><button type="button" data-toast="Tip: add the link to your Mindbody booking confirmation email">Booking confirmation email</button><button type="button" data-toast="Tip: add a “Sign our waiver” button to your website">Your website</button><button type="button" data-toast="A printable QR poster isn’t part of this prototype">Front-desk QR poster</button></div></div>
+          </div>
+          <div class="pane-foot"><span class="spacer"></span><a class="obtn" href="#sandbox">Go to my dashboard&nbsp;→</a></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ======================= 3s · Sandbox ======================= -->
-<section class="screen" data-screen="sandbox" aria-label="Sandbox with a sample waiver">
+<!-- ======================= 3c · Full-page waiver editor ======================= -->
+<section class="screen" data-screen="review" aria-label="Review your waiver">
+  <div class="edapp">
+    <header class="ed-top">
+      <img src="../assets/wk-logo.svg" alt="WaiverKing">
+      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Draft · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
+      <ol class="ed-steps" aria-label="Setup progress">
+        <li class="done"><a href="#setup/loc"><span class="n">✓</span>Location</a></li>
+        <li class="done"><a href="#setup/mb-ok"><span class="n">✓</span>Mindbody</a></li>
+        <li class="now" aria-current="step"><span class="n">3</span>Waiver</li>
+        <li><span class="n">4</span>Test link</li>
+      </ol>
+      <div class="ed-act">
+        <a class="link green" href="#sandbox">Try the sandbox</a>
+        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, continue</span></span>&nbsp;→</button>
+        <button class="x" type="button" data-close aria-label="Close setup and explore the sandbox. Your progress is saved."><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+    </header>
+    <div class="ed">
+      <h1 class="sr">Review your waiver</h1>
+      <div class="ed-head">
+        <input class="ed-name" value="Liability waiver and release" aria-label="Waiver name">
+        <span class="spacer"></span>
+        <span class="synced"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Mindbody fields synced</span>
+        <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open preview</a>
+      </div>
+      <nav class="ed-tabs" aria-label="Waiver settings">
+        <div class="tg"><span class="tgl">Content</span><div><button type="button" class="on" aria-current="page">Waiver content</button><button type="button" data-tab-soon>Child info</button><button type="button" data-tab-soon>Additional adult info</button><button type="button" data-tab-soon>Additional docs</button><button type="button" data-tab-soon>Email</button></div></div>
+        <div class="tg"><span class="tgl">Behavior</span><div><button type="button" data-tab-soon>Options</button><button type="button" data-tab-soon>Privacy</button></div></div>
+        <div class="tg"><span class="tgl">Presentation</span><div><button type="button" data-tab-soon>Design</button></div></div>
+      </nav>
+      <div class="ed-grid">
+        <div class="rte">
+          <div class="rte-bar" role="toolbar" aria-label="Formatting">
+            <button type="button" data-cmd="formatBlock" data-arg="p">Paragraph ▾</button><span class="sep"></span>
+            <button type="button" data-cmd="bold" aria-label="Bold"><b>B</b></button><button type="button" data-cmd="italic" aria-label="Italic"><i>I</i></button><button type="button" data-cmd="underline" aria-label="Underline"><u>U</u></button><span class="sep"></span>
+            <button type="button" data-cmd="insertUnorderedList" aria-label="Bulleted list">•≡</button><button type="button" data-cmd="insertOrderedList" aria-label="Numbered list">1≡</button><span class="sep"></span>
+            <button type="button" data-cmd="justifyLeft" aria-label="Align left">≡</button><button type="button" id="rte-link">Link</button><span class="sep"></span>
+            <button type="button" class="ins" id="rte-ins">{ } Insert field ▾</button>
+            <span class="spacer"></span><button type="button" data-toast="Source view isn’t part of this prototype">Source</button>
+          </div>
+          <div class="rte-doc" id="rte" contenteditable="true" spellcheck="false" aria-label="Waiver text">
+            <h2>Liability waiver and release</h2>
+            <p class="addr"><span data-biz>Sunrise Yoga Studio</span> · 12 Ocean Ave, Santa Monica</p>
+            <p>I, <span class="tok" contenteditable="false">&lt;CLIENTFIRSTNAME&gt;</span> <span class="tok" contenteditable="false">&lt;CLIENTLASTNAME&gt;</span>, born <span class="tok" contenteditable="false">&lt;CLIENTBIRTHDATE&gt;</span>, understand that:</p>
+            <p>Yoga involves physical activity and carries a risk of injury. I take part voluntarily, follow the teacher’s instructions, and release <span data-biz>Sunrise Yoga Studio</span>, its staff and teachers from liability for any injury that may happen during class, except in cases of gross negligence. I confirm I am in good health and have told the teacher about any condition that may affect my practice.</p>
+            <p><span class="hl" id="hl1"><span class="mk" contenteditable="false">1</span>Emergency contact: <span class="tok" contenteditable="false">&lt;EMERGENCYCONTACT&gt;</span> <span class="tok" contenteditable="false">&lt;EMERGENCYPHONE&gt;</span></span></p>
+            <p>Health issues: <span class="tok" contenteditable="false">&lt;HEALTHISSUES&gt;</span></p>
+            <p><span class="hl" id="hl2"><span class="mk" contenteditable="false">2</span>If under 18, parent or guardian signs below.</span></p>
+            <p id="sig-line">Signature: <span class="tok" contenteditable="false">&lt;SIGNATURE&gt;</span> &nbsp; Date: <span class="tok" contenteditable="false">&lt;SIGNDATE&gt;</span></p>
+          </div>
+        </div>
+        <aside class="aip" aria-label="Waiver assistant">
+          <div class="aip-tabs" role="tablist">
+            <button type="button" role="tab" class="on" aria-selected="true" data-aip="ai">✦ AI review <span class="cnt" id="sug-cnt">3</span></button>
+            <button type="button" role="tab" aria-selected="false" data-aip="fields">{ } Insert field</button>
+            <button type="button" role="tab" aria-selected="false" data-aip="prev">Preview</button>
+          </div>
+          <div class="aip-pane on" data-aip-pane="ai">
+            <p class="meta">Built from <span data-filename>Sunrise Yoga waiver.pdf</span> in 8 seconds</p>
+            <h3>Your waiver is ready</h3>
+            <div class="stats"><div class="stat"><b id="st-fields">8</b><span>Mindbody fields</span></div><div class="stat"><b>3</b><span>sections</span></div><div class="stat"><b id="st-sigs">1</b><span>signature</span></div></div>
+            <div class="review"><b>In review by our team</b>A person checks every field against your PDF. You can keep going meanwhile.</div>
+            <h4>Suggestions</h4>
+            <ul class="sugs" id="sugs">
+              <li class="sug" data-sug="1"><span class="mk">1</span><div><b>Split emergency contact into name and phone</b><p>Mindbody stores them as two fields.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+              <li class="sug" data-sug="2"><span class="mk">2</span><div><b>Add a guardian signature for minors</b><p>Your PDF mentions under-18s but has no guardian field.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+              <li class="sug" data-sug="3"><span class="mk grey">3</span><div><b>Use &lt;CLIENTAGE&gt; instead of asking for age</b><p>It fills in from Mindbody automatically.</p><div class="acts"><button type="button" data-apply>Apply</button><button type="button" data-dismiss>Dismiss</button></div></div></li>
+            </ul>
+            <p class="sugs-done" id="sugs-done" hidden>All suggestions handled. Our team still checks every field against your PDF.</p>
+            <a class="link green" href="#setup/upload" style="color:var(--green-txt)">Upload a different file</a>
+          </div>
+          <div class="aip-pane" data-aip-pane="fields">
+            <p class="meta">Click in the waiver text, then pick a field. It fills in from Mindbody when a client signs.</p>
+            <ul class="fields" id="fields"></ul>
+          </div>
+          <div class="aip-pane" data-aip-pane="prev">
+            <p class="meta">What clients see on their phone</p>
+            <div class="mini"><div class="doc" data-doc></div></div>
+            <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open full preview&nbsp;↗</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= Sandbox / dashboard with setup banner ======================= -->
+<section class="screen" data-screen="sandbox" aria-label="Sandbox">
   <div class="app"><aside class="side" data-side></aside>
     <main class="main"><div class="main-in">
-      <div class="banner"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.31M14 9.3V2M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0M5.52 16h12.96"/></svg><span><b>Sandbox mode.</b> Nothing here is live, and no clients can see it.</span><span class="spacer"></span><a class="abtn pri sm" href="#start">Upload my PDF</a><a class="link" href="#start">Exit sandbox</a></div>
-      <h1 class="title">Explore with a sample waiver</h1>
-      <p class="sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
+      <div class="sbanner" id="sbanner" role="region" aria-label="Finish setting up">
+        <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/4</b></div>
+        <div><p class="eyebrow" id="sb-eye">Finish setting up your studio</p><h2 id="sb-title">Next: name your location</h2><p class="sbs" id="sb-sub"></p><ul class="schips" id="sb-chips" aria-label="Setup steps"></ul></div>
+        <a class="obtn" id="sb-go" href="#setup">Continue setup&nbsp;→</a>
+        <button class="sb-x" type="button" id="sb-x" aria-label="Hide this banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+      </div>
+      <h1 class="title" id="d-title">Explore with a sample waiver</h1>
+      <p class="sub" id="d-sub">A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.</p>
       <div class="cols">
         <div class="card" style="padding:20px">
-          <div class="toolbar"><b style="font-size:15px">Sample waiver</b><span class="tag amber">SAMPLE</span>
+          <div class="toolbar"><b style="font-size:15px" id="d-wname">Sample waiver</b><span class="tag amber" id="d-tag">SAMPLE</span>
             <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
-          <div class="stage" data-stage><div class="doc" data-doc="Demo Yoga Studio"></div></div>
+          <div class="stage" data-stage><div class="doc" id="d-doc"></div></div>
         </div>
         <div class="card vstack">
           <h2 class="ctitle">Try it like a client</h2>
           <div class="afield"><label for="demo-link">Test link</label><div class="inline"><input id="demo-link" readonly value="sign.waiverking.com/demo-yoga"><button class="abtn sec" type="button" data-copy="#demo-link">Copy</button></div></div>
-          <div class="vstack tight"><a class="abtn pri" href="#sign-demo" target="_blank" rel="noopener" data-try="0">Open test link&nbsp; ↗</a><button class="abtn sec" type="button" data-toast="Test link sent to your phone (prototype)">Send to my phone</button></div>
+          <div class="vstack tight"><a class="abtn pri" id="d-open" href="#sign-demo" target="_blank" rel="noopener">Open test link&nbsp; ↗</a><button class="abtn sec" type="button" data-toast="Test link sent to your phone (prototype)">Send to my phone</button></div>
           <div class="hr"></div>
           <b style="font-size:14px">Things to try</b>
           <ul class="todo" id="todo"><li>Sign the waiver on your phone</li><li>Find the signed copy in Signed forms</li><li>Change a field in the form editor</li></ul>
-          <p style="font-size:13px;color:var(--app-muted)">Sample data is cleared when you upload your own PDF.</p>
+          <p style="font-size:13px;color:var(--app-muted)" id="d-foot">This is sample data. Nothing here reaches Mindbody.</p>
         </div>
-      </div>
-    </div><footer class="foot" data-foot></footer></main>
-  </div>
-</section>
-
-<!-- ======================= 4 · Waiver preview ======================= -->
-<section class="screen" data-screen="preview" aria-label="Your waiver is ready">
-  <div class="app"><aside class="side" data-side></aside>
-    <main class="main"><div class="main-in">
-      <h1 class="title">Your waiver is ready</h1>
-      <p class="sub">AI turned “<span data-filename>Sunrise Yoga waiver.pdf</span>” into an online form. Take a look before you connect Mindbody.</p>
-      <div class="cols">
-        <div class="card" style="padding:20px">
-          <div class="toolbar"><b style="font-size:15px">Preview</b>
-            <div class="seg" data-seg><button type="button" aria-pressed="true" data-dev="desktop">Desktop</button><button type="button" aria-pressed="false" data-dev="phone">Phone</button></div></div>
-          <div class="stage" data-stage><div class="doc" data-doc></div></div>
-        </div>
-        <div class="card vstack">
-          <div class="row"><span style="font-size:13px;font-weight:600;color:var(--green-txt)">Step 2 of 4</span><span class="spacer"></span><span class="tag green"><i></i>Built in 8 seconds</span></div>
-          <h2 class="ctitle">What we found in your PDF</h2>
-          <div class="stats"><div class="stat"><b>9</b><span>fields</span></div><div class="stat"><b>2</b><span>sections</span></div><div class="stat"><b>1</b><span>signature</span></div></div>
-          <div class="status"><span class="dot"></span><span><b>In review by our team</b><span>A person checks every field against your PDF within 1 business day. You can keep going in the meantime.</span></span></div>
-          <div class="vstack tight center"><a class="abtn pri" href="#mindbody" style="width:100%">Looks good, continue&nbsp; →</a><button class="abtn sec" type="button" style="width:100%" data-toast="The form editor isn’t part of this prototype">Edit form</button><a class="link" href="#start">Upload a different file</a></div>
-        </div>
-      </div>
-    </div><footer class="foot" data-foot></footer></main>
-  </div>
-</section>
-
-<!-- ======================= 5 · Connect Mindbody ======================= -->
-<section class="screen" data-screen="mindbody" aria-label="Connect your Mindbody site">
-  <div class="app"><aside class="side" data-side></aside>
-    <main class="main"><div class="main-in">
-      <h1 class="title">Connect your Mindbody site</h1>
-      <p class="sub">Signed waivers file straight into each client’s Mindbody profile. Takes about a minute.</p>
-      <div class="cols">
-        <form class="card vstack" id="mb-form" novalidate>
-          <div class="row"><span style="font-size:13px;font-weight:600;color:var(--green-txt)">Step 3 of 4</span><span class="spacer"></span><span class="tag grey" id="mb-status"><i></i>Not connected yet</span></div>
-          <div class="strip" id="strip"><span class="mk" style="background:#fff;border:1px solid #E9E5DE;color:#E8542E">mb</span><span><b>mindbody</b><span>Your booking system</span></span><span class="wire"></span><span class="mk" style="background:var(--app-green-50);color:var(--app-green)">wk</span><span><b>WaiverKing</b><span>Your waiver forms</span></span></div>
-          <div>
-            <div class="afield"><label for="loc">Location name</label><input id="loc" data-bizval><p class="help">How this location appears to your clients and in your reports.</p></div>
-            <div class="afield"><label for="siteid">Mindbody Site ID</label><input id="siteid" inputmode="numeric" placeholder="e.g. 12345" autocomplete="off"><p class="err" id="site-err">Site IDs are numbers, usually 4 to 6 digits.</p>
-              <div class="hintbox"><span>Where to find it: the number at the end of your Mindbody booking link.</span><code>clients.mindbodyonline.com/classic/ws?studioid=<b>12345</b></code><a class="link green" href="https://clients.mindbodyonline.com" target="_blank" rel="noopener">Open Mindbody in a new tab&nbsp; ↗</a></div></div>
-          </div>
-          <div class="row" style="gap:16px"><button class="abtn pri" type="submit" id="mb-btn">Continue to Mindbody</button><a class="link" href="#live" data-skip-mb>Skip for now</a></div>
-          <p style="font-size:13px;color:var(--app-muted)">Next, Mindbody asks you to approve WaiverKing. It takes one click, and you come straight back here.</p>
-        </form>
-        <div class="card vstack">
-          <h2 class="ctitle">What happens next</h2>
-          <ol class="nexts" style="list-style:none;margin:0;padding:0">
-            <li><span class="n">1</span><span><b>Approve WaiverKing in Mindbody</b><span>One click on the Mindbody screen we open for you.</span></span></li>
-            <li><span class="n">2</span><span><b>Clients sign online</b><span>Share your waiver link and clients sign on their phone.</span></span></li>
-            <li><span class="n">3</span><span><b>Waivers file into Mindbody</b><span>Each signed waiver lands in the client’s Documents tab.</span></span></li>
-          </ol>
-          <div class="hr"></div>
-          <div class="note"><b>Your waivers live in Mindbody</b>WaiverKing doesn’t keep a copy. To check who has signed, open a client’s Documents tab in Mindbody.</div>
-        </div>
-      </div>
-    </div><footer class="foot" data-foot></footer></main>
-  </div>
-</section>
-
-<!-- ======================= 6 · You're live ======================= -->
-<section class="screen" data-screen="live" aria-label="You're live">
-  <div class="app"><aside class="side" data-side></aside>
-    <main class="main"><div class="main-in">
-      <div class="card live vstack center" style="gap:22px">
-        <div class="mark" aria-hidden="true"><span class="ring"></span><span class="core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-          <span class="confetti"><i style="left:44px;top:40px;background:#E9770E;--x:-58px;--y:-24px;--r:-40deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:58px;--y:-30px;--r:30deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:52px;--y:30px;--r:70deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:-50px;--y:30px;--r:-60deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:-26px;--y:-50px;--r:20deg"></i><i style="left:44px;top:40px;background:#E9770E;--x:30px;--y:-52px;--r:-20deg"></i></span></div>
-        <div class="vstack tight center"><h1><span data-biz>Sunrise Yoga Studio</span> is live</h1><p style="color:var(--app-muted);font-size:15px;max-width:480px">Share your waiver link. Every signed waiver files into the client’s Mindbody profile.</p></div>
-        <div class="summary" style="width:100%">
-          <div><span class="ck">✓</span><span><b>Account created</b><span><span data-name>Jamie Rivera</span> · <span data-email>jamie@sunriseyoga.com</span></span></span></div>
-          <div><span class="ck">✓</span><span><b>Waiver ready</b><span>Liability waiver and release</span></span><span class="spacer"></span><span class="tag amber"><i></i>In review by our team</span></div>
-          <div><span class="ck" id="mb-ck">✓</span><span><b id="mb-line">Mindbody connected</b><span id="mb-sub">Site ID 12345</span></span></div>
-        </div>
-        <div class="afield" style="width:100%;text-align:left"><label for="live-link">Your waiver link</label><div class="inline"><input id="live-link" readonly value="sign.waiverking.com/sunrise-yoga"><button class="abtn sec" type="button" data-copy="#live-link">Copy link</button></div></div>
-        <div class="row" style="justify-content:center;flex-wrap:wrap"><a class="abtn pri" href="../">Go to my location&nbsp; →</a><a class="abtn sec" href="#sign" target="_blank" rel="noopener">Send myself a test</a></div>
       </div>
     </div><footer class="foot" data-foot></footer></main>
   </div>
@@ -632,16 +1081,23 @@ button { cursor: pointer; }
 (() => {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
-  const state = { email: 'jamie@sunriseyoga.com', biz: 'Sunrise Yoga Studio', name: 'Jamie Rivera', file: 'Sunrise Yoga waiver.pdf', site: '12345', done: 1 };
-  try { Object.assign(state, JSON.parse(sessionStorage.getItem('wk-signup') || '{}')); } catch (e) {}
-  const save = () => { try { sessionStorage.setItem('wk-signup', JSON.stringify(state)); } catch (e) {} };
+  const KEY = 'wk-signup-v2';
+  const fresh = () => ({ email: 'jamie@sunriseyoga.com', biz: 'Sunrise Yoga Studio', name: 'Jamie Rivera', file: 'Sunrise Yoga waiver.pdf', site: '12345', k: 0, uploaded: false, signedAt: '' });
+  const state = fresh();
+  // localStorage so the test link opened in another tab can report back
+  const load = () => { try { Object.assign(state, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) {} };
+  const save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} };
+  load();
 
   // shared chrome
   $$('[data-value]').forEach(el => el.append($('#value-tpl').content.cloneNode(true)));
   $$('[data-side]').forEach(el => el.append($('#side-tpl').content.cloneNode(true)));
   $$('[data-foot]').forEach(el => el.append($('#foot-tpl').content.cloneNode(true)));
+  const initialsOf = b => b.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'WK';
+  const slugOf = b => b.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').replace(/-studios?$/, '') || 'your-studio';
+  const shortBiz = () => state.biz.replace(/\s+studios?$/i, '') || state.biz;
   const docHTML = biz => `
-    <div class="brand"><span class="avatar">${biz.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase()}</span>${biz}</div>
+    <div class="brand"><span class="avatar">${initialsOf(biz)}</span>${biz}</div>
     <h4>Liability waiver and release</h4>
     <p>I understand that yoga involves physical activity and carries a risk of injury. I take part voluntarily and release ${biz} from liability…</p>
     <span class="sec">YOUR DETAILS</span>
@@ -652,53 +1108,112 @@ button { cursor: pointer; }
     <div class="sig">Sign here</div>`;
 
   function paint() {
-    const initials = state.biz.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase() || 'WK';
+    const ini = initialsOf(state.biz);
     $$('[data-biz]').forEach(e => e.textContent = state.biz);
     $$('[data-email]').forEach(e => e.textContent = state.email);
     $$('[data-name]').forEach(e => e.textContent = state.name);
     $$('[data-first]').forEach(e => e.textContent = state.name.split(' ')[0]);
-    $$('[data-initials]').forEach(e => e.textContent = initials);
+    $$('[data-initials]').forEach(e => e.textContent = ini);
     $$('[data-filename]').forEach(e => e.textContent = state.file);
-    $$('[data-bizval]').forEach(e => { if (!e.value) e.value = state.biz; });
-    $$('[data-badge]').forEach(e => e.textContent = state.done + '/4');
-    $$('[data-doc]').forEach(e => e.innerHTML = docHTML(e.dataset.doc || state.biz));
-    const slug = state.biz.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'your-studio';
-    $('#live-link').value = 'sign.waiverking.com/' + slug;
-    $('#mb-sub').textContent = state.site ? 'Site ID ' + state.site + ' · ' + state.biz : 'You can connect it any time from Locations';
-    $('#mb-line').textContent = state.site ? 'Mindbody connected' : 'Mindbody not connected yet';
+    $$('[data-site]').forEach(e => e.textContent = state.site);
+    $$('[data-badge]').forEach(e => e.textContent = Math.min(state.k, 4) + '/4');
+    $$('[data-doc]').forEach(e => e.innerHTML = docHTML(state.biz));
+    const link = 'sign.waiverking.com/' + slugOf(state.biz);
+    $('#test-link').value = link; $('#live-link').value = link;
   }
 
-  // routing
+  // ---------- onboarding model ----------
+  // k = steps completed (0–4). uploaded = AI form exists (step 3 not confirmed until k ≥ 3).
+  const STEP_OF = { loc: 0, mb: 1, 'mb-ok': 1, upload: 2, building: 2, test: 3, live: 4 };
+  function currentRoute() {
+    const k = state.k;
+    if (k <= 0) return 'setup/loc';
+    if (k === 1) return 'setup/mb';
+    if (k === 2) return state.uploaded ? 'review' : 'setup/upload';
+    if (k === 3) return 'setup/test';
+    return 'live';
+  }
+  function allowed(pane) {
+    const k = state.k;
+    return { loc: true, mb: k >= 1, 'mb-ok': k >= 2, upload: k >= 2, building: k >= 2, review: k >= 2 && state.uploaded, test: k >= 3, live: k >= 4 }[pane];
+  }
+  const stepRoute = i => ['setup/loc', state.k >= 2 ? 'setup/mb-ok' : 'setup/mb', state.uploaded ? 'review' : 'setup/upload', 'setup/test'][i];
+  const nextAfter = { loc: () => state.k >= 2 ? 'setup/mb-ok' : 'setup/mb', 'mb-ok': () => state.uploaded ? 'review' : 'setup/upload' };
+  const ACTIVE = ['Shown at the top of your waiver', 'About a minute', 'AI builds the form', 'Sign it on your phone'];
+  const doneLabel = i => [state.biz, 'Connected · Site ' + state.site, 'Form ready · in review', 'Signed by you · ' + (state.signedAt || '9:52')][i];
+
+  function paintSetup(pane) {
+    const cur = STEP_OF[pane];
+    $('#rail-title').textContent = state.k === 0 ? 'Get your studio live' : 'Get ' + shortBiz() + ' live';
+    $$('#rsteps .rstep').forEach((li, i) => {
+      const done = i < state.k, now = i === cur, locked = i > state.k;
+      li.className = 'rstep' + (done ? ' done' : '') + (now ? ' now' : '');
+      li.querySelector('.n').textContent = done && !now ? '✓' : i + 1;
+      li.querySelector('.s').textContent = done ? doneLabel(i) : ACTIVE[i];
+      const b = li.querySelector('button');
+      b.setAttribute('aria-disabled', locked); b.title = locked ? 'Finish the steps before this one first' : '';
+      if (now) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+    });
+    $$('.pane').forEach(p => p.classList.toggle('on', p.dataset.pane === pane));
+    if (pane === 'loc') { $('#loc').value = state.biz; }
+    if (pane === 'test') { $('#test-email').value = state.email; paintWait(); }
+    if (pane === 'building') runBuild();
+  }
+  $$('#rsteps .rstep button').forEach((b, i) => b.addEventListener('click', () => {
+    if (i > state.k) { toast('Finish the steps before this one first. You can leave and come back any time.'); return; }
+    go(stepRoute(i));
+  }));
+  $$('[data-close]').forEach(b => b.addEventListener('click', () => go('sandbox')));
+  $$('[data-next]').forEach(b => b.addEventListener('click', () => go(nextAfter[b.dataset.next]())));
+  addEventListener('keydown', e => {
+    if (e.key !== 'Escape') return;
+    const on = $('.screen.on'); if (on && (on.dataset.screen === 'setup') && state.k < 4) go('sandbox');
+  });
+
+  // ---------- routing ----------
   const screens = $$('.screen');
-  const progress = { start: 1, sandbox: 1, preview: 2, mindbody: 2, live: 4 };
   function show() {
-    const raw = (location.hash || '#signup').slice(1);
-    const demo = raw === 'sign-demo', id = demo ? 'sign' : raw;
+    let raw = (location.hash || '#signup').slice(1);
+    if (raw === 'setup' || raw === 'start') { raw = currentRoute(); history.replaceState(null, '', '#' + raw); }
+    let id = raw, pane = null;
+    if (raw.startsWith('setup/') || raw === 'live') { pane = raw === 'live' ? 'live' : raw.slice(6); id = 'setup'; }
+    if (pane && !allowed(pane)) { location.replace('#' + currentRoute()); return; }
+    if (id === 'review' && !allowed('review')) { location.replace('#' + currentRoute()); return; }
+    const demo = id === 'sign-demo'; if (demo) id = 'sign';
     const target = screens.find(s => s.dataset.screen === id) || screens[0];
-    if (progress[target.dataset.screen]) state.done = Math.max(state.done, progress[target.dataset.screen]);
     paint(); save();
-    if (demo) { $$('#client [data-biz]').forEach(e => e.textContent = 'Demo Yoga Studio'); $$('#client [data-initials]').forEach(e => e.textContent = 'DY'); }
+    if (id === 'setup') paintSetup(pane);
+    if (id === 'sandbox') paintDash();
+    if (id === 'review') paintEditor();
+    if (id === 'sign') {
+      const b = demo ? 'Demo Yoga Studio' : state.biz;
+      $$('#client [data-biz]').forEach(e => e.textContent = b); $$('#client [data-initials]').forEach(e => e.textContent = initialsOf(b));
+      $('#client').dataset.demo = demo ? '1' : '';
+    }
+    const was = $('.screen.on');
     screens.forEach(s => s.classList.toggle('on', s === target));
-    document.title = (target.getAttribute('aria-label') || 'Sign up') + ' · WaiverKing';
-    window.scrollTo(0, 0);
-    const first = target.querySelector('h1, h4');
+    if (was === target && pane) { /* pane change only: keep modal still */ } else window.scrollTo(0, 0);
+    document.title = (pane === 'live' ? 'You’re live' : (target.getAttribute('aria-label') || 'Sign up')) + ' · WaiverKing';
+    const first = id === 'setup' ? $('.pane.on h1') : target.querySelector('h1, h4');
     if (first && id !== 'signup') { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
     if (id === 'verify') setTimeout(() => $('#otp input').focus(), 50), startResend();
+    if (pane === 'loc') setTimeout(() => { const i = $('#loc'); i.focus(); i.select(); }, 60);
+    if (pane === 'mb') setTimeout(() => $('#siteid').focus(), 60);
   }
   const go = id => { if (location.hash === '#' + id) show(); else location.hash = id; };
   addEventListener('hashchange', show);
   $$('[data-go]').forEach(b => b.addEventListener('click', () => go(b.dataset.go)));
 
-  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2200); };
+  const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2400); };
   $$('[data-toast]').forEach(b => b.addEventListener('click', () => toast(b.dataset.toast)));
-  $$('[data-soon]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast('Finish setup first. The rest of the app isn’t in this prototype.'); }));
+  $$('[data-soon]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast(state.k >= 4 ? 'The rest of the app isn’t in this prototype.' : 'Finish setup first. The rest of the app isn’t in this prototype.'); }));
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     const v = $(b.dataset.copy).value;
     try { await navigator.clipboard.writeText('https://' + v); } catch (e) {}
     const t = b.textContent; b.textContent = 'Copied'; setTimeout(() => b.textContent = t, 1400);
   }));
 
-  // 1 · sign up
+  // ---------- 1 · sign up ----------
   const email = $('#email'), pass = $('#password'), biz = $('#business');
   const emailOk = () => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim());
   email.addEventListener('input', () => { $('#f-email').classList.toggle('valid', emailOk()); $('#f-email').classList.remove('bad'); });
@@ -713,15 +1228,17 @@ button { cursor: pointer; }
     if (pass.value.length < 8) { $('#pass-hint').style.color = '#B42318'; setTimeout(() => $('#pass-hint').style.color = '', 1600); ok = false; }
     if (!biz.value.trim()) { $('#f-biz').classList.add('bad'); ok = false; }
     if (!ok) { const bad = $('.fld.bad input') || (pass.value.length < 8 ? pass : null); bad && bad.focus(); return; }
+    Object.assign(state, fresh());
     state.email = email.value.trim(); state.biz = biz.value.trim();
     const local = state.email.split('@')[0].split(/[._-]/).filter(Boolean);
     state.name = local.map(w => w[0].toUpperCase() + w.slice(1)).join(' ') || state.name;
+    save();
     const btn = $('#create-btn'); btn.disabled = true; btn.textContent = 'Creating your account…';
     setTimeout(() => { btn.disabled = false; btn.innerHTML = 'Create my free account&nbsp; →'; go('verify'); }, 700);
   });
-  $('[data-google]').addEventListener('click', () => { state.email = state.email || 'jamie@sunriseyoga.com'; });
+  $('[data-google]').addEventListener('click', () => { Object.assign(state, fresh()); save(); });
 
-  // 2 · verify
+  // ---------- 2 · verify ----------
   const boxes = $$('#otp input');
   boxes.forEach((b, i) => {
     b.addEventListener('input', () => { b.value = b.value.replace(/\D/g, '').slice(-1); if (b.value && boxes[i + 1]) boxes[i + 1].focus(); if (boxes.every(x => x.value)) $('#otp-form').requestSubmit(); });
@@ -738,7 +1255,7 @@ button { cursor: pointer; }
   $('#otp-form').addEventListener('submit', e => {
     e.preventDefault();
     if (!boxes.every(x => x.value)) { const o = $('#otp'); o.classList.remove('shake'); void o.offsetWidth; o.classList.add('shake'); (boxes.find(x => !x.value)).focus(); return; }
-    setTimeout(() => { boxes.forEach(b => b.value = ''); go('start'); }, 250);
+    setTimeout(() => { boxes.forEach(b => b.value = ''); go('setup'); }, 250);
   });
   let timer;
   function startResend() {
@@ -748,46 +1265,176 @@ button { cursor: pointer; }
   }
   $('#resend').addEventListener('click', () => { toast('New code sent to ' + state.email); startResend(); });
 
-  // 3 · upload
+  // ---------- step 1 · location ----------
+  $('#loc').addEventListener('input', () => $('#f-loc').classList.remove('bad'));
+  $('#loc-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#loc').value.trim();
+    if (!v) { $('#f-loc').classList.add('bad'); $('#loc').focus(); return; }
+    state.biz = v; state.k = Math.max(state.k, 1); save();
+    go(nextAfter.loc());
+  });
+
+  // ---------- step 2 · Mindbody ----------
+  $('#where').addEventListener('click', e => { const box = $('#where-box'); box.hidden = !box.hidden; e.target.setAttribute('aria-expanded', !box.hidden); });
+  $('#siteid').addEventListener('input', () => $('#f-site').classList.remove('bad'));
+  $('#mb-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const v = $('#siteid').value.trim();
+    if (!/^\d{4,6}$/.test(v)) { $('#f-site').classList.add('bad'); $('#siteid').focus(); return; }
+    const btn = $('#mb-btn'); btn.disabled = true; btn.textContent = 'Waiting for Mindbody approval…';
+    setTimeout(() => {
+      btn.disabled = false; btn.innerHTML = 'Connect Mindbody&nbsp;→';
+      state.site = v; state.k = Math.max(state.k, 2); save(); go('setup/mb-ok');
+    }, 1300);
+  });
+
+  // ---------- step 3 · upload + build ----------
   const drop = $('#drop'), file = $('#file');
   ['dragenter', 'dragover'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add('over'); }));
   ['dragleave', 'drop'].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove('over'); }));
-  drop.addEventListener('drop', e => e.dataTransfer.files[0] && handle(e.dataTransfer.files[0]));
-  file.addEventListener('change', () => file.files[0] && handle(file.files[0]));
-  function handle(f) {
-    state.file = f.name; save();
-    drop.style.display = 'none';
-    const p = $('#processing'); p.classList.add('on'); $('#proc-file').textContent = f.name;
-    const bar = $('#proc-bar'); bar.style.width = '0'; requestAnimationFrame(() => requestAnimationFrame(() => bar.style.width = '100%'));
-    setTimeout(() => $('#proc-title').textContent = 'Building your form…', 800);
-    setTimeout(() => { p.classList.remove('on'); drop.style.display = ''; $('#proc-title').textContent = 'Reading your PDF…'; file.value = ''; go('preview'); }, 1800);
+  drop.addEventListener('drop', e => e.dataTransfer.files[0] && handle(e.dataTransfer.files[0].name));
+  file.addEventListener('change', () => { file.files[0] && handle(file.files[0].name); file.value = ''; });
+  $('#choose').addEventListener('click', () => file.click());
+  $('#use-example').addEventListener('click', () => handle('Sunrise Yoga waiver.pdf'));
+  function handle(name) { state.file = name; state.uploaded = false; save(); go('setup/building'); }
+  let building = null;
+  function runBuild() {
+    if (building) return;
+    const items = $$('#build li'), bar = $('#build-bar');
+    items.forEach(li => li.className = ''); bar.style.transition = 'none'; bar.style.width = '0'; void bar.offsetWidth; bar.style.transition = '';
+    let i = 0;
+    const step = () => {
+      items.forEach((li, j) => li.className = j < i ? 'done' : j === i ? 'now' : '');
+      bar.style.width = (i / items.length * 100) + '%';
+      if (i === items.length) {
+        building = setTimeout(() => {
+          building = null; state.uploaded = true; save();
+          if ($('[data-pane="building"]').classList.contains('on') && $('[data-screen="setup"]').classList.contains('on')) go('review');
+          else toast('Your waiver is ready to review');
+        }, 450);
+        return;
+      }
+      i++; building = setTimeout(step, 700);
+    };
+    step();
   }
 
-  // preview device toggle
+  // ---------- 3c · editor ----------
+  const rte = $('#rte');
+  let savedRange = null;
+  document.addEventListener('selectionchange', () => { const s = getSelection(); if (s.rangeCount && rte.contains(s.anchorNode)) savedRange = s.getRangeAt(0).cloneRange(); });
+  $$('[data-cmd]').forEach(b => b.addEventListener('mousedown', e => { e.preventDefault(); rte.focus(); document.execCommand(b.dataset.cmd, false, b.dataset.arg || null); }));
+  $('#rte-link').addEventListener('mousedown', e => { e.preventDefault(); toast('Select text first, then add a link (not in this prototype)'); });
+  const FIELDS = ['CLIENTFIRSTNAME', 'CLIENTLASTNAME', 'CLIENTBIRTHDATE', 'CLIENTAGE', 'CLIENTEMAIL', 'CLIENTPHONE', 'EMERGENCYCONTACT', 'EMERGENCYPHONE', 'HEALTHISSUES', 'SIGNATURE', 'SIGNDATE'];
+  const LABELS = ['First name', 'Last name', 'Birth date', 'Age', 'Email', 'Phone', 'Emergency contact', 'Emergency phone', 'Health issues', 'Signature', 'Sign date'];
+  $('#fields').innerHTML = FIELDS.map((f, i) => `<li><button type="button" data-field="${f}"><span>${LABELS[i]}</span><span class="tok">&lt;${f}&gt;</span></button></li>`).join('');
+  const tok = f => { const s = document.createElement('span'); s.className = 'tok'; s.contentEditable = 'false'; s.textContent = '<' + f + '>'; return s; };
+  $('#fields').addEventListener('mousedown', e => {
+    const b = e.target.closest('[data-field]'); if (!b) return; e.preventDefault();
+    const t = tok(b.dataset.field);
+    if (savedRange) { savedRange.deleteContents(); savedRange.insertNode(t); savedRange.setStartAfter(t); savedRange.collapse(true); const s = getSelection(); s.removeAllRanges(); s.addRange(savedRange); }
+    else { const p = document.createElement('p'); p.append(t); rte.append(p); }
+    t.classList.add('added'); toast('Inserted <' + b.dataset.field + '>');
+  });
+  function aipTab(name) {
+    $$('.aip-tabs button').forEach(b => { const on = b.dataset.aip === name; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+    $$('.aip-pane').forEach(p => p.classList.toggle('on', p.dataset.aipPane === name));
+  }
+  $$('.aip-tabs button').forEach(b => b.addEventListener('click', () => aipTab(b.dataset.aip)));
+  $('#rte-ins').addEventListener('mousedown', e => { e.preventDefault(); aipTab('fields'); });
+  $$('[data-tab-soon]').forEach(b => b.addEventListener('click', () => toast(b.textContent + ' isn’t part of this prototype')));
+
+  const sugLeft = () => $$('#sugs .sug:not(.gone)').length;
+  function sugDone(li, applied) {
+    if (applied) { li.classList.add('applied'); li.querySelector('.mk').textContent = '✓'; li.querySelector('.acts').innerHTML = '<span style="font-size:12.5px;color:var(--app-green);font-weight:600">Applied</span>'; }
+    setTimeout(() => { li.classList.add('gone'); setTimeout(() => { li.remove(); const n = sugLeft(); $('#sug-cnt').textContent = n || ''; $('#sugs-done').hidden = n > 0; }, 300); }, applied ? 900 : 0);
+  }
+  const plain = id => { const h = $('#' + id); if (h) h.classList.add('plain'); return h; };
+  $('#sugs').addEventListener('click', e => {
+    const li = e.target.closest('.sug'); if (!li) return;
+    const n = li.dataset.sug;
+    if (e.target.closest('[data-apply]')) {
+      if (n === '1') { const h = plain('hl1'); h.replaceChildren('Emergency contact name: ', tok('EMERGENCYCONTACTNAME'), ' Phone: ', tok('EMERGENCYPHONE')); h.parentElement.classList.add('added'); $('#st-fields').textContent = +$('#st-fields').textContent + 1; }
+      if (n === '2') { plain('hl2'); const p = document.createElement('p'); p.className = 'added'; p.append('Parent or guardian name: ', tok('GUARDIANNAME'), '  Signature: ', tok('GUARDIANSIGNATURE')); $('#sig-line').after(p); $('#st-sigs').textContent = 2; }
+      if (n === '3') toast('Age now fills in from Mindbody with <CLIENTAGE>');
+      sugDone(li, true);
+    } else if (e.target.closest('[data-dismiss]')) {
+      if (n === '1') plain('hl1'); if (n === '2') plain('hl2');
+      sugDone(li, false);
+    }
+  });
+  $('#sugs').addEventListener('mouseover', e => { const li = e.target.closest('.sug'); $$('.hl').forEach(h => h.classList.toggle('flash', !!li && h.id === 'hl' + li.dataset.sug)); });
+  $('#sugs').addEventListener('mouseleave', () => $$('.hl').forEach(h => h.classList.remove('flash')));
+  function paintEditor() {
+    const st = $$('.ed-steps li');
+    st[3].className = state.k >= 3 ? 'done' : '';
+    st[3].innerHTML = state.k >= 3 ? '<a href="#setup/test"><span class="n">✓</span>Test link</a>' : '<span class="n">4</span>Test link';
+    $('#looks-good').innerHTML = state.k >= 3 ? 'Save and continue&nbsp;→' : '<span>Looks good<span class="long">, continue</span></span>&nbsp;→';
+  }
+  $('#looks-good').addEventListener('click', () => { state.k = Math.max(state.k, 3); save(); go('setup/test'); });
+
+  // ---------- step 4 · test link ----------
+  (function qr() { // decorative QR: finder patterns + seeded modules
+    const n = 25, on = [], fd = (x, y) => { for (let i = 0; i < 7; i++) for (let j = 0; j < 7; j++) { const e = i === 0 || i === 6 || j === 0 || j === 6, c = i > 1 && i < 5 && j > 1 && j < 5; if (e || c) on.push([x + i, y + j]); } };
+    fd(0, 0); fd(n - 7, 0); fd(0, n - 7);
+    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+    for (let x = 0; x < n; x++) for (let y = 0; y < n; y++) { const inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9); if (!inF && rnd() > .52) on.push([x, y]); }
+    $('#qr').innerHTML = on.map(([x, y]) => `<rect x="${x}" y="${y}" width="1" height="1"/>`).join('');
+    $('#qr').setAttribute('fill', '#1C1B19');
+  })();
+  $('#send-form').addEventListener('submit', e => {
+    e.preventDefault(); const v = $('#test-email').value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { toast('Enter a valid email'); $('#test-email').focus(); return; }
+    toast('Test link sent to ' + v);
+  });
+  function paintWait() {
+    const ok = !!state.signedAt;
+    $('#wait').classList.toggle('ok', ok);
+    $('#wait-txt').textContent = ok ? `Signed by you at ${state.signedAt}. That’s exactly what your clients will see.` : 'Waiting for your test signature… it shows up here the moment you sign.';
+  }
+  addEventListener('storage', e => { if (e.key !== KEY) return; load(); if ($('[data-pane="test"]').classList.contains('on')) { paintWait(); paintSetup('test'); } });
+  $('#finish').addEventListener('click', () => { if (!state.signedAt) state.signedAt = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s?[AP]M$/i, ''); state.k = 4; save(); go('live'); });
+
+  // ---------- sandbox dashboard + setup banner ----------
+  let bannerHidden = false;
+  $('#sb-x').addEventListener('click', () => { bannerHidden = true; $('#sbanner').hidden = true; toast('Banner hidden. Pick up setup any time from Get started.'); });
+  const CHIPS = ['Location name', 'Mindbody', 'Upload waiver', 'Test link'];
+  function paintDash() {
+    const k = Math.min(state.k, 4), own = state.uploaded, live = k >= 4;
+    const ban = $('#sbanner'); ban.hidden = live || bannerHidden;
+    if (!live) {
+      $('#ring-n').textContent = k + '/4';
+      $('#ring-val').style.strokeDashoffset = 150.8 * (1 - k / 4);
+      $('#sb-eye').textContent = k === 0 ? 'Finish setting up your studio' : 'Finish setting up ' + state.biz;
+      const T = [
+        ['Next: name your location', 'You’re exploring a sample waiver. Finish setup to publish your own.'],
+        ['Next: connect Mindbody', 'About a minute. You’ll need the site ID from your Mindbody booking link.'],
+        own ? ['Next: check your waiver', 'Your form is ready below. Take a look, then confirm it to continue.'] : ['Next: upload your waiver', 'AI turns your PDF into a form in seconds. Until then, play with the sample below.'],
+        ['Last step: send yourself a test link', 'Sign your waiver on your phone, then you’re live.']
+      ][k];
+      $('#sb-title').textContent = T[0]; $('#sb-sub').textContent = T[1];
+      $('#sb-chips').innerHTML = CHIPS.map((c, i) => `<li class="${i < k ? 'done' : i === k ? 'now' : 'td'}">${c}</li>`).join('');
+      $('#sb-go').href = '#' + currentRoute();
+    }
+    const showOwn = own && k >= 2, b = showOwn ? state.biz : 'Demo Yoga Studio';
+    $('#d-title').textContent = live ? 'Liability waiver and release' : showOwn ? 'Your waiver · draft' : 'Explore with a sample waiver';
+    $('#d-sub').textContent = live ? 'Live. Clients who open your link sign this waiver, and it files into their Mindbody profile.' : showOwn ? `The form AI built from “${state.file}”. Clients can’t see it until you finish setup.` : 'A demo yoga waiver, ready to try. Open the test link and sign it the way your clients would.';
+    $('#d-wname').textContent = live || showOwn ? state.biz + ' waiver' : 'Sample waiver';
+    const tag = $('#d-tag'); tag.textContent = live ? 'LIVE' : showOwn ? 'DRAFT' : 'SAMPLE'; tag.className = 'tag ' + (live ? 'green' : 'amber');
+    $('#d-doc').innerHTML = docHTML(b);
+    $('#demo-link').value = showOwn || live ? 'sign.waiverking.com/' + slugOf(state.biz) : 'sign.waiverking.com/demo-yoga';
+    $('#d-open').href = showOwn || live ? '#sign' : '#sign-demo';
+    $('#d-foot').textContent = live ? 'Signed waivers file into each client’s Mindbody Documents tab.' : showOwn ? 'Not live yet. Signed test copies are marked as tests.' : 'This is sample data. Nothing here reaches Mindbody.';
+  }
   $$('[data-seg]').forEach(seg => seg.addEventListener('click', e => {
     const b = e.target.closest('button'); if (!b) return;
     $$('button', seg).forEach(x => x.setAttribute('aria-pressed', x === b));
     seg.closest('.card').querySelector('[data-stage]').classList.toggle('phone', b.dataset.dev === 'phone');
   }));
-  $('[data-try="0"]').addEventListener('click', () => $('#todo li').classList.add('done'));
+  $('#d-open').addEventListener('click', () => $('#todo li').classList.add('done'));
 
-  // 5 · Mindbody
-  $('#mb-form').addEventListener('submit', e => {
-    e.preventDefault();
-    const v = $('#siteid').value.trim();
-    if (!/^\d{4,6}$/.test(v)) { $('#site-err').classList.add('show'); $('#siteid').focus(); return; }
-    $('#site-err').classList.remove('show');
-    state.site = v; state.biz = $('#loc').value.trim() || state.biz;
-    const btn = $('#mb-btn'); btn.disabled = true; btn.textContent = 'Waiting for Mindbody approval…';
-    setTimeout(() => {
-      $('#strip').classList.add('linked'); const s = $('#mb-status'); s.className = 'tag green'; s.innerHTML = '<i></i>Connected';
-      setTimeout(() => { btn.disabled = false; btn.textContent = 'Continue to Mindbody'; go('live'); }, 650);
-    }, 1200);
-  });
-  $('#siteid').addEventListener('input', () => $('#site-err').classList.remove('show'));
-  $('[data-skip-mb]').addEventListener('click', () => { state.site = ''; });
-
-  // client signing page
+  // ---------- client signing page ----------
   const pad = $('#sigpad canvas'); let ctx, drawing = false, signed = false;
   function sizePad() { const r = pad.getBoundingClientRect(); pad.width = r.width * devicePixelRatio; pad.height = r.height * devicePixelRatio; ctx = pad.getContext('2d'); ctx.scale(devicePixelRatio, devicePixelRatio); ctx.lineWidth = 2.2; ctx.lineCap = 'round'; ctx.strokeStyle = '#1C1B19'; }
   const pos = e => { const r = pad.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
@@ -798,6 +1445,7 @@ button { cursor: pointer; }
     e.preventDefault();
     if (!signed) { toast('Add your signature first'); return; }
     $('#client').classList.add('signed');
+    if (!$('#client').dataset.demo) { load(); state.signedAt = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s?[AP]M$/i, ''); save(); }
   });
 
   show();
