@@ -775,7 +775,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   <div class="acct"><span class="avatar" data-initials>SY</span><span><b data-biz>Sunrise Yoga Studio</b><span data-name>Jamie Rivera</span></span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m6 9 6 6 6-6"/></svg></div>
   <div class="navsec">WORKSPACE</div>
   <nav class="nav">
-    <a href="#setup" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Get started<span class="badge" data-badge>1/4</span></a>
+    <a href="#setup" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 7 2 2 4-4"/><path d="m3 17 2 2 4-4"/><path d="M13 6h8M13 12h8M13 18h8"/></svg>Get started<span class="badge" data-badge>0/3</span></a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>Locations</a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></svg>Bulk edit</a>
     <a href="#" data-soon><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 20v-4M12 20V10M18 20V4"/></svg>Statistics</a>
@@ -799,19 +799,18 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   <div class="app" inert aria-hidden="true"><aside class="side" data-side></aside>
     <main class="main"><div class="main-in">
       <h2 class="title">Welcome, <span data-first>Jamie</span></h2>
-      <p class="sub">Let’s get <span data-biz>Sunrise Yoga Studio</span> live. Four short steps, about 5 minutes.</p>
+      <p class="sub">Let’s get <span data-biz>Sunrise Yoga Studio</span> live. Three short steps, about 5 minutes.</p>
     </div><footer class="foot" data-foot></footer></main>
   </div>
   <div class="scrim">
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="rail-title">
       <aside class="rail">
         <h2 class="rail-title" id="rail-title">Get your studio live</h2>
-        <p class="rail-sub">4 short steps · about 5 minutes</p>
+        <p class="rail-sub">3 short steps · about 5 minutes</p>
         <ol class="rsteps" id="rsteps" aria-label="Setup steps">
           <li class="rstep"><button type="button"><span class="n">1</span><span><b>Name your location</b><span class="s">Shown at the top of your waiver</span></span></button></li>
           <li class="rstep"><button type="button"><span class="n">2</span><span><b>Connect Mindbody</b><span class="s">About a minute</span></span></button></li>
           <li class="rstep"><button type="button"><span class="n">3</span><span><b>Upload your waiver</b><span class="s">AI builds the form</span></span></button></li>
-          <li class="rstep"><button type="button"><span class="n">4</span><span><b>Send a test link</b><span class="s">Sign it on your phone</span></span></button></li>
         </ol>
         <div class="sbx">
           <div><b>Explore the sandbox</b><p>No PDF handy? Try a sample waiver.</p></div>
@@ -837,7 +836,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <!-- 1 · location -->
         <form class="pane" data-pane="loc" id="loc-form" novalidate>
           <div class="pane-body">
-            <p class="eyebrow">Step 1 of 4</p>
+            <p class="eyebrow">Step 1 of 3</p>
             <h1>What’s your location called?</h1>
             <p class="lede">This is the name clients see at the top of your waiver. You can change it any time.</p>
             <div class="sfield" id="f-loc"><label for="loc">Location name</label><input id="loc" autocomplete="organization" required><p class="err">Add a name for this location</p></div>
@@ -849,7 +848,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <!-- 2 · Mindbody -->
         <form class="pane" data-pane="mb" id="mb-form" novalidate>
           <div class="pane-body">
-            <p class="eyebrow">Step 2 of 4</p>
+            <p class="eyebrow">Step 2 of 3</p>
             <h1>Connect your Mindbody site</h1>
             <p class="lede">Signed waivers file straight into each client’s Mindbody profile.</p>
             <div class="mbstrip"><span class="mk mbk">mb</span><span><b>Mindbody</b><span>Your booking system</span></span><span class="wire"></span><span class="mk" style="font:700 12px/1 var(--font-body);color:var(--green-txt)">wk</span><span><b>WaiverKing</b><span>Your waiver forms</span></span></div>
@@ -863,7 +862,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <!-- 2a · approve in Mindbody (auto-generated activation link) -->
         <div class="pane" data-pane="mb-approve">
           <div class="pane-body">
-            <p class="eyebrow">Step 2 of 4</p>
+            <p class="eyebrow">Step 2 of 3</p>
             <h1>Approve WaiverKing in Mindbody</h1>
             <p class="lede">We made a one-time activation link for site <b data-pending>12345</b>. Opening it and approving is what connects your Mindbody site to WaiverKing.</p>
             <ol class="appr">
@@ -881,7 +880,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <div class="pane" data-pane="mb-ok">
           <div class="pane-body">
             <span class="okmark" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-            <p class="eyebrow">Step 2 of 4 · Done</p>
+            <p class="eyebrow">Step 2 of 3 · Done</p>
             <h1>You’re connected to Mindbody</h1>
             <p class="lede">From now on, every signed waiver files into the client’s Mindbody profile on its own.</p>
             <div class="mbstrip linked"><span class="mk mbk">mb</span><span><b data-biz>Sunrise Yoga Studio</b><span>Site <span data-site>12345</span></span></span><span class="wire"></span><span class="mk" style="font:700 12px/1 var(--font-body);color:var(--green-txt)">wk</span><span><b>WaiverKing</b><span>Connected just now</span></span></div>
@@ -896,7 +895,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <!-- 3 · upload -->
         <div class="pane" data-pane="upload">
           <div class="pane-body">
-            <p class="eyebrow">Step 3 of 4</p>
+            <p class="eyebrow">Step 3 of 3</p>
             <h1>Upload your current waiver</h1>
             <p class="lede">AI turns your PDF into an online form in seconds. Then a person on our team checks it against your PDF.</p>
             <label class="updrop" id="drop">
@@ -914,7 +913,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <!-- 3b · building -->
         <div class="pane" data-pane="building" aria-live="polite">
           <div class="pane-body">
-            <p class="eyebrow">Step 3 of 4</p>
+            <p class="eyebrow">Step 3 of 3</p>
             <h1>Building your online waiver…</h1>
             <p class="lede">This usually takes under 10 seconds.</p>
             <div class="filecard"><span class="ico">PDF</span><span><b data-filename>Sunrise Yoga waiver.pdf</b><span>Uploaded just now</span></span></div>
@@ -924,36 +923,6 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
           <div class="pane-foot"><span class="note-txt">You can close this. We’ll keep building.</span><span class="spacer"></span><button class="obtn" type="button" disabled>Building…</button></div>
         </div>
 
-        <!-- 4 · test link -->
-        <div class="pane" data-pane="test">
-          <div class="pane-body">
-            <p class="eyebrow">Step 4 of 4</p>
-            <h1>See it the way clients will</h1>
-            <p class="lede">Open the link on your phone and sign it. This is exactly what your clients get.</p>
-            <div class="tgrid">
-              <div>
-                <div class="sfield"><label for="test-link">Your waiver link</label><div class="inline2"><input id="test-link" readonly value="sign.waiverking.com/sunrise-yoga"><button class="gbtn" type="button" data-copy="#test-link">Copy</button></div></div>
-                <form class="sfield" id="send-form" novalidate><label for="test-email">Send a test to</label><div class="inline2"><input id="test-email" type="email" autocomplete="email"><button class="gbtn" type="submit">Send</button></div></form>
-              </div>
-              <a class="qr" href="#sign" target="_blank" rel="noopener" aria-label="Open the test link in a new tab"><svg viewBox="0 0 25 25" id="qr" shape-rendering="crispEdges" aria-hidden="true"></svg><span>Scan with your phone</span></a>
-            </div>
-            <div class="wait" id="wait" role="status"><span class="pulse"></span><span id="wait-txt">Waiting for your test signature… it shows up here the moment you sign.</span></div>
-          </div>
-          <div class="pane-foot"><button class="gbtn" type="button" data-go="review">Back</button><span class="spacer"></span><button class="obtn" type="button" id="finish">Finish setup&nbsp;→</button></div>
-        </div>
-
-        <!-- 5 · live -->
-        <div class="pane" data-pane="live">
-          <div class="pane-body livebody">
-            <div class="mark" aria-hidden="true"><span class="ring"></span><span class="core"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-              <span class="confetti"><i style="left:44px;top:40px;background:#E9770E;--x:-58px;--y:-24px;--r:-40deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:58px;--y:-30px;--r:30deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:52px;--y:30px;--r:70deg"></i><i style="left:44px;top:40px;background:#6BA539;--x:-50px;--y:30px;--r:-60deg"></i><i style="left:44px;top:40px;background:#F2C14E;--x:-26px;--y:-50px;--r:20deg"></i><i style="left:44px;top:40px;background:#E9770E;--x:30px;--y:-52px;--r:-20deg"></i></span></div>
-            <h1><span data-biz>Sunrise Yoga Studio</span> is live</h1>
-            <p class="lede">Share your waiver link with clients. Every signed waiver files into their Mindbody profile.</p>
-            <div class="inline2"><input id="live-link" readonly value="sign.waiverking.com/sunrise-yoga" aria-label="Your waiver link"><button class="gbtn" type="button" data-copy="#live-link">Copy link</button></div>
-            <div class="share"><span>Where to share it</span><div><button type="button" data-toast="Tip: add the link to your Mindbody booking confirmation email">Booking confirmation email</button><button type="button" data-toast="Tip: add a “Sign our waiver” button to your website">Your website</button><button type="button" data-toast="A printable QR poster isn’t part of this prototype">Front-desk QR poster</button></div></div>
-          </div>
-          <div class="pane-foot"><span class="spacer"></span><a class="obtn" href="#sandbox">Go to my dashboard&nbsp;→</a></div>
-        </div>
       </div>
     </div>
   </div>
@@ -969,7 +938,6 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
         <li class="done"><a href="#setup/loc"><span class="n">✓</span>Location</a></li>
         <li class="done"><a href="#setup/mb-ok"><span class="n">✓</span>Mindbody</a></li>
         <li class="now" aria-current="step"><span class="n">3</span>Waiver</li>
-        <li><span class="n">4</span>Test link</li>
       </ol>
       <div class="ed-act">
         <a class="link green" href="#sandbox">Try the sandbox</a>
@@ -1051,7 +1019,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   <div class="app"><aside class="side" data-side></aside>
     <main class="main"><div class="main-in">
       <div class="sbanner" id="sbanner" role="region" aria-label="Finish setting up">
-        <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/4</b></div>
+        <div class="ringk"><svg viewBox="0 0 56 56" aria-hidden="true"><circle class="trk" cx="28" cy="28" r="24"/><circle class="val" id="ring-val" cx="28" cy="28" r="24" stroke-dasharray="150.8" stroke-dashoffset="150.8"/></svg><b id="ring-n">0/3</b></div>
         <div><p class="eyebrow" id="sb-eye">Finish setting up your studio</p><h2 id="sb-title">Next: name your location</h2><p class="sbs" id="sb-sub"></p><ul class="schips" id="sb-chips" aria-label="Setup steps"></ul></div>
         <a class="obtn" id="sb-go" href="#setup">Continue setup&nbsp;→</a>
         <button class="sb-x" type="button" id="sb-x" aria-label="Hide this banner"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
@@ -1140,31 +1108,28 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     $$('[data-initials]').forEach(e => e.textContent = ini);
     $$('[data-filename]').forEach(e => e.textContent = state.file);
     $$('[data-site]').forEach(e => e.textContent = state.site);
-    $$('[data-badge]').forEach(e => e.textContent = Math.min(state.k, 4) + '/4');
+    $$('[data-badge]').forEach(e => e.textContent = Math.min(state.k, 3) + '/3');
     $$('[data-doc]').forEach(e => e.innerHTML = docHTML(state.biz));
-    const link = 'sign.waiverking.com/' + slugOf(state.biz);
-    $('#test-link').value = link; $('#live-link').value = link;
   }
 
   // ---------- onboarding model ----------
   // k = steps completed (0–4). uploaded = AI form exists (step 3 not confirmed until k ≥ 3).
-  const STEP_OF = { loc: 0, mb: 1, 'mb-approve': 1, 'mb-ok': 1, upload: 2, building: 2, test: 3, live: 4 };
+  const STEP_OF = { loc: 0, mb: 1, 'mb-approve': 1, 'mb-ok': 1, upload: 2, building: 2 };
   function currentRoute() {
     const k = state.k;
     if (k <= 0) return 'setup/loc';
     if (k === 1) return state.pending ? 'setup/mb-approve' : 'setup/mb';
     if (k === 2) return state.uploaded ? 'review' : 'setup/upload';
-    if (k === 3) return 'setup/test';
-    return 'live';
+    return 'sandbox';
   }
   function allowed(pane) {
     const k = state.k;
-    return { loc: true, mb: k >= 1, 'mb-approve': k >= 1 && !!state.pending, 'mb-ok': k >= 2, upload: k >= 2, building: k >= 2, review: k >= 2 && state.uploaded, test: k >= 3, live: k >= 4 }[pane];
+    return { loc: true, mb: k >= 1, 'mb-approve': k >= 1 && !!state.pending, 'mb-ok': k >= 2, upload: k >= 2, building: k >= 2, review: k >= 2 && state.uploaded }[pane];
   }
-  const stepRoute = i => ['setup/loc', state.k >= 2 ? 'setup/mb-ok' : state.pending ? 'setup/mb-approve' : 'setup/mb', state.uploaded ? 'review' : 'setup/upload', 'setup/test'][i];
+  const stepRoute = i => ['setup/loc', state.k >= 2 ? 'setup/mb-ok' : state.pending ? 'setup/mb-approve' : 'setup/mb', state.uploaded ? 'review' : 'setup/upload'][i];
   const nextAfter = { loc: () => state.k >= 2 ? 'setup/mb-ok' : state.pending ? 'setup/mb-approve' : 'setup/mb', 'mb-ok': () => state.uploaded ? 'review' : 'setup/upload' };
-  const ACTIVE = ['Shown at the top of your waiver', 'About a minute', 'AI builds the form', 'Sign it on your phone'];
-  const doneLabel = i => [state.biz, 'Connected · Site ' + state.site, 'Form ready · in review', 'Signed by you · ' + (state.signedAt || '9:52')][i];
+  const ACTIVE = ['Shown at the top of your waiver', 'About a minute', 'AI builds the form'];
+  const doneLabel = i => [state.biz, 'Connected · Site ' + state.site, 'Form ready · in review'][i];
 
   function paintSetup(pane) {
     const cur = STEP_OF[pane];
@@ -1182,7 +1147,6 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     if (pane === 'loc') { $('#loc').value = state.biz; }
     if (pane === 'mb') { $('#siteid').value = state.pending || (state.k >= 2 ? state.site : ''); }
     if (pane === 'mb-approve') { $$('[data-pending]').forEach(e => e.textContent = state.pending); $('#act-link').value = actLink(); $('#mb-wait').classList.remove('ok'); $('#mb-wait-txt').textContent = 'Waiting for approval in Mindbody…'; $('#act-open').disabled = false; $('#act-open').innerHTML = 'Open activation link&nbsp;↗'; }
-    if (pane === 'test') { $('#test-email').value = state.email; paintWait(); }
     if (pane === 'building') runBuild();
   }
   $$('#rsteps .rstep button').forEach((b, i) => b.addEventListener('click', () => {
@@ -1193,7 +1157,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   $$('[data-next]').forEach(b => b.addEventListener('click', () => go(nextAfter[b.dataset.next]())));
   addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    const on = $('.screen.on'); if (on && (on.dataset.screen === 'setup') && state.k < 4) go('sandbox');
+    const on = $('.screen.on'); if (on && (on.dataset.screen === 'setup')) go('sandbox');
   });
 
   // ---------- routing ----------
@@ -1202,7 +1166,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     let raw = (location.hash || '#signup').slice(1);
     if (raw === 'setup' || raw === 'start') { raw = currentRoute(); history.replaceState(null, '', '#' + raw); }
     let id = raw, pane = null;
-    if (raw.startsWith('setup/') || raw === 'live') { pane = raw === 'live' ? 'live' : raw.slice(6); id = 'setup'; }
+    if (raw.startsWith('setup/')) { pane = raw.slice(6); id = 'setup'; }
     if (pane && !allowed(pane)) { location.replace('#' + currentRoute()); return; }
     if (id === 'review' && !allowed('review')) { location.replace('#' + currentRoute()); return; }
     const demo = id === 'sign-demo'; if (demo) id = 'sign';
@@ -1219,7 +1183,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
     const was = $('.screen.on');
     screens.forEach(s => s.classList.toggle('on', s === target));
     if (was === target && pane) { /* pane change only: keep modal still */ } else window.scrollTo(0, 0);
-    document.title = (pane === 'live' ? 'You’re live' : (target.getAttribute('aria-label') || 'Sign up')) + ' · WaiverKing';
+    document.title = (target.getAttribute('aria-label') || 'Sign up') + ' · WaiverKing';
     const first = id === 'setup' ? $('.pane.on h1') : target.querySelector('h1, h4');
     if (first && id !== 'signup') { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
     if (id === 'verify') setTimeout(() => $('#otp input').focus(), 50), startResend();
@@ -1232,7 +1196,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
 
   const toast = msg => { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(t._h); t._h = setTimeout(() => t.classList.remove('on'), 2400); };
   $$('[data-toast]').forEach(b => b.addEventListener('click', () => toast(b.dataset.toast)));
-  $$('[data-soon]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast(state.k >= 4 ? 'The rest of the app isn’t in this prototype.' : 'Finish setup first. The rest of the app isn’t in this prototype.'); }));
+  $$('[data-soon]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast(state.k >= 3 ? 'The rest of the app isn’t in this prototype.' : 'Finish setup first. The rest of the app isn’t in this prototype.'); }));
   $$('[data-copy]').forEach(b => b.addEventListener('click', async () => {
     const v = $(b.dataset.copy).value;
     try { await navigator.clipboard.writeText('https://' + v); } catch (e) {}
@@ -1402,51 +1366,31 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   $('#sugs').addEventListener('mouseover', e => { const li = e.target.closest('.sug'); $$('.hl').forEach(h => h.classList.toggle('flash', !!li && h.id === 'hl' + li.dataset.sug)); });
   $('#sugs').addEventListener('mouseleave', () => $$('.hl').forEach(h => h.classList.remove('flash')));
   function paintEditor() {
-    const st = $$('.ed-steps li');
-    st[3].className = state.k >= 3 ? 'done' : '';
-    st[3].innerHTML = state.k >= 3 ? '<a href="#setup/test"><span class="n">✓</span>Test link</a>' : '<span class="n">4</span>Test link';
-    $('#looks-good').innerHTML = state.k >= 3 ? 'Save and continue&nbsp;→' : '<span>Looks good<span class="long">, continue</span></span>&nbsp;→';
+    const done = state.k >= 3;
+    $('.ed-steps').hidden = done;
+    $('#looks-good').innerHTML = done ? 'Save changes&nbsp;→' : '<span>Looks good<span class="long">, finish setup</span></span>&nbsp;→';
   }
-  $('#looks-good').addEventListener('click', () => { state.k = Math.max(state.k, 3); save(); go('setup/test'); });
-
-  // ---------- step 4 · test link ----------
-  (function qr() { // decorative QR: finder patterns + seeded modules
-    const n = 25, on = [], fd = (x, y) => { for (let i = 0; i < 7; i++) for (let j = 0; j < 7; j++) { const e = i === 0 || i === 6 || j === 0 || j === 6, c = i > 1 && i < 5 && j > 1 && j < 5; if (e || c) on.push([x + i, y + j]); } };
-    fd(0, 0); fd(n - 7, 0); fd(0, n - 7);
-    let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
-    for (let x = 0; x < n; x++) for (let y = 0; y < n; y++) { const inF = (x < 8 && y < 8) || (x > n - 9 && y < 8) || (x < 8 && y > n - 9); if (!inF && rnd() > .52) on.push([x, y]); }
-    $('#qr').innerHTML = on.map(([x, y]) => `<rect x="${x}" y="${y}" width="1" height="1"/>`).join('');
-    $('#qr').setAttribute('fill', '#1C1B19');
-  })();
-  $('#send-form').addEventListener('submit', e => {
-    e.preventDefault(); const v = $('#test-email').value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { toast('Enter a valid email'); $('#test-email').focus(); return; }
-    toast('Test link sent to ' + v);
+  $('#looks-good').addEventListener('click', () => {
+    const first = state.k < 3;
+    state.k = 3; save(); go('sandbox');
+    toast(first ? 'Setup complete. ' + state.biz + ' is live.' : 'Changes saved');
   });
-  function paintWait() {
-    const ok = !!state.signedAt;
-    $('#wait').classList.toggle('ok', ok);
-    $('#wait-txt').textContent = ok ? `Signed by you at ${state.signedAt}. That’s exactly what your clients will see.` : 'Waiting for your test signature… it shows up here the moment you sign.';
-  }
-  addEventListener('storage', e => { if (e.key !== KEY) return; load(); if ($('[data-pane="test"]').classList.contains('on')) { paintWait(); paintSetup('test'); } });
-  $('#finish').addEventListener('click', () => { if (!state.signedAt) state.signedAt = new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }).replace(/\s?[AP]M$/i, ''); state.k = 4; save(); go('live'); });
 
   // ---------- sandbox dashboard + setup banner ----------
   let bannerHidden = false;
   $('#sb-x').addEventListener('click', () => { bannerHidden = true; $('#sbanner').hidden = true; toast('Banner hidden. Pick up setup any time from Get started.'); });
-  const CHIPS = ['Location name', 'Mindbody', 'Upload waiver', 'Test link'];
+  const CHIPS = ['Location name', 'Mindbody', 'Upload waiver'];
   function paintDash() {
-    const k = Math.min(state.k, 4), own = state.uploaded, live = k >= 4;
+    const k = Math.min(state.k, 3), own = state.uploaded, live = k >= 3;
     const ban = $('#sbanner'); ban.hidden = live || bannerHidden;
     if (!live) {
-      $('#ring-n').textContent = k + '/4';
-      $('#ring-val').style.strokeDashoffset = 150.8 * (1 - k / 4);
+      $('#ring-n').textContent = k + '/3';
+      $('#ring-val').style.strokeDashoffset = 150.8 * (1 - k / 3);
       $('#sb-eye').textContent = k === 0 ? 'Finish setting up your studio' : 'Finish setting up ' + state.biz;
       const T = [
         ['Next: name your location', 'You’re exploring a sample waiver. Finish setup to publish your own.'],
         state.pending ? ['Next: approve WaiverKing in Mindbody', 'Open the activation link for site ' + state.pending + ' and click Approve. Then you’re connected.'] : ['Next: connect Mindbody', 'About a minute. You’ll need the site ID from your Mindbody booking link.'],
-        own ? ['Next: check your waiver', 'Your form is ready below. Take a look, then confirm it to continue.'] : ['Next: upload your waiver', 'AI turns your PDF into a form in seconds. Until then, play with the sample below.'],
-        ['Last step: send yourself a test link', 'Sign your waiver on your phone, then you’re live.']
+        own ? ['Last step: check your waiver', 'Your form is ready below. Take a look, then confirm it to go live.'] : ['Last step: upload your waiver', 'AI turns your PDF into a form in seconds. Until then, play with the sample below.']
       ][k];
       $('#sb-title').textContent = T[0]; $('#sb-sub').textContent = T[1];
       $('#sb-chips').innerHTML = CHIPS.map((c, i) => `<li class="${i < k ? 'done' : i === k ? 'now' : 'td'}">${c}</li>`).join('');
