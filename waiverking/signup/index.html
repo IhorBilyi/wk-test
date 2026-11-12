@@ -662,6 +662,38 @@ body:has(.modal-on) { overflow: hidden; }
 .appr span span { font-size: 13px; color: var(--body); }
 .inline2 input.mono { font: 500 13px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--body); }
 #mb-wait { margin-top: 18px; }
+/* editor top, matching the live WaiverKing editor (Figma 433:483) */
+.ed-crumb { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 14px; color: #4A525C; margin: 8px 0 20px; }
+.ed-crumb a { color: #4A525C; text-decoration: none; }
+.ed-crumb a:hover { color: var(--ink); text-decoration: underline; }
+.ed-crumb span { color: #A3A9B1; }
+.ed-crumb b { color: var(--ink); font-weight: 600; }
+.ed-notice { display: flex; align-items: flex-start; gap: 20px; background: var(--amber-bg); border: 1px solid var(--amber-line); border-left: 4px solid #E9A23B; border-radius: 8px; padding: 14px 16px 14px 20px; margin-bottom: 28px; font-size: 13.5px; line-height: 1.65; color: #2A2E33; }
+.ed-notice p { flex: 1; }
+.ed-notice button { flex: none; background: none; border: 0; padding: 2px; color: #B26B00; border-radius: 4px; }
+.ed-head .ed-name { width: 560px; height: 46px; border-color: #C9CED5; }
+.ebtn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; padding: 0 18px; border-radius: 8px; font: 600 15px/1 var(--font-body); text-decoration: none; white-space: nowrap; transition: background-color .15s, filter .15s; }
+.ebtn.ghost { background: #fff; border: 1px solid var(--app-line); color: #4A525C; font-weight: 500; }
+.ebtn.ghost:hover { background: #F7F8FA; }
+.ebtn.outline { background: #fff; border: 1px solid var(--app-green); color: var(--app-green); }
+.ebtn.outline:hover { background: #F6FAF4; }
+.ebtn.solid { background: var(--app-green-btn); border: 0; color: #fff; padding: 0 26px; box-shadow: 0 4px 10px rgba(36,86,31,.22); }
+.ebtn.solid:hover { filter: brightness(1.08); }
+.ed-vsep { width: 1px; height: 28px; background: var(--app-line); margin: 0 2px; }
+.ed-tabrow { display: flex; align-items: flex-end; gap: 24px; border-bottom: 1px solid var(--app-line); margin: 24px 0 20px; }
+.ed-tabrow .ed-tabs { flex: 1; min-width: 0; margin: 0; border: 0; gap: 0; }
+.ed-tabs .tg + .tg { border-left: 1px solid var(--app-line); margin-left: 12px; padding-left: 12px; }
+.ed-tabs .tg > div { gap: 14px; }
+.ed-tabs .tgl.on { background: var(--app-green-50); color: var(--app-green); border: 1px solid #CFE3BF; border-radius: 999px; padding: 3px 9px; }
+.ed-tabs .tgl { border: 1px solid transparent; border-radius: 999px; padding: 3px 9px; }
+.ed-tabs button { display: inline-flex; align-items: center; gap: 6px; font-size: 15px; }
+.ed-tabs button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.cached { flex: none; margin-bottom: 10px; background: var(--amber-bg); border: 1px solid var(--amber-line); border-radius: 8px; padding: 8px 12px; font-size: 12px; color: #2A2E33; line-height: 1.5; }
+.cached b { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
+.cached button { background: none; border: 0; padding: 0; font: inherit; color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 1720px) { .ed-tabrow { flex-direction: column; align-items: stretch; gap: 12px; } .cached { align-self: flex-end; order: -1; margin: 0; } }
+@media (max-width: 960px) { .cached { align-self: flex-start; } }
+@media (max-width: 960px) { .ed-head .ed-name { width: 100%; } .ed-vsep { display: none; } .ed-head .ebtn { flex: 1; } .ed-notice { font-size: 12.5px; } }
 </style>
 </head>
 <body>
@@ -791,27 +823,40 @@ body:has(.modal-on) { overflow: hidden; }
 <!-- ======================= 3c · Full-page waiver editor ======================= -->
 <section class="screen" data-screen="review" aria-label="Review your waiver">
   <div class="app edapp"><aside class="side" data-side></aside><div class="edmain">
-    <header class="ed-top">
-      <div class="ed-doc"><b id="ed-wname">Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
-      <div class="ed-act">
-        <a class="link green" href="#sandbox">Try the sandbox</a>
-        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, go to dashboard</span></span>&nbsp;→</button>
-        <button class="x" type="button" data-close aria-label="Close the editor and go to your dashboard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
-      </div>
-    </header>
     <div class="ed">
       <h1 class="sr">Review your waiver</h1>
-      <div class="ed-head">
-        <input class="ed-name" value="Liability waiver and release" aria-label="Waiver name">
-        <span class="spacer"></span>
-        <span class="synced"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>Mindbody fields synced</span>
-        <a class="gbtn sm" href="#sign" target="_blank" rel="noopener">Open preview</a>
+      <nav class="ed-crumb" aria-label="Breadcrumb"><a href="#sandbox">Company Panel</a><span>/</span><a href="#sandbox">Locations</a><span>/</span><a href="#sandbox" data-biz>Sunrise Yoga Studio</a><span>/</span><b id="ed-crumb-name">Liability waiver and release</b></nav>
+      <div class="ed-notice" id="ed-notice" role="note">
+        <p>As we do not store any of your customer information or waivers (they are stored in your MBO account), we have no knowledge of whether they have appropriately completed the forms/waivers or if the documents were appropriately attached to the profile. It is your responsibility to check your customer profiles and specifically their waivers in the Documents section of their MBO profile.</p>
+        <button type="button" id="ed-notice-x" aria-label="Dismiss this notice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
-      <nav class="ed-tabs" aria-label="Waiver settings">
-        <div class="tg"><span class="tgl">Content</span><div><button type="button" class="on" aria-current="page">Waiver content</button><button type="button" data-tab-soon>Child info</button><button type="button" data-tab-soon>Additional adult info</button><button type="button" data-tab-soon>Additional docs</button><button type="button" data-tab-soon>Email</button></div></div>
-        <div class="tg"><span class="tgl">Behavior</span><div><button type="button" data-tab-soon>Options</button><button type="button" data-tab-soon>Privacy</button></div></div>
-        <div class="tg"><span class="tgl">Presentation</span><div><button type="button" data-tab-soon>Design</button></div></div>
-      </nav>
+      <div class="ed-head">
+        <input class="ed-name" id="ed-name" value="Liability waiver and release" aria-label="Waiver name">
+        <span class="spacer"></span>
+        <a class="ebtn ghost" href="#sign" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>Open preview</a>
+        <span class="ed-vsep" aria-hidden="true"></span>
+        <button class="ebtn outline" type="button" id="ed-save-close">Save &amp; close</button>
+        <button class="ebtn solid" type="button" id="ed-save">Save</button>
+      </div>
+      <div class="ed-tabrow">
+        <nav class="ed-tabs" aria-label="Waiver settings">
+          <div class="tg"><span class="tgl on">Content</span><div>
+            <button type="button" class="on" aria-current="page"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg>Waiver Content</button>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><circle cx="17" cy="10" r="2.5"/><path d="M16 15.5a5 5 0 0 1 6 4.5"/></svg>Child Info</button>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><circle cx="10" cy="8" r="4"/><path d="M3 21a7 7 0 0 1 14 0M19 8v6M16 11h6"/></svg>Additional Adult Info</button>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg>Additional docs</button>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>Email</button>
+          </div></div>
+          <div class="tg"><span class="tgl">Behavior</span><div>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/></svg>Options</button>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>Privacy/Security</button>
+          </div></div>
+          <div class="tg"><span class="tgl">Presentation</span><div>
+            <button type="button" data-tab-soon><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Design</button>
+          </div></div>
+        </nav>
+        <div class="cached"><b><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>MindBody data cached <button type="button" id="ed-refresh">Refresh now</button></b><span>MindBody field lists are held for up to 24 hours</span></div>
+      </div>
       <div class="ed-grid">
         <div class="rte">
           <div class="rte-bar" role="toolbar" aria-label="Formatting">
@@ -1346,8 +1391,12 @@ body:has(.modal-on) { overflow: hidden; }
   });
   $('#sugs').addEventListener('mouseover', e => { const li = e.target.closest('.sug'); $$('.hl').forEach(h => h.classList.toggle('flash', !!li && h.id === 'hl' + li.dataset.sug)); });
   $('#sugs').addEventListener('mouseleave', () => $$('.hl').forEach(h => h.classList.remove('flash')));
-  function paintEditor() { $("#ed-wname").textContent = shortBiz() + " waiver"; }
-  $('#looks-good').addEventListener('click', () => { save(); go('sandbox'); toast('Changes saved'); });
+  function paintEditor() { $('#ed-crumb-name').textContent = $('#ed-name').value || 'Untitled waiver'; }
+  $('#ed-name').addEventListener('input', paintEditor);
+  $('#ed-save').addEventListener('click', () => toast('Waiver saved'));
+  $('#ed-save-close').addEventListener('click', () => { save(); go('sandbox'); toast('Waiver saved'); });
+  $('#ed-notice-x').addEventListener('click', () => $('#ed-notice').remove());
+  $('#ed-refresh').addEventListener('click', () => toast('MindBody field lists refreshed'));
 
   // ---------- sandbox dashboard + setup banner ----------
   let bannerHidden = false;
