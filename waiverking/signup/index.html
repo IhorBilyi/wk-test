@@ -495,16 +495,6 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
 .ed-doc { padding-left: 20px; border-left: 1px solid var(--app-line); min-width: 0; }
 .ed-doc b { display: block; font-size: 14px; font-weight: 600; line-height: 1.3; }
 .ed-doc span { font-size: 12px; color: var(--app-muted); white-space: nowrap; }
-.ed-steps { list-style: none; margin: 0 0 0 auto; padding: 0; display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--app-faint); }
-.ed-steps li { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-.ed-steps li + li::before { content: ""; width: 28px; height: 1.5px; background: #D9DDE3; margin-right: 2px; }
-.ed-steps .n { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid #D9D4CC; display: grid; place-items: center; font: 600 11px/1 var(--font-body); }
-.ed-steps .done { color: var(--ink); }
-.ed-steps .done .n { background: #82DE7A; border-color: #82DE7A; color: #1F3D1C; }
-.ed-steps .now { color: var(--ink); font-weight: 600; }
-.ed-steps .now .n { background: #1F3D1C; border-color: #1F3D1C; color: #fff; }
-.ed-steps a { color: inherit; text-decoration: none; display: flex; align-items: center; gap: 8px; }
-.ed-steps a:hover { text-decoration: underline; }
 .ed-act { display: flex; align-items: center; gap: 16px; margin-left: auto; }
 .ed-act .link.green { font-size: 14px; }
 .ed-top .x { position: static; }
@@ -608,8 +598,7 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
 @media (max-width: 1180px) {
   .ed-grid { grid-template-columns: 1fr; }
   .aip { position: static; }
-  .ed-steps { display: none; }
-  .ed { padding: 20px 24px 32px; }
+    .ed { padding: 20px 24px 32px; }
 }
 @media (max-width: 960px) {
   .scrim { padding: 0; place-items: stretch; background: #fff; }
@@ -933,16 +922,11 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   <div class="edapp">
     <header class="ed-top">
       <img src="../assets/wk-logo.svg" alt="WaiverKing">
-      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Draft · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
-      <ol class="ed-steps" aria-label="Setup progress">
-        <li class="done"><a href="#setup/loc"><span class="n">✓</span>Location</a></li>
-        <li class="done"><a href="#setup/mb-ok"><span class="n">✓</span>Mindbody</a></li>
-        <li class="now" aria-current="step"><span class="n">3</span>Waiver</li>
-      </ol>
+      <div class="ed-doc"><b>Sunrise Yoga waiver</b><span>Live · built from <span data-filename>Sunrise Yoga waiver.pdf</span></span></div>
       <div class="ed-act">
         <a class="link green" href="#sandbox">Try the sandbox</a>
-        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, continue</span></span>&nbsp;→</button>
-        <button class="x" type="button" data-close aria-label="Close setup and explore the sandbox. Your progress is saved."><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+        <button class="obtn" type="button" id="looks-good"><span>Looks good<span class="long">, go to dashboard</span></span>&nbsp;→</button>
+        <button class="x" type="button" data-close aria-label="Close the editor and go to your dashboard"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
     </header>
     <div class="ed">
@@ -1308,8 +1292,8 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
       bar.style.width = (i / items.length * 100) + '%';
       if (i === items.length) {
         building = setTimeout(() => {
-          building = null; state.uploaded = true; save();
-          if ($('[data-pane="building"]').classList.contains('on') && $('[data-screen="setup"]').classList.contains('on')) go('review');
+          building = null; state.uploaded = true; state.k = 3; save(); // the waiver is built: setup is finished
+          if ($('[data-pane="building"]').classList.contains('on') && $('[data-screen="setup"]').classList.contains('on')) { go('review'); toast('Setup complete. ' + state.biz + ' is live.'); }
           else toast('Your waiver is ready to review');
         }, 450);
         return;
@@ -1365,16 +1349,8 @@ body:has([data-screen="setup"].on) { overflow: hidden; }
   });
   $('#sugs').addEventListener('mouseover', e => { const li = e.target.closest('.sug'); $$('.hl').forEach(h => h.classList.toggle('flash', !!li && h.id === 'hl' + li.dataset.sug)); });
   $('#sugs').addEventListener('mouseleave', () => $$('.hl').forEach(h => h.classList.remove('flash')));
-  function paintEditor() {
-    const done = state.k >= 3;
-    $('.ed-steps').hidden = done;
-    $('#looks-good').innerHTML = done ? 'Save changes&nbsp;→' : '<span>Looks good<span class="long">, finish setup</span></span>&nbsp;→';
-  }
-  $('#looks-good').addEventListener('click', () => {
-    const first = state.k < 3;
-    state.k = 3; save(); go('sandbox');
-    toast(first ? 'Setup complete. ' + state.biz + ' is live.' : 'Changes saved');
-  });
+  function paintEditor() {}
+  $('#looks-good').addEventListener('click', () => { save(); go('sandbox'); toast('Changes saved'); });
 
   // ---------- sandbox dashboard + setup banner ----------
   let bannerHidden = false;
