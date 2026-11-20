@@ -748,6 +748,17 @@ img { max-width: 100%; display: block; }
   .js-anim .il-track [data-n="signed-badge-4"] { animation: il-pop 390ms var(--ease-spring) 840ms both; transform-box: fill-box; transform-origin: center; }
   .js-anim .il-track [data-n="vector-4"] { animation: il-draw 240ms ease-out 990ms both; stroke-dasharray: 1; }
   .js-anim .il-track [data-n="ink-stamp"] { animation: il-slam 470ms var(--ease-out) 1180ms both; transform-box: fill-box; transform-origin: center; }
+  /* multiform: four forms land, their lines draw into one link, the link pill settles last */
+  .js-anim .il-multi [data-n="form-card-1"] { animation: il-rise 620ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-multi [data-n="form-card-2"] { animation: il-rise 620ms var(--ease-out) 70ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-multi [data-n="form-card-3"] { animation: il-rise 620ms var(--ease-out) 140ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-multi [data-n="form-card-4"] { animation: il-rise 620ms var(--ease-out) 210ms both; transform-box: fill-box; transform-origin: center; --d:20px; }
+  .js-anim .il-multi [data-n="connector-1"] { animation: il-draw 470ms var(--ease-in-out) 520ms both; stroke-dasharray: 1; }
+  .js-anim .il-multi [data-n="connector-2"] { animation: il-draw 470ms var(--ease-in-out) 580ms both; stroke-dasharray: 1; }
+  .js-anim .il-multi [data-n="connector-3"] { animation: il-draw 470ms var(--ease-in-out) 640ms both; stroke-dasharray: 1; }
+  .js-anim .il-multi [data-n="connector-4"] { animation: il-draw 470ms var(--ease-in-out) 700ms both; stroke-dasharray: 1; }
+  .js-anim .il-multi [data-n="link-pill"] { animation: il-rise 550ms var(--ease-spring) 980ms both; transform-box: fill-box; transform-origin: center; --d:14px; }
+  .js-anim .il-multi [data-n="link-icon"] { animation: il-pop 390ms var(--ease-spring) 1130ms both; transform-box: fill-box; transform-origin: center; }
   .js-anim .il-family [data-n="paper"] { animation: il-rise 700ms var(--ease-out) 0ms both; transform-box: fill-box; transform-origin: center; --d:28px; }
   .js-anim .il-family [data-n="signed-badge"] { animation: il-pop 390ms var(--ease-spring) 280ms both; transform-box: fill-box; transform-origin: center; }
   .js-anim .il-family [data-n="vector"] { animation: il-draw 240ms ease-out 430ms both; stroke-dasharray: 1; }
@@ -1173,9 +1184,9 @@ img { max-width: 100%; display: block; }
     <div class="bento">
       <div class="bento-row r1">
         <article data-anim class="fcard big">
-          <div class="illus" data-min="0.62" data-fx="0.04" data-svg="assets/illus/track.svg" aria-hidden="true"></div>
-          <div class="fhead"><span class="ftile"><img src="assets/icon-search.svg" alt=""></span><h3>Track who signed</h3></div>
-          <p>See who has signed for today’s class and who still needs to, before they reach the desk.</p>
+          <div class="illus" data-min="0.62" data-fx="0.5" data-svg="assets/illus/multiform.svg" aria-hidden="true"></div>
+          <div class="fhead"><span class="ftile"><img src="assets/icon-forms.svg" alt=""></span><h3>Multiform page</h3></div>
+          <p>One link for all your forms. Clients pick the one they need.</p>
         </article>
         <article data-anim class="fcard">
           <div class="illus" data-svg="assets/illus/family.svg" aria-hidden="true"></div>
