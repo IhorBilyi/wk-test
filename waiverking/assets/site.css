@@ -1032,3 +1032,19 @@ img { max-width: 100%; display: block; }
 .fhead h3, .multi-copy h3, .help h3, .pcard h3, .pick h3, .fbrand > p { font-family: var(--font-palma); font-weight: 700; }
 .nav-links { gap: 28px; }
 @media (max-width: 1060px) { .nav-links, .nav-right .login { display: none; } .menu-btn { display: inline-flex; } }
+
+/* Reviews: the 5 real quotes, two long ones on top, three below */
+.reviews .wrap { gap: 48px; }
+.rgrid { display: grid; gap: 20px; width: 100%; }
+.reviews .wrap > .rgrid + .rgrid { margin-top: -28px; }
+.rgrid.r2 { grid-template-columns: 1fr 1fr; }
+.rgrid.r3 { grid-template-columns: repeat(3, 1fr); }
+.rcard { margin: 0; background: var(--white); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.rlogo { height: 56px; width: auto; max-width: 140px; object-fit: contain; object-position: left center; }
+.rcard blockquote { margin: 0; flex: 1; font-size: 16px; line-height: 1.55; color: var(--ink); }
+.r2 .rcard blockquote { font-size: 17px; }
+.rcard figcaption { border-top: 1px solid #EFEAE2; padding-top: 18px; }
+.rcard figcaption b { display: block; font-size: 15px; font-weight: 600; }
+.rcard figcaption small { display: block; font-size: 13px; color: var(--body); }
+@media (max-width: 1060px) { .rgrid.r3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .rgrid.r2, .rgrid.r3 { grid-template-columns: 1fr; } .reviews .wrap > .rgrid + .rgrid { margin-top: -16px; } .rcard { padding: 24px 20px; } }

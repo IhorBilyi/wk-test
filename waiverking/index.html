@@ -1044,6 +1044,22 @@ img { max-width: 100%; display: block; }
 .fhead h3, .multi-copy h3, .help h3, .pcard h3, .pick h3, .fbrand > p { font-family: var(--font-palma); font-weight: 700; }
 .nav-links { gap: 28px; }
 @media (max-width: 1060px) { .nav-links, .nav-right .login { display: none; } .menu-btn { display: inline-flex; } }
+
+/* Reviews: the 5 real quotes, two long ones on top, three below */
+.reviews .wrap { gap: 48px; }
+.rgrid { display: grid; gap: 20px; width: 100%; }
+.reviews .wrap > .rgrid + .rgrid { margin-top: -28px; }
+.rgrid.r2 { grid-template-columns: 1fr 1fr; }
+.rgrid.r3 { grid-template-columns: repeat(3, 1fr); }
+.rcard { margin: 0; background: var(--white); border-radius: 20px; padding: 28px; display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.rlogo { height: 56px; width: auto; max-width: 140px; object-fit: contain; object-position: left center; }
+.rcard blockquote { margin: 0; flex: 1; font-size: 16px; line-height: 1.55; color: var(--ink); }
+.r2 .rcard blockquote { font-size: 17px; }
+.rcard figcaption { border-top: 1px solid #EFEAE2; padding-top: 18px; }
+.rcard figcaption b { display: block; font-size: 15px; font-weight: 600; }
+.rcard figcaption small { display: block; font-size: 13px; color: var(--body); }
+@media (max-width: 1060px) { .rgrid.r3 { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 760px) { .rgrid.r2, .rgrid.r3 { grid-template-columns: 1fr; } .reviews .wrap > .rgrid + .rgrid { margin-top: -16px; } .rcard { padding: 24px 20px; } }
 </style>
 </head>
 <body>
@@ -1292,18 +1308,42 @@ img { max-width: 100%; display: block; }
   </div>
 </section>
 
-<!-- Testimonials -->
+<!-- Testimonials: the 5 real customer quotes, word for word (Ihor, 2026-11-26) -->
 <section class="reviews band" id="reviews">
   <div class="wrap" data-anim data-anim-t="0.2">
     <div class="sec-head" style="gap:16px">
       <span class="eyebrow a-up" style="--i:0">Customers</span>
       <h2 class="display h2 a-up" style="--i:1">Front desks that ditched the clipboard</h2>
     </div>
-    <div class="wall" id="wall">
-      <div class="cols" id="cols"></div>
-      <div class="wall-fade"><button style="--i:8" class="a-up btn btn-dark" id="moreBtn" type="button" aria-controls="wall" aria-expanded="false">Read 156 more reviews&nbsp; →</button></div>
+    <div class="rgrid r2">
+      <figure class="rcard a-up" style="--i:2">
+        <img class="rlogo" src="assets/reviews/moda-yoga.jpg" alt="Moda Yoga">
+        <blockquote>“WaiverKing has been an amazing company to work with. Their paperless waiver system has allowed us to create a seamless experience for our students and to scale our business even as our student body grows and grows each year. They are responsive, flexible, and they provide an incredible product that integrates perfectly with Mindbody. We would recommend WaiverKing to anyone who is committed to helping the environment by greening their business practices.”</blockquote>
+        <figcaption><b>Charis Anton</b><small>Studio Director, Moda Yoga</small></figcaption>
+      </figure>
+      <figure class="rcard a-up" style="--i:3">
+        <img class="rlogo" src="assets/reviews/strike-zone.png" alt="Strike Zone">
+        <blockquote>“After trying a number of electronic waiver solutions, there was only one choice, WAIVERKING. We chose WAIVERKING because of its integration with MindBody. As the customer completes the online waiver, WAIVERKING creates the client profile in MindBody and uploads the waiver to the documents section of the client profile. There’s no need to re-enter information or manually upload documents, WAIVERKING does it all for you.”</blockquote>
+        <figcaption><b>Ken Stewart</b><small>Owner, Strike Zone</small></figcaption>
+      </figure>
     </div>
-    <button class="btn btn-outline less" id="lessBtn" type="button">Show fewer reviews</button>
+    <div class="rgrid r3">
+      <figure class="rcard a-up" style="--i:4">
+        <img class="rlogo" src="assets/reviews/fitclub-boxing.png" alt="FitClub Boxing Studios">
+        <blockquote>“We have been using WaiverKing for 2 months now and we can’t believe how much more convenient our systems are. If only we had of found WaiverKing sooner, we could have saved so many hours of filing and not to mention trying to find clients paperwork. Now, SO SIMPLE. WaiverKing has improved our business and I would not hesitate in endorsing it to any business that asks.”</blockquote>
+        <figcaption><b>Harley</b><small>GM, FitClub Boxing Studios</small></figcaption>
+      </figure>
+      <figure class="rcard a-up" style="--i:5">
+        <img class="rlogo" src="assets/reviews/kb-fitness.png" alt="KB Fitness">
+        <blockquote>“We have tried using other electronic waiver systems in the past and none are as convenient as Waiver King. They take care of the extra step of putting the waivers into our mind body system, which saves us a lot of time!”</blockquote>
+        <figcaption><b>Owner</b><small>KB Fitness</small></figcaption>
+      </figure>
+      <figure class="rcard a-up" style="--i:6">
+        <img class="rlogo" src="assets/reviews/club-los-meganos.jpg" alt="Club Los Meganos">
+        <blockquote>“WaiverKing been an invaluable tool that has given us an edge. It has been completely trouble free and the WaiverKing team has been a pleasure to work with!”</blockquote>
+        <figcaption><b>Steven Tsunekawa</b><small>Spa and Fitness Director, Club Los Meganos</small></figcaption>
+      </figure>
+    </div>
   </div>
 </section>
 
@@ -1491,38 +1531,6 @@ img { max-width: 100%; display: block; }
   num.addEventListener('input', () => { if (num.value !== '') render(+num.value, 'num'); });
   num.addEventListener('blur', () => render(+num.value));
   drawTiers(); render(80);
-
-  // Testimonials (4 real quotes from WaiverKing customers; the rest are sample copy from the mockup)
-  const R = [
-    [['Our paperless waivers created a seamless experience for our students and let us scale as we grew.','Charis Anton','Studio Director, Moda Yoga','CA','#D9C7B0'],
-     ['We have tried using other electronic waiver systems in the past and none are as convenient as WaiverKing.','KB Fitness','WaiverKing for Mindbody customer','KB','#A9CFE0'],
-     ['Honestly cheaper than the printer ink we used to buy.','Sofia M.','Massage studio owner','SM','#F2C59A'],
-     ['My staff stopped chasing missing signatures before class.','Hannah P.','Yoga studio owner','HP','#D9C7B0']],
-    [['Parents fill it in the car before they walk in. Check-in went from a queue to a wave-through.','Dana K.','Barre studio manager','DK','#B9D6A6'],
-     ['Completely trouble-free, and the team has been a pleasure to work with.','Steven Tsunekawa','Spa & Fitness Director, Club Los Meganos','ST','#E8B4B4'],
-     ['Support answered on a Sunday morning. That never happens.','James W.','Pilates studio owner','JW','#C9C3E6'],
-     ['Required fields mean no more half-filled forms.','Omar F.','Golf resort ops','OF','#B9D6A6']],
-    [['We can’t believe how much more convenient our systems are. No more hunting for client paperwork. Now it’s so simple.','Harley','GM, FitClub Boxing Studios','H','#F2C59A'],
-     ['Adding kids to one waiver saves every family five minutes at the desk.','Lauren T.','Kids’ gymnastics club','LT','#D9C7B0'],
-     ['Clients sign from the booking email. We haven’t printed a form in a year.','Ana L.','Day spa manager','AL','#A9CFE0']],
-    [['Setup took ten minutes. We uploaded our PDF and the form was ready to send.','Marco S.','Climbing gym owner','MS','#C9C3E6'],
-     ['When our insurer asked for a waiver from 2022, I found it in ten seconds.','Ben O.','Boxing gym owner','BO','#B9D6A6'],
-     ['Four locations, one account, one simple bill.','Chris D.','Fitness franchise owner','CD','#E8B4B4']]
-  ];
-  const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  document.getElementById('cols').innerHTML = R.map((col, ci) => '<div class="col">' + col.map(([q, n, r, i, c], ri) =>
-    '<figure class="review a-up" style="margin:0;--i:' + (ci + ri + 2) + '"><span class="stars" aria-label="5 out of 5 stars">★★★★★</span><blockquote>“' + esc(q) + '”</blockquote>' +
-    '<figcaption class="who-r"><span class="av" style="background:' + c + '">' + i + '</span><span><b>' + esc(n) + '</b><small>' + esc(r) + '</small></span></figcaption></figure>'
-  ).join('') + '</div>').join('');
-  const wall = document.getElementById('wall'), sec = document.getElementById('reviews');
-  document.getElementById('moreBtn').addEventListener('click', e => {
-    wall.classList.add('open'); sec.classList.add('expanded'); e.currentTarget.setAttribute('aria-expanded', 'true');
-  });
-  document.getElementById('lessBtn').addEventListener('click', () => {
-    wall.classList.remove('open'); sec.classList.remove('expanded');
-    document.getElementById('moreBtn').setAttribute('aria-expanded', 'false');
-    sec.scrollIntoView({ block: 'start' });
-  });
 
   // FAQ accordion (one open at a time, first open by default)
   const F = [
