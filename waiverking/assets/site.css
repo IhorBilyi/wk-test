@@ -1030,3 +1030,5 @@ img { max-width: 100%; display: block; }
 /* ---------- Type roles: PP Palma for headings, Inter for everything else ---------- */
 .faq-intro h2, .cta-copy h2, .proof-stat strong, .total strong, .badge-txt b { font-family: var(--font-display); font-weight: 800; }
 .fhead h3, .multi-copy h3, .help h3, .pcard h3, .pick h3, .fbrand > p { font-family: var(--font-palma); font-weight: 700; }
+.nav-links { gap: 28px; }
+@media (max-width: 1060px) { .nav-links, .nav-right .login { display: none; } .menu-btn { display: inline-flex; } }
