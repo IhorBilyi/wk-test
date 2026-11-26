@@ -25,9 +25,6 @@
 .phero.narrow .wrap { max-width: 800px; padding-block: 88px 40px; }
 .phero.narrow h1 { font-size: clamp(38px, 5vw, 56px); }
 
-@media (prefers-reduced-motion: no-preference) {
-  .rise > * { animation: rise-in 620ms var(--ease-out) both; animation-delay: calc(var(--i, 0) * 60ms + 50ms); }
-}
 
 /* left-aligned section head */
 .lhead { display: flex; flex-direction: column; gap: 12px; }
@@ -201,42 +198,8 @@
 .ct-form.sent .ct-fields { opacity: 0; visibility: hidden; filter: blur(4px); }
 .ct-form.sent .ct-done { visibility: visible; opacity: 1; transition: opacity .3s ease .15s; }
 
-/* ---------- Motion: a little spice, plays once ---------- */
+/* ---------- Motion: new sections stay still (Ihor, 2026-11-26). Only the contact form reacts when sent. ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  /* Mindbody cases: the profile card fills in, the "Added today" values get a quick green highlight, the status chip pops */
-  .js-anim .case .pstat { opacity: 0; scale: .7; transition: opacity 240ms ease 760ms, scale 470ms var(--ease-spring) 760ms; }
-  .js-anim .case.is-in .pstat { opacity: 1; scale: 1; }
-  .js-anim .case.is-in .prow b.fresh { animation: fresh 1.4s ease 520ms both; }
-  @keyframes fresh { 0%, 100% { background: transparent; } 25%, 60% { background: var(--green-50); color: var(--green-dark); } }
-  .js-anim .case .pav { scale: .6; transition: scale 470ms var(--ease-spring) 300ms; }
-  .js-anim .case.is-in .pav { scale: 1; }
-
-  /* four things: the little underline under each number draws across */
-  .js-anim .before .big-num::after { transform: scaleX(0); transform-origin: left; transition: transform 620ms var(--ease-out); transition-delay: inherit; }
-  .js-anim .before .is-in .big-num::after { transform: none; background: var(--green-tint); }
-  .js-anim .before .four li .big-num { transition-delay: inherit; }
-
-  /* features list: icon tiles pop in after their row */
-  .js-anim .flist .fitem .itile { scale: .5; opacity: 0; transition: scale 470ms var(--ease-spring), opacity 200ms ease, background-color .2s, color .2s, rotate .3s var(--ease-spring); transition-delay: calc(var(--i, 0) * 50ms + 200ms), calc(var(--i, 0) * 50ms + 200ms), 0s, 0s, 0s; }
-  .js-anim .flist .is-in .fitem .itile { scale: 1; opacity: 1; }
-
-  /* AI strip: chips pop, "Seconds" ticks once */
-  .js-anim .aisetup .ai-chip { scale: .6; opacity: 0; transition: scale 470ms var(--ease-spring) 620ms, opacity 200ms ease 620ms; }
-  .js-anim .aisetup .is-in .ai-chip { scale: 1; opacity: 1; }
-  .js-anim .aisetup .is-in .ai-chip.green { animation: tap 410ms var(--ease-out) 1300ms; }
-
-  /* stepper: dotted track grows across, numbers pop in order */
-  .js-anim .stepper .track { transform: scaleX(0); transition: transform 1100ms var(--ease-in-out) 200ms; }
-  .js-anim .stepper .is-in .track { transform: none; }
-  .js-anim .stepper .snum { scale: .4; opacity: 0; transition: scale 520ms var(--ease-spring) var(--d), opacity 200ms ease var(--d); }
-  .js-anim .stepper .is-in .snum { scale: 1; opacity: 1; }
-
-  /* tier table: rows arrive, then tier 3 lights up */
-  .js-anim .ttable .trow.hl { background: var(--white); transition: background-color 500ms ease 900ms, opacity 350ms ease, transform 470ms var(--ease-out); }
-  .js-anim .is-in .ttable .trow.hl { background: var(--green-50); }
-  .js-anim .counts .is-in .spin-once .itile .ic { animation: spin-once 900ms var(--ease-in-out) 700ms; }
-  @keyframes spin-once { to { rotate: 360deg; } }
-
   /* contact: the tick draws itself once the message is sent */
   .ct-form.sent .done-mark circle, .ct-form.sent .done-mark path { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 620ms var(--ease-in-out) forwards; }
   .ct-form.sent .done-mark circle { animation-delay: 200ms; }
